@@ -1,0 +1,16 @@
+{
+  "name": "@generalworks/gw_front_common",
+  "version": "0.0.0",
+  "description": "Common frontend utilities and UI components for generalworks projects",
+  "exports": {
+    ".": "./core/index.ts",
+    "./core": "./core/index.ts",
+    "./solid": "./solid/index.ts",
+    "./vue": "./vue/index.ts"
+  },
+  "publish": {
+    "exclude": ["tests/", "docs/", ".project_management/"]
+  }
+}
+
+
