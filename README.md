@@ -43,6 +43,47 @@ export default defineNuxtConfig({
 
 これで、テンプレートでは `<Loading>`, `<Modal>`, `<Notifications>` を直に使用でき、`script setup` では `useLoading` 等が自動インポートされます。
 
+## SolidStart での自動インポート設定
+
+```ts
+// app.config.ts
+import AutoImport from 'unplugin-auto-import/vite'
+
+export default defineConfig({
+  vite: {
+    plugins: [
+      AutoImport({
+        imports: [
+          {
+            '@generalworks/gw_front_common': ['*'],
+            '@generalworks/gw_front_common/solid': ['*']
+          }
+        ],
+        dts: true,
+        eslintrc: { enabled: true }
+      })
+    ]
+  }
+})
+```
+
+```tsx
+// 例: routes/index.tsx
+export default function Page() {
+  const loading = createLoadingStore()
+  const modal = createModalStore()
+  const notification = createNotificationStore()
+
+  return (
+    <div>
+      <Loading />
+      <Modal store={modal} />
+      <Notifications store={notification} />
+    </div>
+  )
+}
+```
+
 ## スクリプト
 - `bun test`
 - `bun test --coverage`
