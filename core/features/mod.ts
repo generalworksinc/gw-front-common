@@ -1,3 +1,3 @@
-export * from "./date/mod.ts";
+export * from "../common/features/date.ts";
 
 
