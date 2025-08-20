@@ -1,4 +1,4 @@
-import { dayjsJp, formatDateForInput, parseInputDate } from "../core/features/date/mod.ts";
+import { dayjsJp, formatDateForInput, parseInputDate, $getDayjs } from "../core/features/date/mod.ts";
 
 describe("core/features/date", () => {
   test("dayjsJp is configured with ja locale and plugins", () => {
@@ -30,5 +30,12 @@ describe("core/features/date", () => {
     expect(parsed?.getDate()).toBe(31);
     expect(parsed?.getHours()).toBe(23);
     expect(parsed?.getMinutes()).toBe(59);
+  });
+
+  test("$getDayjs returns dayjs function", () => {
+    const dj = $getDayjs();
+    const d = dj("2024-01-01");
+    expect(typeof dj).toBe("function");
+    expect(d.isValid()).toBe(true);
   });
 });
