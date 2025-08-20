@@ -1,5 +1,4 @@
-// vue entry (placeholder)
-export {};
+export * from "./mod.ts";
 
 
 
