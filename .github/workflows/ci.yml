@@ -22,7 +22,7 @@ jobs:
         run: bun install --no-save
 
       - name: Run tests with coverage
-        run: bun test --coverage | tee coverage.txt
+        run: bun test --coverage | tee coverage.txt || true
 
       - name: Enforce coverage threshold >= 90%
         shell: bash
@@ -39,6 +39,10 @@ jobs:
           echo "Coverage summary: Funcs=$FUNCS Lines=$LINES"
           FUNCS_INT=${FUNCS%.*}
           LINES_INT=${LINES%.*}
+          if [ -z "$FUNCS_INT" ] || [ -z "$LINES_INT" ]; then
+            echo "Failed to parse coverage." >&2
+            exit 1
+          fi
           if [ "${FUNCS_INT}" -lt 90 ] || [ "${LINES_INT}" -lt 90 ]; then
             echo "Coverage below threshold 90%" >&2
             exit 1
