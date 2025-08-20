@@ -20,3 +20,6 @@ export const parseInputDate = (dateString: string): Date | null => {
   const d = dayjsJp(dateString);
   return d.isValid() ? d.toDate() : null;
 };
+
+// Migration helper (scheduler_front_solid compatibility)
+export const $getDayjs = () => dayjsJp as typeof dayjs;
