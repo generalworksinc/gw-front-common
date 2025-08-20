@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
@@ -28,23 +28,36 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          LINE=$(grep '^All files' coverage.txt || true)
-          if [ -z "$LINE" ]; then
-            echo "Coverage summary not found" >&2
-            cat coverage.txt || true
-            exit 1
-          fi
-          FUNCS=$(echo "$LINE" | awk -F '|' '{gsub(/ /, "", $2); print $2}')
-          LINES=$(echo "$LINE" | awk -F '|' '{gsub(/ /, "", $3); print $3}')
-          echo "Coverage summary: Funcs=$FUNCS Lines=$LINES"
-          FUNCS_INT=${FUNCS%.*}
-          LINES_INT=${LINES%.*}
-          if [ -z "$FUNCS_INT" ] || [ -z "$LINES_INT" ]; then
-            echo "Failed to parse coverage." >&2
-            exit 1
-          fi
-          if [ "${FUNCS_INT}" -lt 90 ] || [ "${LINES_INT}" -lt 90 ]; then
-            echo "Coverage below threshold 90%" >&2
-            exit 1
+          SUMMARY=$(grep '^All files' coverage.txt || true)
+          if [ -n "$SUMMARY" ]; then
+            FUNCS=$(echo "$SUMMARY" | awk -F '|' '{gsub(/ /, "", $2); print $2}')
+            LINES=$(echo "$SUMMARY" | awk -F '|' '{gsub(/ /, "", $3); print $3}')
+            echo "Coverage summary: Funcs=$FUNCS Lines=$LINES"
+            FUNCS_INT=${FUNCS%.*}
+            LINES_INT=${LINES%.*}
+            if [ -z "$FUNCS_INT" ] || [ -z "$LINES_INT" ]; then
+              echo "Failed to parse coverage summary." >&2
+              exit 1
+            fi
+            if [ "${FUNCS_INT}" -lt 90 ] || [ "${LINES_INT}" -lt 90 ]; then
+              echo "Coverage below threshold 90%" >&2
+              exit 1
+            fi
+          else
+            echo "Coverage summary not found. Falling back to per-file minimum check." >&2
+            # 取りうる行から3列目（% Lines）を抽出し、最小値を評価
+            MIN=100
+            while IFS= read -r line; do
+              PCT=$(echo "$line" | awk -F '|' '{gsub(/ /, "", $3); print $3}')
+              PCT_INT=${PCT%.*}
+              if [ -n "$PCT_INT" ] && [ "$PCT_INT" -lt "$MIN" ]; then
+                MIN=$PCT_INT
+              fi
+            done < <(grep -E '^ [^|]+\| +[0-9]+\.[0-9]+ +\| +[0-9]+\.[0-9]+' coverage.txt || true)
+            echo "Per-file minimum %Lines=$MIN"
+            if [ "$MIN" -lt 90 ]; then
+              echo "Coverage below threshold 90% (per-file minimum)" >&2
+              exit 1
+            fi
           fi
 
