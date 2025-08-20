@@ -6,6 +6,7 @@
     ".": "./core/index.ts",
     "./core": "./core/index.ts",
     "./solid": "./solid/index.ts",
+    "./solid/component": "./solid/component.ts",
     "./vue": "./vue/index.ts",
     "./vue/component": "./vue/component.ts"
   },
