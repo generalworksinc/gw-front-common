@@ -1,4 +1,4 @@
-import { dayjsJp, formatDateForInput, parseInputDate, $getDayjs } from "../core/features/mod.ts";
+import { dayjsJp, formatDateForInput, parseInputDate, $getDayjs } from "../core/mod.ts";
 
 describe("core/features/date", () => {
   test("dayjsJp is configured with ja locale and plugins", () => {

@@ -1,4 +1,4 @@
-import { numberWithCommas } from "../core/common/mod.ts";
+import { numberWithCommas } from "../core/mod.ts";
 
 describe("numberWithCommas", () => {
   test("formats integers with thousands separators", () => {

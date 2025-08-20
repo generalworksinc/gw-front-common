@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "Common frontend utilities and UI components for generalworks projects",
   "exports": {
-    ".": "./core/index.ts",
-    "./core": "./core/index.ts",
+    ".": "./core/mod.ts",
+    "./core": "./core/mod.ts",
     "./solid": "./solid/index.ts",
     "./solid/component": "./solid/component.ts",
     "./vue": "./vue/index.ts",
