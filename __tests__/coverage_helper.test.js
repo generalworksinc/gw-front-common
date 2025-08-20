@@ -1,4 +1,4 @@
-import * as common from "../core/index.ts";
+import * as common from "../core/mod.ts";
 
 describe("Cover internal helper __test__replaceHeadLower", () => {
   test("__test__replaceHeadLower", () => {

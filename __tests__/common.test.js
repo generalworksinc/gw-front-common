@@ -1,5 +1,5 @@
 // import * as common from '../common.js';
-import * as common from "../core/index.ts";
+import * as common from "../core/mod.ts";
 
 describe("Common Library Functions", () => {
 	// isFunction

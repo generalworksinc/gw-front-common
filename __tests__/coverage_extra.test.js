@@ -1,4 +1,4 @@
-import * as common from "../core/index.ts";
+import * as common from "../core/mod.ts";
 
 describe("Additional coverage for core utils", () => {
   test("deepFreeze returns function as-is", () => {
