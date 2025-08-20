@@ -22,16 +22,20 @@ jobs:
         run: bun install --no-save
 
       - name: Run tests with coverage
-        run: bun test --coverage | tee coverage.txt || true
+        env:
+          COVER_PATH: ${{ runner.temp }}/coverage.txt
+        run: bun test --coverage | tee "$COVER_PATH" || true
 
       - name: JSR dry-run
         run: bun run jsr:check
 
       - name: Enforce coverage threshold >= 90%
         shell: bash
+        env:
+          COVER_PATH: ${{ runner.temp }}/coverage.txt
         run: |
           set -euo pipefail
-          SUMMARY=$(grep '^All files' coverage.txt || true)
+          SUMMARY=$(grep '^All files' "$COVER_PATH" || true)
           if [ -n "$SUMMARY" ]; then
             FUNCS=$(echo "$SUMMARY" | awk -F '|' '{gsub(/ /, "", $2); print $2}')
             LINES=$(echo "$SUMMARY" | awk -F '|' '{gsub(/ /, "", $3); print $3}')
@@ -56,13 +60,16 @@ jobs:
               if [ -n "$PCT_INT" ] && [ "$PCT_INT" -lt "$MIN" ]; then
                 MIN=$PCT_INT
               fi
-            done < <(grep -E '^ [^|]+\| +[0-9]+\.[0-9]+ +\| +[0-9]+\.[0-9]+' coverage.txt || true)
+            done < <(grep -E '^ [^|]+\| +[0-9]+\.[0-9]+ +\| +[0-9]+\.[0-9]+' "$COVER_PATH" || true)
             echo "Per-file minimum %Lines=$MIN"
             if [ "$MIN" -lt 90 ]; then
               echo "Coverage below threshold 90% (per-file minimum)" >&2
               exit 1
             fi
           fi
+
+      - name: Remove temp coverage file (prevent dirty tree)
+        run: rm -f coverage.txt || true
 
   publish:
     name: Publish to JSR (main branch)
