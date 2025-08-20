@@ -18,6 +18,31 @@ generalworks inc. 向けの共通フロントエンドライブラリ（JSR配�
 
 双方で提供する機能は「ローディング・モーダル・通知」を中心に名称と挙動をできるだけ揃えますが、リアクティビティの型は各フレームワークに準拠します。
 
+## Nuxt 3 での自動インポート設定
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  components: {
+    global: true,
+    dirs: [
+      'node_modules/@generalworks/gw_front_common/vue/features/loading',
+      'node_modules/@generalworks/gw_front_common/vue/features/modal',
+      'node_modules/@generalworks/gw_front_common/vue/features/notification',
+    ]
+  },
+  imports: {
+    imports: [
+      { from: '@generalworks/gw_front_common', name: '*' },
+      { from: '@generalworks/gw_front_common/vue', name: '*' },
+    ],
+    dts: true
+  }
+})
+```
+
+これで、テンプレートでは `<Loading>`, `<Modal>`, `<Notifications>` を直に使用でき、`script setup` では `useLoading` 等が自動インポートされます。
+
 ## スクリプト
 - `bun test`
 - `bun test --coverage`
