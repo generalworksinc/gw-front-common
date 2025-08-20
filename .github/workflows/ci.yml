@@ -24,6 +24,9 @@ jobs:
       - name: Run tests with coverage
         run: bun test --coverage | tee coverage.txt || true
 
+      - name: JSR dry-run
+        run: bun run jsr:check
+
       - name: Enforce coverage threshold >= 90%
         shell: bash
         run: |

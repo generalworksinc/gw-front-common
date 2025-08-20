@@ -13,7 +13,8 @@
   },
   "scripts": {
     "test": "bun test",
-    "test:coverage": "bun test --coverage"
+    "test:coverage": "bun test --coverage",
+    "jsr:check": "bunx --yes jsr publish --dry-run"
   },
   "dependencies": {
     "clone": "^2.1.2"
