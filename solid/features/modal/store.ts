@@ -1,3 +1,5 @@
+import { createSignal } from "solid-js";
+
 export interface ModalOptions {
 	message?: string;
 	html?: string;
@@ -26,36 +28,38 @@ const defaultOptions = (): ModalOptions => ({
 });
 
 export function createModalStore() {
-	let state: ModalState = { isOpen: false, isConfirm: false, options: defaultOptions() };
+	const [isOpen, setIsOpen] = createSignal(false);
+	const [isConfirm, setIsConfirm] = createSignal(false);
+	const [options, setOptions] = createSignal<ModalOptions>(defaultOptions());
 
-	const open = (options?: ModalOptions) => {
-		state.isOpen = true;
-		state.isConfirm = false;
-		state.options = { ...defaultOptions(), ...(options || {}) };
+	const open = (opt?: ModalOptions) => {
+		setIsOpen(true);
+		setIsConfirm(false);
+		setOptions({ ...defaultOptions(), ...(opt || {}) });
 	};
-	const confirm = (options?: ModalOptions) => {
-		state.isOpen = true;
-		state.isConfirm = true;
-		state.options = { ...defaultOptions(), ...(options || {}) };
+	const confirm = (opt?: ModalOptions) => {
+		setIsOpen(true);
+		setIsConfirm(true);
+		setOptions({ ...defaultOptions(), ...(opt || {}) });
 	};
-	const close = () => {
-		state.isOpen = false;
-	};
+	const close = () => setIsOpen(false);
 	const yes = () => {
-		state.options.yesFunc?.();
+		options().yesFunc?.();
 		close();
 	};
 	const no = () => {
-		state.options.noFunc?.();
+		options().noFunc?.();
 		close();
 	};
 	const reset = () => {
-		state = { isOpen: false, isConfirm: false, options: defaultOptions() };
+		setIsOpen(false);
+		setIsConfirm(false);
+		setOptions(defaultOptions());
 	};
 
 	return new Proxy({} as any, {
 		get(_t, k) {
-			if (k === "state") return state;
+			if (k === "state") return { isOpen: isOpen(), isConfirm: isConfirm(), options: options() };
 			if (k === "open") return open;
 			if (k === "confirm") return confirm;
 			if (k === "close") return close;

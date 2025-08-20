@@ -12,6 +12,14 @@ describe("solid stores (no runtime dep)", () => {
     expect(s.isLoading).toBe(false);
   });
 
+  test("createLoadingStore setLoading direct call", () => {
+    const s = createLoadingStore();
+    s.setLoading(true);
+    expect(s.isLoading).toBe(true);
+    s.setLoading(false);
+    expect(s.isLoading).toBe(false);
+  });
+
   test("createModalStore open/confirm/yes/no/close/reset", () => {
     const m = createModalStore();
     expect(m.state.isOpen).toBe(false);
