@@ -91,3 +91,14 @@ export default function Page() {
 ## インストール（利用側）
 - `bunx jsr add @generalworks/gw_front_common`
 - または `npm i npm:@jsr/generalworks__gw_front_common`
+
+## 公開フロー（JSR）
+1. `package.json` の `version` を更新（セマンティックバージョニング）
+2. タグを作成して push
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+3. GitHub Actions `Release (JSR Publish)` が実行され、テスト後に `bunx jsr publish` で公開
+
+事前にリポジトリの Secrets に `JSR_TOKEN` を設定してください。
