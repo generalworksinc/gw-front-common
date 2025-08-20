@@ -8,6 +8,7 @@
     "./solid": "./solid/index.ts",
     "./vue": "./vue/index.ts"
   },
+  "license": "MIT",
   "publish": {
     "exclude": ["tests/", "docs/", ".project_management/"]
   }

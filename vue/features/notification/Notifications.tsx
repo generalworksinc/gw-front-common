@@ -1,8 +1,9 @@
 import { defineComponent, computed } from "vue";
+import type { Component } from "vue";
 import type { PropType } from "vue";
 import type { NotificationStore } from "./store.ts";
 
-const Notifications = defineComponent({
+const Notifications: Component = defineComponent({
 	name: "Notifications",
 	props: {
 		store: { type: Object as PropType<NotificationStore>, required: true },

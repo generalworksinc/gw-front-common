@@ -21,13 +21,23 @@ export interface ModalState {
 	options: ModalOptions;
 }
 
+export interface ModalStore {
+	state: ModalState;
+	open: (opt?: ModalOptions) => void;
+	confirm: (opt?: ModalOptions) => void;
+	close: () => void;
+	yes: () => void;
+	no: () => void;
+	reset: () => void;
+}
+
 const defaultOptions = (): ModalOptions => ({
 	message: "",
 	yesFunc: null,
 	noFunc: null,
 });
 
-export function createModalStore() {
+export function createModalStore(): ModalStore {
 	const [isOpen, setIsOpen] = createSignal(false);
 	const [isConfirm, setIsConfirm] = createSignal(false);
 	const [options, setOptions] = createSignal<ModalOptions>(defaultOptions());
@@ -59,7 +69,7 @@ export function createModalStore() {
 
 	return new Proxy({} as any, {
 		get(_t, k) {
-			if (k === "state") return { isOpen: isOpen(), isConfirm: isConfirm(), options: options() };
+			if (k === "state") return { isOpen: isOpen(), isConfirm: isConfirm(), options: options() } as ModalState;
 			if (k === "open") return open;
 			if (k === "confirm") return confirm;
 			if (k === "close") return close;
@@ -67,5 +77,5 @@ export function createModalStore() {
 			if (k === "no") return no;
 			if (k === "reset") return reset;
 		},
-	});
+	}) as unknown as ModalStore;
 }

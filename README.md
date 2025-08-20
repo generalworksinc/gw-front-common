@@ -25,11 +25,7 @@ generalworks inc. 向けの共通フロントエンドライブラリ（JSR配�
 export default defineNuxtConfig({
   components: {
     global: true,
-    dirs: [
-      'node_modules/@generalworks/gw-front-common/vue/features/loading',
-      'node_modules/@generalworks/gw-front-common/vue/features/modal',
-      'node_modules/@generalworks/gw-front-common/vue/features/notification',
-    ]
+    extensions: ['vue', 'tsx'],
   },
   imports: {
     imports: [
@@ -39,6 +35,16 @@ export default defineNuxtConfig({
     dts: true
   }
 })
+注意（NuxtでTSXを使う場合）
+- `@vitejs/plugin-vue-jsx` を有効にしてください（Nuxtは内部でViteを利用）。
+  ```ts
+  // nuxt.config.ts
+  import vueJsx from '@vitejs/plugin-vue-jsx'
+  export default defineNuxtConfig({
+    vite: { plugins: [vueJsx()] },
+    components: { global: true, extensions: ['vue', 'tsx'] },
+  })
+  ```
 ```
 
 これで、テンプレートでは `<Loading>`, `<Modal>`, `<Notifications>` を直に使用でき、`script setup` では `useLoading` 等が自動インポートされます。

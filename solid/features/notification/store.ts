@@ -9,9 +9,16 @@ export interface NotificationItem {
 	removeAfter?: number;
 }
 
+export interface NotificationStore {
+	state: { items: NotificationItem[] };
+	add: (n: Omit<NotificationItem, "id">) => void;
+	remove: (id: string) => void;
+	clear: () => void;
+}
+
 const randomId = () => Math.random().toString(36).slice(2);
 
-export function createNotificationStore() {
+export function createNotificationStore(): NotificationStore {
 	const [items, setItems] = createSignal<NotificationItem[]>([]);
 
 	const add = (n: Omit<NotificationItem, "id">) => {
@@ -30,10 +37,10 @@ export function createNotificationStore() {
 
 	return new Proxy({} as any, {
 		get(_t, k) {
-			if (k === "state") return { items: items() };
+			if (k === "state") return { items: items() } as { items: NotificationItem[] };
 			if (k === "add") return add;
 			if (k === "remove") return remove;
 			if (k === "clear") return clear;
 		},
-	});
+	}) as unknown as NotificationStore;
 }
