@@ -1,20 +1,15 @@
 {
-  "name": "@generalworks/gw-front-common",
-  "version": "0.0.1",
-  "description": "Common frontend utilities and UI components for generalworks projects",
-  "exports": {
-    ".": "./core/mod.ts",
-    "./core": "./core/mod.ts",
-    "./solid": "./solid/index.ts",
-    "./solid/component": "./solid/component.ts",
-    "./vue": "./vue/index.ts",
-    "./vue/component": "./vue/component.ts"
-  },
-  "license": "MIT",
-  "publish": {
-    "exclude": ["tests/", "docs/", ".project_management/"]
-  }
+	"name": "@generalworks/gw-front-common",
+	"version": "0.0.1",
+	"description": "Common frontend utilities and UI components for generalworks projects",
+	"exports": {
+		".": "./core/mod.ts",
+		"./core": "./core/mod.ts",
+		"./solid": "./solid/index.ts",
+		"./vue": "./vue/index.ts"
+	},
+	"license": "MIT",
+	"publish": {
+		"exclude": ["tests/", "docs/", ".project_management/"]
+	}
 }
-
-
-

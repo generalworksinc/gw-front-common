@@ -1,26 +1,23 @@
 import { defineComponent } from 'vue';
-import type { PropType } from 'vue';
-import type { ModalStore } from './store.ts';
+import type { PropType, Component } from 'vue';
+import type { ModalStore } from '../store.ts';
 
-import type { Component } from 'vue';
 const Modal: Component = defineComponent({
 	name: 'Modal',
-	props: {
-		store: { type: Object as PropType<ModalStore>, required: true },
-		class: String,
-	},
+	props: { store: Object as PropType<ModalStore>, class: String },
 	setup(props) {
-		const state = () => props.store.state.value;
 		return () =>
-			state().isOpen ? (
+			props.store.state.isOpen ? (
 				<div class={['gw-modal', (props as any).class]}>
 					<div class="gw-modal__panel">
 						<div class="gw-modal__body">
-							{state().options.message ? (
-								<div>{state().options.message}</div>
-							) : state().options.html ? (
-								<div innerHTML={state().options.html} />
-							) : null}
+							{props.store.state.options.message ? (
+								<div>{props.store.state.options.message}</div>
+							) : props.store.state.options.html ? (
+								<div innerHTML={props.store.state.options.html as any} />
+							) : (
+								<></>
+							)}
 						</div>
 						<div class="gw-modal__actions">
 							<button

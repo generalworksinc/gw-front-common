@@ -7,11 +7,11 @@
 </template>
 
 <script setup lang="ts">
-import type { NotificationStore } from "./store.ts";
+import type { NotificationStore } from './store.ts';
 
 const props = defineProps<{
-  store: NotificationStore
-  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+	store: NotificationStore;
+	position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 }>();
 
 const positionClass = computed(() => `pos-${props.position ?? 'top-right'}`);

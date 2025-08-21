@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal } from 'solid-js';
 
 export interface LoadingStore {
 	readonly isLoading: boolean;
@@ -16,10 +16,10 @@ export function createLoadingStore(): LoadingStore {
 
 	return new Proxy({} as any, {
 		get(_t, k) {
-			if (k === "isLoading") return isLoading();
-			if (k === "setLoading") return setLoading;
-			if (k === "startLoading") return startLoading;
-			if (k === "stopLoading") return stopLoading;
+			if (k === 'isLoading') return isLoading();
+			if (k === 'setLoading') return setLoading;
+			if (k === 'startLoading') return startLoading;
+			if (k === 'stopLoading') return stopLoading;
 		},
 	});
 }

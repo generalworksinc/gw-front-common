@@ -16,11 +16,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ModalStore } from "./store.ts";
+import type { ModalStore } from './store.ts';
 
 const props = defineProps<{
-  store: ModalStore
-  class?: string
+	store: ModalStore;
+	class?: string;
 }>();
 
 const klass = props.class as string | undefined;

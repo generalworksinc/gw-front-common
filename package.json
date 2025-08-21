@@ -1,34 +1,35 @@
 {
-  "name": "@generalworks/gw-front-common",
-  "version": "0.0.1",
-  "description": "Common frontend utilities and UI components for generalworks projects",
-  "type": "module",
-  "exports": {
-    ".": "./core/mod.ts",
-    "./core": "./core/mod.ts",
-    "./core/common": "./core/common/mod.ts",
-    "./core/features": "./core/features/mod.ts",
-    "./solid": "./solid/mod.ts",
-    "./vue": "./vue/mod.ts"
-  },
-  "scripts": {
-    "test": "bun test",
-    "test:coverage": "bun test --coverage",
-    "jsr:check": "bunx --yes jsr publish --dry-run"
-  },
-  "dependencies": {
-    "clone": "^2.1.2",
-    "ofetch": "^1.4.0"
-  },
-  "peerDependencies": {
-    "solid-js": ">=1.9.0",
-    "vue": ">=3.4.0",
-    "dayjs": ">=1.11.0"
-  },
-  "devDependencies": {
-    "solid-js": "^1.9.0",
-    "vue": "^3.4.0",
-    "dayjs": "^1.11.0",
-    "@vitejs/plugin-vue-jsx": "^4.0.0"
-  }
+	"name": "@generalworks/gw-front-common",
+	"version": "0.0.1",
+	"description": "Common frontend utilities and UI components for generalworks projects",
+	"type": "module",
+	"exports": {
+		".": "./core/mod.ts",
+		"./core": "./core/mod.ts",
+		"./solid": "./solid/mod.ts",
+		"./vue": "./vue/mod.ts"
+	},
+	"scripts": {
+		"test": "bun test",
+		"test:coverage": "bun test --coverage",
+		"jsr:check": "bunx --yes jsr publish --dry-run",
+		"lint": "biome check .",
+		"format": "biome format . --write"
+	},
+	"dependencies": {
+		"clone": "^2.1.2",
+		"ofetch": "^1.4.0"
+	},
+	"peerDependencies": {
+		"solid-js": ">=1.9.0",
+		"vue": ">=3.4.0",
+		"dayjs": ">=1.11.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.8.3",
+		"solid-js": "^1.9.0",
+		"vue": "^3.4.0",
+		"dayjs": "^1.11.0",
+		"@vitejs/plugin-vue-jsx": "^4.0.0"
+	}
 }

@@ -32,7 +32,7 @@ export interface ModalStore {
 }
 
 const defaultOptions = (): ModalOptions => ({
-	message: "",
+	message: '',
 	yesFunc: null,
 	noFunc: null,
 });
@@ -69,9 +69,12 @@ export function useModal(): ModalStore {
 	};
 
 	const reset = () => {
-		state.value = { isOpen: false, isConfirm: false, options: defaultOptions() };
+		state.value = {
+			isOpen: false,
+			isConfirm: false,
+			options: defaultOptions(),
+		};
 	};
 
 	return { state, open, confirm, close, yes, no, reset };
 }
-

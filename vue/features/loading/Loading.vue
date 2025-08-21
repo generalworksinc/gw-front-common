@@ -5,17 +5,19 @@
 </template>
 
 <script setup lang="ts">
-import type { LoadingStore } from "./store.ts";
+import type { LoadingStore } from './store.ts';
 
 const props = defineProps<{
-  store?: LoadingStore
-  class?: string
-  style?: string | Record<string, string>
-  show?: boolean
+	store?: LoadingStore;
+	class?: string;
+	style?: string | Record<string, string>;
+	show?: boolean;
 }>();
 
 const klass = props.class as string | undefined;
-const visible = computed(() => props.show ?? props.store?.isLoading.value ?? false);
+const visible = computed(
+	() => props.show ?? props.store?.isLoading.value ?? false,
+);
 </script>
 
 <style scoped>

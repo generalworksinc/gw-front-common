@@ -6,9 +6,21 @@ generalworks inc. 向けの共通フロントエンドライブラリ（JSR配�
 - `@generalworks/gw-front-common` → `core/mod.ts`
 - `@generalworks/gw-front-common/core` → `core/mod.ts`
 - `@generalworks/gw-front-common/solid` → `solid/index.ts`
-- `@generalworks/gw-front-common/solid/component` → Solidコンポーネント（TSX）
 - `@generalworks/gw-front-common/vue` → `vue/index.ts`
-- `@generalworks/gw-front-common/vue/component` → Vueコンポーネント（TSX）
+
+コンポーネントは「features/<name>/components」直下から直接 import してください（エイリアスは将来廃止予定のため非推奨）。
+例：
+```ts
+// Solid
+import { Loading } from '@generalworks/gw-front-common/solid/features/loading/components/Loading';
+import { Modal } from '@generalworks/gw-front-common/solid/features/modal/components/Modal';
+import { Notifications } from '@generalworks/gw-front-common/solid/features/notification/components/Notifications';
+
+// Vue
+import Loading from '@generalworks/gw-front-common/vue/features/loading/components/Loading';
+import Modal from '@generalworks/gw-front-common/vue/features/modal/components/Modal';
+import Notifications from '@generalworks/gw-front-common/vue/features/notification/components/Notifications';
+```
 
 ## 設計方針（Vue と Solid の分離）
 - Vue3 専用層（`@generalworks/gw-front-common/vue`）は、Vue 本体に依存しない `RefLike<T> = { value: T }` でストアAPIを提供します。

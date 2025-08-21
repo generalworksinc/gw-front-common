@@ -1,6 +1,6 @@
 export type RefLike<T> = { value: T };
 
-export type NotificationType = "success" | "warning" | "danger" | "info";
+export type NotificationType = 'success' | 'warning' | 'danger' | 'info';
 
 export interface NotificationItem {
 	id: string;
@@ -11,7 +11,7 @@ export interface NotificationItem {
 
 export interface NotificationStore {
 	notifications: RefLike<NotificationItem[]>;
-	add: (n: Omit<NotificationItem, "id">) => void;
+	add: (n: Omit<NotificationItem, 'id'>) => void;
 	remove: (id: string) => void;
 	clear: () => void;
 }
@@ -25,7 +25,7 @@ export function useNotification(): NotificationStore {
 		notifications.value = notifications.value.filter((n) => n.id !== id);
 	};
 
-	const add = (n: Omit<NotificationItem, "id">) => {
+	const add = (n: Omit<NotificationItem, 'id'>) => {
 		const item: NotificationItem = { id: randomId(), ...n };
 		notifications.value = [...notifications.value, item];
 		if (item.removeAfter && item.removeAfter > 0) {
@@ -37,4 +37,3 @@ export function useNotification(): NotificationStore {
 
 	return { notifications, add, remove, clear };
 }
-

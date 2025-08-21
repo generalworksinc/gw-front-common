@@ -1,17 +1,17 @@
-import clone from "clone";
-import { camelToSnake, snakeToCamel, headLower } from "./string.ts";
+import clone from 'clone';
+import { camelToSnake, snakeToCamel, headLower } from './string.ts';
 
 export const deepFreeze = <T>(object: T): T => {
 	const typeOfObject = typeof object;
 	if (
 		object === null ||
-		(typeOfObject !== "object" && typeOfObject !== "function")
+		(typeOfObject !== 'object' && typeOfObject !== 'function')
 	) {
-		console.log("object is not object", object, typeOfObject);
+		console.log('object is not object', object, typeOfObject);
 		return object;
 	}
 	Object.freeze(object as any);
-	if (typeOfObject === "function") {
+	if (typeOfObject === 'function') {
 		return object;
 	}
 
@@ -19,7 +19,7 @@ export const deepFreeze = <T>(object: T): T => {
 		const value = (object as any)[key];
 		if (
 			!Object.hasOwn(object, key) ||
-			typeof value !== "object" ||
+			typeof value !== 'object' ||
 			Object.isFrozen(value)
 		) {
 			continue;
@@ -31,10 +31,10 @@ export const deepFreeze = <T>(object: T): T => {
 
 export const isPlainObject = (obj: any): boolean => {
 	return (
-		typeof obj === "object" &&
+		typeof obj === 'object' &&
 		obj !== null &&
 		obj.constructor === Object &&
-		Object.prototype.toString.call(obj) === "[object Object]"
+		Object.prototype.toString.call(obj) === '[object Object]'
 	);
 };
 
@@ -42,7 +42,7 @@ export const replaceKeys = (
 	object: any,
 	func: (key: string) => string,
 ): any => {
-	if (object === null || typeof object !== "object") {
+	if (object === null || typeof object !== 'object') {
 		return object;
 	}
 	const replacedObj: Record<string, any> = {};
@@ -118,11 +118,10 @@ export const objectFilterKey = (
 	params?: string[],
 	keyFunc?: (key: string) => string,
 ): Record<string, any> => {
-	if (!params || params.length === 0) {
-		params = Object.keys(obj);
-	}
+	const targetParams =
+		!params || params.length === 0 ? Object.keys(obj) : params;
 	return Object.keys(obj)
-		.filter((key) => params!.includes(key))
+		.filter((key) => targetParams?.includes(key))
 		.reduce(
 			(o, key) => {
 				if (keyFunc) {
@@ -159,18 +158,18 @@ const makeNewObject = (
 	value: any,
 	retObj: Record<string, any>,
 ): void => {
-	if (keyName.indexOf(".") === 0) {
+	if (keyName.indexOf('.') === 0) {
 		retObj[(value as any)[keyName]] = value;
 	} else {
 		let targetKeyValue = value;
-		for (const key of keyName.split(".")) {
+		for (const key of keyName.split('.')) {
 			if (targetKeyValue == null) {
 				break;
 			}
 			targetKeyValue = (targetKeyValue as any)[key];
 		}
 		if (targetKeyValue == null) {
-			throw new Error("keyName is not found in object");
+			throw new Error('keyName is not found in object');
 		}
 		retObj[targetKeyValue] = value;
 	}
@@ -178,7 +177,7 @@ const makeNewObject = (
 
 export const objectifyByKeyParam = (
 	fromObject: Record<string | number, any> | any[] | null,
-	keyName = "id",
+	keyName = 'id',
 ): Record<string | number, any> => {
 	const retObj: Record<string | number, any> = {};
 	if (!fromObject) {
@@ -198,6 +197,6 @@ export const objectifyByKeyParam = (
 };
 
 // test-only export to improve coverage of internal helper
-export const __test__replaceHeadLower = (object: Record<string, any>): Record<string, any> =>
-	replaceHeadLower(object);
-
+export const __test__replaceHeadLower = (
+	object: Record<string, any>,
+): Record<string, any> => replaceHeadLower(object);

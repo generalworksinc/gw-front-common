@@ -1,17 +1,17 @@
-import { defineComponent, computed } from "vue";
-import type { Component } from "vue";
-import type { PropType } from "vue";
-import type { NotificationStore } from "./store.ts";
+import { defineComponent, computed } from 'vue';
+import type { Component } from 'vue';
+import type { PropType } from 'vue';
+import type { NotificationStore } from './store.ts';
 
 const Notifications: Component = defineComponent({
-	name: "Notifications",
+	name: 'Notifications',
 	props: {
 		store: { type: Object as PropType<NotificationStore>, required: true },
 		position: {
 			type: String as PropType<
-				"top-right" | "top-left" | "bottom-right" | "bottom-left"
+				'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
 			>,
-			default: "top-right",
+			default: 'top-right',
 		},
 		class: String,
 	},
@@ -19,7 +19,9 @@ const Notifications: Component = defineComponent({
 		const items = computed(() => props.store.notifications.value);
 		const positionClass = computed(() => `pos-${props.position}`);
 		return () => (
-			<div class={[props.class as any, "gw-notifications", positionClass.value]}>
+			<div
+				class={[props.class as any, 'gw-notifications', positionClass.value]}
+			>
 				{items.value.map((n) => (
 					<div class="gw-notification" data-type={n.type} key={n.id}>
 						{n.message}

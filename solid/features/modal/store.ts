@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal } from 'solid-js';
 
 export interface ModalOptions {
 	message?: string;
@@ -32,7 +32,7 @@ export interface ModalStore {
 }
 
 const defaultOptions = (): ModalOptions => ({
-	message: "",
+	message: '',
 	yesFunc: null,
 	noFunc: null,
 });
@@ -69,13 +69,18 @@ export function createModalStore(): ModalStore {
 
 	return new Proxy({} as any, {
 		get(_t, k) {
-			if (k === "state") return { isOpen: isOpen(), isConfirm: isConfirm(), options: options() } as ModalState;
-			if (k === "open") return open;
-			if (k === "confirm") return confirm;
-			if (k === "close") return close;
-			if (k === "yes") return yes;
-			if (k === "no") return no;
-			if (k === "reset") return reset;
+			if (k === 'state')
+				return {
+					isOpen: isOpen(),
+					isConfirm: isConfirm(),
+					options: options(),
+				} as ModalState;
+			if (k === 'open') return open;
+			if (k === 'confirm') return confirm;
+			if (k === 'close') return close;
+			if (k === 'yes') return yes;
+			if (k === 'no') return no;
+			if (k === 'reset') return reset;
 		},
 	}) as unknown as ModalStore;
 }
