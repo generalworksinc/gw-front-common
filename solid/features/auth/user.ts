@@ -40,3 +40,4 @@ export const createAuthUser = (env: AuthEnv) => {
 
   return { $login, $logout, authCheck, getAccessTokenFromApp };
 };
+

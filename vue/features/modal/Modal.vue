@@ -62,3 +62,4 @@ const onNo = () => props.store.no();
   background: #f3f4f6;
 }
 </style>
+

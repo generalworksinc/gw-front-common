@@ -3,10 +3,12 @@
 generalworks inc. 向けの共通フロントエンドライブラリ（JSR配布）。
 
 ## エントリポイント
-- `@generalworks/gw-front-common` → `core/index.ts`
-- `@generalworks/gw-front-common/core` → `core/index.ts`
+- `@generalworks/gw-front-common` → `core/mod.ts`
+- `@generalworks/gw-front-common/core` → `core/mod.ts`
 - `@generalworks/gw-front-common/solid` → `solid/index.ts`
+- `@generalworks/gw-front-common/solid/component` → Solidコンポーネント（TSX）
 - `@generalworks/gw-front-common/vue` → `vue/index.ts`
+- `@generalworks/gw-front-common/vue/component` → Vueコンポーネント（TSX）
 
 ## 設計方針（Vue と Solid の分離）
 - Vue3 専用層（`@generalworks/gw-front-common/vue`）は、Vue 本体に依存しない `RefLike<T> = { value: T }` でストアAPIを提供します。

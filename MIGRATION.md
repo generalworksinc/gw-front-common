@@ -89,3 +89,4 @@ export default defineConfig({
 ## 6. 既知の注意点
 - Solid で TSXコンポーネントを利用する場合は、ビルド設定で JSX ランタイムが有効であること
 - SSR環境では Vue/Signal のランタイム差異に注意（UIはCSRで使用するのが安全）
+

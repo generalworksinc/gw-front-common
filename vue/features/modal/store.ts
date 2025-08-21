@@ -74,3 +74,4 @@ export function useModal(): ModalStore {
 
 	return { state, open, confirm, close, yes, no, reset };
 }
+

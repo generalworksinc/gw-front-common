@@ -37,3 +37,4 @@ const positionClass = computed(() => `pos-${props.position ?? 'top-right'}`);
   border-radius: 6px;
 }
 </style>
+

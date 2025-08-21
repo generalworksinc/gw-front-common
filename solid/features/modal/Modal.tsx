@@ -30,3 +30,4 @@ export function Modal(props: {
 		</Show>
 	);
 }
+

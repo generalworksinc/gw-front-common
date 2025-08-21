@@ -40,3 +40,4 @@ const visible = computed(() => props.show ?? props.store?.isLoading.value ?? fal
   to { transform: rotate(360deg); }
 }
 </style>
+

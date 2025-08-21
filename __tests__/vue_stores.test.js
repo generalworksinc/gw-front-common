@@ -57,3 +57,4 @@ describe("vue stores (RefLike)", () => {
     expect(n.notifications.value.length).toBe(0);
   });
 });
+

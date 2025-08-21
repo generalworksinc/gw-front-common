@@ -24,3 +24,4 @@ export const parseInputDate = (dateString: string): Date | null => {
 // Migration helper (scheduler_front_solid compatibility)
 export const $getDayjs = () => dayjsJp as typeof dayjs;
 
+
