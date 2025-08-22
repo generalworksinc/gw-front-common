@@ -1,14 +1,44 @@
 import type { LoadingStore } from './store.ts';
+import loadingStore from './store.ts';
 
 type AsyncFunction = (...args: any[]) => Promise<any>;
 type SyncFunction = (...args: any[]) => any;
 
-export const eventWithLoading = async (
+export async function eventWithLoading(
 	store: Pick<LoadingStore, 'isLoading' | 'startLoading' | 'stopLoading'>,
 	func: AsyncFunction | SyncFunction,
 	...params: any[]
-): Promise<any> => {
-	if (store.isLoading) return false;
+): Promise<any>;
+export async function eventWithLoading(
+	func: AsyncFunction | SyncFunction,
+	...params: any[]
+): Promise<any>;
+export async function eventWithLoading(
+	arg1: any,
+	arg2?: any,
+	...rest: any[]
+): Promise<any> {
+	const store: Pick<
+		LoadingStore,
+		'isLoading' | 'startLoading' | 'stopLoading'
+	> =
+		typeof arg1 === 'function'
+			? ({
+					get isLoading() {
+						return loadingStore.isLoading();
+					},
+					startLoading: () => loadingStore.start(),
+					stopLoading: () => loadingStore.stop(),
+				} as unknown as Pick<
+					LoadingStore,
+					'isLoading' | 'startLoading' | 'stopLoading'
+				>)
+			: arg1;
+	const func: AsyncFunction | SyncFunction =
+		typeof arg1 === 'function' ? arg1 : arg2;
+	const params: any[] = rest;
+
+	if ((store as any).isLoading) return false;
 	store.startLoading();
 	return await new Promise<any>((resolve, reject) => {
 		setTimeout(() => {
@@ -38,11 +68,15 @@ export const eventWithLoading = async (
 			}
 		}, 1);
 	});
-};
+}
 
 export const awaitLoadingWith = (
 	store: Pick<LoadingStore, 'isLoading' | 'startLoading' | 'stopLoading'>,
 	asyncFn: () => Promise<void>,
 ) => {
 	return async () => await eventWithLoading(store, asyncFn);
+};
+
+export const awaitLoadingWithScheduler = (asyncFn: () => Promise<void>) => {
+	return async () => await eventWithLoading(asyncFn);
 };

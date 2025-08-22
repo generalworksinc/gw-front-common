@@ -9,39 +9,35 @@ export interface NotificationItem {
 	removeAfter?: number;
 }
 
-export interface NotificationStore {
-	state: { items: NotificationItem[] };
-	add: (n: Omit<NotificationItem, 'id'>) => void;
-	remove: (id: string) => void;
-	clear: () => void;
-}
-
 const randomId = () => Math.random().toString(36).slice(2);
 
-export function createNotificationStore(): NotificationStore {
-	const [items, setItems] = createSignal<NotificationItem[]>([]);
+// Global-only, minimal API (scheduler-compatible)
+const [items, setItems] = createSignal<NotificationItem[]>([]);
 
-	const add = (n: Omit<NotificationItem, 'id'>) => {
-		const item: NotificationItem = { id: randomId(), ...n };
-		setItems((prev) => [...prev, item]);
-		if (item.removeAfter && item.removeAfter > 0) {
-			setTimeout(() => remove(item.id), item.removeAfter);
-		}
+function add(n: Omit<NotificationItem, 'id'> & { text?: string }): void {
+	const item: NotificationItem = {
+		id: randomId(),
+		message: (n as any).message ?? (n as any).text ?? '',
+		type: n.type,
+		removeAfter: n.removeAfter,
 	};
-
-	const remove = (id: string) => {
-		setItems((prev) => prev.filter((n) => n.id !== id));
-	};
-
-	const clear = () => setItems([]);
-
-	return new Proxy({} as any, {
-		get(_t, k) {
-			if (k === 'state')
-				return { items: items() } as { items: NotificationItem[] };
-			if (k === 'add') return add;
-			if (k === 'remove') return remove;
-			if (k === 'clear') return clear;
-		},
-	}) as unknown as NotificationStore;
+	setItems((prev) => [...prev, item]);
+	if (item.removeAfter && item.removeAfter > 0) {
+		setTimeout(() => remove(item.id), item.removeAfter);
+	}
 }
+
+function remove(id: string | number): void {
+	setItems((prev) => prev.filter((n) => n.id !== String(id)));
+}
+
+function reset(): void {
+	setItems([]);
+}
+
+export default {
+	get: () => ({ list: items() }),
+	add,
+	remove,
+	reset,
+};

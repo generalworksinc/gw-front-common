@@ -1,67 +1,50 @@
-import { createLoadingStore } from '../solid/mod.ts';
-import { createModalStore } from '../solid/mod.ts';
-import { createNotificationStore } from '../solid/mod.ts';
+// createLoadingStore removed (global-only)
+import modalStore from '../solid/features/modal/store.ts';
+import notificationStore from '../solid/features/notification/store.ts';
 
 describe('solid stores (no runtime dep)', () => {
-	test('createLoadingStore toggles state', () => {
-		const s = createLoadingStore();
-		expect(s.isLoading).toBe(false);
-		s.startLoading();
-		expect(s.isLoading).toBe(true);
-		s.stopLoading();
-		expect(s.isLoading).toBe(false);
-	});
+	// loading store is global-only now
 
-	test('createLoadingStore setLoading direct call', () => {
-		const s = createLoadingStore();
-		s.setLoading(true);
-		expect(s.isLoading).toBe(true);
-		s.setLoading(false);
-		expect(s.isLoading).toBe(false);
-	});
-
-	test('createModalStore open/confirm/yes/no/close/reset', () => {
-		const m = createModalStore();
-		expect(m.state.isOpen).toBe(false);
-		m.open({ message: 'hello' });
-		expect(m.state.isOpen).toBe(true);
-		expect(m.state.isConfirm).toBe(false);
+	test('modalStore default export open/confirm/yes/no/close/reset', () => {
+		expect(modalStore.get().isOpen).toBe(false);
+		modalStore.open({ message: 'hello' });
+		expect(modalStore.get().isOpen).toBe(true);
+		expect(modalStore.get().isConfirm).toBe(false);
 
 		let called = 0;
-		m.confirm({ yesFunc: () => (called += 1) });
-		expect(m.state.isConfirm).toBe(true);
-		m.yes();
+		modalStore.confirm({ yesFunc: () => (called += 1) });
+		expect(modalStore.get().isConfirm).toBe(true);
+		modalStore.yes();
 		expect(called).toBe(1);
-		expect(m.state.isOpen).toBe(false);
+		expect(modalStore.get().isOpen).toBe(false);
 
-		m.confirm({ noFunc: () => (called += 2) });
-		m.no();
+		modalStore.confirm({ noFunc: () => (called += 2) });
+		modalStore.no();
 		expect(called).toBe(3);
 
-		m.reset();
-		expect(m.state.isOpen).toBe(false);
-		expect(m.state.isConfirm).toBe(false);
+		modalStore.reset();
+		expect(modalStore.get().isOpen).toBe(false);
+		expect(modalStore.get().isConfirm).toBe(false);
 	});
 
-	test('createNotificationStore add/remove/clear + auto-remove', async () => {
-		const n = createNotificationStore();
-		expect(n.state.items.length).toBe(0);
+	test('notificationStore default export add/remove/reset + auto-remove', async () => {
+		expect(notificationStore.get().list.length).toBe(0);
 
-		n.add({ type: 'info', message: 'hi', removeAfter: 30 });
-		expect(n.state.items.length).toBe(1);
+		notificationStore.add({ type: 'info', message: 'hi', removeAfter: 30 });
+		expect(notificationStore.get().list.length).toBe(1);
 
-		const id = n.state.items[0].id;
-		n.remove(id);
-		expect(n.state.items.length).toBe(0);
+		const id = notificationStore.get().list[0].id;
+		notificationStore.remove(id);
+		expect(notificationStore.get().list.length).toBe(0);
 
-		n.add({ type: 'success', message: 'bye', removeAfter: 10 });
-		expect(n.state.items.length).toBe(1);
+		notificationStore.add({ type: 'success', message: 'bye', removeAfter: 10 });
+		expect(notificationStore.get().list.length).toBe(1);
 		await new Promise((r) => setTimeout(r, 25));
-		expect(n.state.items.length).toBe(0);
+		expect(notificationStore.get().list.length).toBe(0);
 
-		n.add({ type: 'danger', message: 'x' });
-		n.add({ type: 'warning', message: 'y' });
-		n.clear();
-		expect(n.state.items.length).toBe(0);
+		notificationStore.add({ type: 'danger', message: 'x' });
+		notificationStore.add({ type: 'warning', message: 'y' });
+		notificationStore.reset();
+		expect(notificationStore.get().list.length).toBe(0);
 	});
 });
