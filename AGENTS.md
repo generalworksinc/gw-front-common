@@ -1,39 +1,38 @@
-# Repository Guidelines
+# リポジトリ運用ガイドライン
 
-## Project Structure & Module Organization
-- `core/`: Framework-agnostic utilities. Entrypoint `core/mod.ts` re-exports from `core/common/features/*`.
-- `solid/`: Solid-specific components and stores (`features/*/{components,store}.ts[x]`). Public API via `solid/index.ts` and `solid/mod.ts`.
-- `vue/`: Vue-specific components and stores mirroring Solid structure, exported via `vue/index.ts` and `vue/mod.ts`.
-- `__tests__/`: Bun test files (`*.test.js`) targeting the exported TypeScript modules.
-- Config: `package.json`, `jsr.json` (publish config), `biome.json` (lint/format), CI in `.github/workflows/`.
+## プロジェクト構成とモジュール
+- `core/`: フレームワーク非依存のユーティリティ。入口は `core/mod.ts`（`core/common/features/*` を再エクスポート）。
+- `solid/`: Solid 向けのコンポーネント/ストア（`features/*/{components,store}.ts[x]`）。公開 API は `solid/index.ts` と `solid/mod.ts`。
+- `vue/`: Vue 向けのコンポーネント/ストア（Solid と同構成）。`vue/index.ts` と `vue/mod.ts` から公開。
+- `__tests__/`: Bun のテスト（`*.test.js`）。公開された TS モジュールを対象にします。
+- 設定: `package.json`、`jsr.json`（公開設定）、`biome.json`（整形/静的解析）、CI は `.github/workflows/`。
 
-## Build, Test, and Development Commands
-- Install: `bun install --no-save`
-- Test: `bun test` (all tests), `bun test --coverage` (prints coverage)
-- Lint: `bun run lint` (Biome check)
-- Format: `bun run format` (Biome write)
-- JSR dry-run: `bun run jsr:check`
-Notes: Scripts assume Bun. CI enforces coverage; local failures should be fixed before PRs.
+## ビルド・テスト・開発コマンド
+- インストール: `bun install --no-save`
+- テスト: `bun test`（全テスト）、`bun test --coverage`（カバレッジ出力）
+- Lint: `bun run lint`（Biome チェック）
+- フォーマット: `bun run format`（Biome 書き込み）
+- JSR ドライラン: `bun run jsr:check`
+注意: Bun 前提のスクリプトです。CI はカバレッジ基準を強制します。ローカル失敗は PR 前に解消してください。
 
-## Coding Style & Naming Conventions
-- Language: TypeScript (+ TSX for components). ESM only (`type: module`).
-- Formatting: Biome with single quotes and recommended rules; run before pushing.
-- Files: Components `PascalCase.tsx` under `features/*/components/`. Stores/utilities in `store.ts`/`utils.ts`.
-- Exports: Keep `core/mod.ts`, `solid/index.ts`, and `vue/index.ts` updated when adding modules.
+## コーディング規約と命名
+- 言語: TypeScript（コンポーネントは TSX）。ESM のみ（`type: module`）。
+- 整形/規約: Biome（シングルクォート + 推奨ルール）。push 前に実行。
+- ファイル: コンポーネントは `features/*/components/` 配下の `PascalCase.tsx`。ストア/ユーティリティは `store.ts`/`utils.ts`。
+- エクスポート: 追加時は `core/mod.ts`、`solid/index.ts`、`vue/index.ts` を更新。
 
-## Testing Guidelines
-- Runner: Bun test. Place specs in `__tests__/` as `*.test.js` (import from `core/mod.ts`, `solid`, `vue`).
-- Coverage: CI requires ≥ 90% (see CI workflow). Prefer small, deterministic tests.
-- Naming: `describe` blocks per feature; test observable behavior across public APIs.
+## テスト指針
+- 実行: Bun test。`__tests__/` に `*.test.js` を配置（`core/mod.ts`、`solid`、`vue` から import）。
+- カバレッジ: CI で 90%以上必須（CI ワークフロー参照）。小さく決定的なテストを推奨。
+- 命名: 機能単位で `describe` を分け、公開 API の観測可能な振る舞いを検証。
 
-## Commit & Pull Request Guidelines
-- Commits: Imperative present; include scope where helpful.
-  - Example: `feat(core): add deepFreeze safety for non-objects`
-- PRs: Clear description, linked issue, and screenshots for UI changes. Note API changes in `README.md`/`MIGRATION.md`.
-- Checks: PRs must pass Biome, tests, and coverage. Run `bun test --coverage` locally first.
+## コミット／PR ガイドライン
+- コミット: 命令形・現在形。必要に応じてスコープを付与。
+  - 例: `feat(core): add deepFreeze safety for non-objects`
+- PR: 説明を明確に、関連 Issue をリンク。UI 変更はスクリーンショットを添付。API 変更は `README.md`/`MIGRATION.md` に反映。
+- チェック: Biome・テスト・カバレッジを通過必須。まずローカルで `bun test --coverage` を実行。
 
-## Security & Configuration Tips
-- Do not commit secrets. Publishing requires `JSR_TOKEN` in GitHub Secrets.
-- Respect peer deps (`solid-js`, `vue`, `dayjs`) and avoid importing framework internals in `core/`.
-- For Vue TSX usage, enable `@vitejs/plugin-vue-jsx` as described in `README.md`.
-
+## セキュリティと設定のヒント
+- シークレットはコミットしない。公開には GitHub Secrets の `JSR_TOKEN` が必要。
+- `core/` ではフレームワーク内部へ依存しない。`solid-js`/`vue`/`dayjs` は peerDependencies を尊重。
+- Vue の TSX 利用時は `README.md` 記載の `@vitejs/plugin-vue-jsx` を有効化。
