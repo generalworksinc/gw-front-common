@@ -1,5 +1,3 @@
-import clone from 'clone';
-
 export const camelToSnake = (p: string): string =>
 	p.replace(/([A-Z])/g, (s) => `_${s.charAt(0).toLowerCase()}`);
 
