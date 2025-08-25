@@ -8,7 +8,7 @@ generalworks inc. 向けの共通フロントエンドライブラリ（JSR配�
 - `@generalworks/gw-front-common/solid` → `solid/index.ts`
 - `@generalworks/gw-front-common/vue` → `vue/index.ts`
 
-コンポーネントは「features/<name>/components」直下から直接 import してください（エイリアスは将来廃止予定のため非推奨）。
+コンポーネントは以下いずれかの方法で import できます。
 例：
 ```ts
 // Solid
@@ -17,9 +17,13 @@ import { Modal } from '@generalworks/gw-front-common/solid/features/modal/compon
 import { Notifications } from '@generalworks/gw-front-common/solid/features/notification/components/Notifications';
 
 // Vue
+// 直接パス指定（従来通り）
 import Loading from '@generalworks/gw-front-common/vue/features/loading/components/Loading';
 import Modal from '@generalworks/gw-front-common/vue/features/modal/components/Modal';
 import Notifications from '@generalworks/gw-front-common/vue/features/notification/components/Notifications';
+
+// もしくは index からの名前付き再エクスポート（推奨）
+import { Loading, Modal, Notifications } from '@generalworks/gw-front-common/vue';
 ```
 
 ## 設計方針（Vue と Solid の分離）
@@ -91,22 +95,12 @@ export default defineConfig({
 })
 ```
 
-```tsx
-// 例: routes/index.tsx
-export default function Page() {
-  const loading = createLoadingStore()
-  const modal = createModalStore()
-  const notification = createNotificationStore()
-
-  return (
-    <div>
-      <Loading />
-      <Modal store={modal} />
-      <Notifications store={notification} />
-    </div>
-  )
-}
-```
+注意（Solid の使用について）
+- 現状、Solid では Loading コンポーネントを `show` プロパティで制御できます。
+  ```tsx
+  <Loading show class="fixed inset-0" />
+  ```
+- Modal/Notifications のストアAPIは今後拡充予定です。現時点ではアプリ側で最小実装のストアを渡すか、次リリースの API 公開をお待ちください。
 
 ## スクリプト
 - `bun test`
