@@ -1,6 +1,6 @@
+import { makePersisted } from '@solid-primitives/storage';
 import { createStore } from 'solid-js/store';
 import { isServer } from 'solid-js/web';
-import { makePersisted } from '@solid-primitives/storage';
 
 export interface AuthUser {
 	id: string | null;

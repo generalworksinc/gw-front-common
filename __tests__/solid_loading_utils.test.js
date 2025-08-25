@@ -1,6 +1,6 @@
 import {
-	eventWithLoading,
 	awaitLoadingWith,
+	eventWithLoading,
 } from '../solid/features/loading/utils.ts';
 
 describe('solid/features/loading/utils', () => {

@@ -1,5 +1,5 @@
+import type { Component, PropType } from 'vue';
 import { defineComponent } from 'vue';
-import type { PropType, Component } from 'vue';
 
 const ErrorMessage: Component = defineComponent({
 	name: 'ErrorMessage',

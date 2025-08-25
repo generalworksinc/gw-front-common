@@ -1,8 +1,8 @@
 import {
+	$getDayjs,
 	dayjsJp,
 	formatDateForInput,
 	parseInputDate,
-	$getDayjs,
 } from '../core/mod.ts';
 
 describe('core/features/date', () => {

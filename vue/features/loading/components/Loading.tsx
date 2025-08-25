@@ -1,5 +1,5 @@
-import { defineComponent, computed } from 'vue';
-import type { PropType, CSSProperties, Component } from 'vue';
+import type { Component, CSSProperties, PropType } from 'vue';
+import { computed, defineComponent } from 'vue';
 import type { LoadingStore } from '../store.ts';
 
 const Loading: Component = defineComponent({

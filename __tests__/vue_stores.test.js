@@ -1,6 +1,4 @@
-import { useLoading } from '../vue/mod.ts';
-import { useModal } from '../vue/mod.ts';
-import { useNotification } from '../vue/mod.ts';
+import { useLoading, useModal, useNotification } from '../vue/mod.ts';
 
 describe('vue stores (RefLike)', () => {
 	test('useLoading toggles state', () => {

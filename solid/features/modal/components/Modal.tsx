@@ -1,7 +1,7 @@
 /** @jsxImportSource solid-js */
 import type { JSX } from 'solid-js';
-import type { ModalStore } from '../store.ts';
 import { Show } from 'solid-js';
+import type { ModalStore } from '../store.ts';
 
 export function Modal(props: {
 	store: ModalStore;
