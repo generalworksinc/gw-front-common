@@ -1,4 +1,4 @@
-export type RefLike<T> = { value: T };
+import type { RefLike } from '../../types.ts'
 
 export type NotificationType = 'success' | 'warning' | 'danger' | 'info';
 
