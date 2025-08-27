@@ -7,7 +7,9 @@
 		".": "./core/mod.ts",
 		"./core": "./core/mod.ts",
 		"./solid": "./solid/mod.ts",
-		"./vue": "./vue/mod.ts"
+		"./solid/components": "./solid/components.ts",
+		"./vue": "./vue/mod.ts",
+		"./vue/components": "./vue/components.ts"
 	},
 	"scripts": {
 		"test": "bun test",

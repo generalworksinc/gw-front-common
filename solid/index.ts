@@ -1,4 +1,3 @@
-export * from './features/loading/components/Loading.tsx';
-export * from './features/modal/components/Modal.tsx';
-export * from './features/notification/components/Notifications.tsx';
+// Deprecated: kept temporarily for backward compatibility.
+export * from './components.ts';
 export * from './mod.ts';
