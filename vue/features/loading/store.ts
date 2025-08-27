@@ -1,4 +1,4 @@
-import type { RefLike } from '../../types.ts'
+import type { RefLike } from '../../types.ts';
 
 export interface LoadingStore {
 	isLoading: RefLike<boolean>;
