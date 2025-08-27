@@ -12,6 +12,11 @@
 	},
 	"license": "MIT",
 	"publish": {
-		"exclude": ["__tests__/**", "docs/", ".project_management/", "!dist/**"]
-	}
+		"exclude": [
+			"__tests__/**",
+			"docs/**",
+			".project_management/**"
+		]
+	},
+	"vcs": { "useIgnoreFile": false }
 }
