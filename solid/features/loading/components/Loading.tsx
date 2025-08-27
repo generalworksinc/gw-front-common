@@ -1,7 +1,7 @@
 /** @jsxImportSource solid-js */
 import type { JSX } from 'solid-js';
 import { Show } from 'solid-js';
-import loadingStore from '../store.ts';
+import loadingStore from '../store';
 
 export function Loading(props: {
 	class?: string;

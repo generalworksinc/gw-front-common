@@ -1,7 +1,7 @@
 import clone from 'clone';
-import { camelToSnake, headLower, snakeToCamel } from './string.ts';
+import { camelToSnake, headLower, snakeToCamel } from './string';
 
-export const deepFreeze = <T>(object: T): T => {
+export const deepFreeze = <T extends object>(object: T): T => {
 	const typeOfObject = typeof object;
 	if (
 		object === null ||

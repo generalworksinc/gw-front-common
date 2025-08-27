@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"outDir": "dist",
+		"rootDir": ".",
+		"module": "ESNext",
+		"target": "ES2020",
+		"moduleResolution": "Bundler",
+		"jsx": "preserve",
+		"jsxImportSource": "vue",
+		"types": ["vue/jsx"],
+		"skipLibCheck": true
+	},
+	"include": [
+		"core/**/*.ts",
+		"vue/**/*.ts",
+		"vue/**/*.tsx",
+		"solid/**/*.ts",
+		"solid/**/*.tsx"
+	],
+	"exclude": ["**/__tests__/**", "dist/**", "node_modules/**"]
+}

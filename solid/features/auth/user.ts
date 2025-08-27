@@ -1,4 +1,4 @@
-import authStore, { resetAuth } from './store.ts';
+import authStore, { resetAuth } from './store';
 
 export interface AuthEnv {
 	getToken: () =>

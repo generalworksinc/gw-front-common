@@ -12,6 +12,6 @@
 	},
 	"license": "MIT",
 	"publish": {
-		"exclude": ["__tests__/**", "docs/", ".project_management/"]
+		"exclude": ["__tests__/**", "docs/", ".project_management/", "!dist/**"]
 	}
 }
