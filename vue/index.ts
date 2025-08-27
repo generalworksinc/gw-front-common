@@ -1,5 +1,3 @@
-export * from './features/error/components/ErrorMessage.tsx';
-export * from './features/loading/components/Loading.tsx';
-export * from './features/modal/components/Modal.tsx';
-export * from './features/notification/components/Notifications.tsx';
+// Re-export both components and stores for backward compatibility
+export * from './components.ts';
 export * from './mod.ts';

@@ -1,6 +1,6 @@
 {
 	"name": "@generalworks/gw-front-common",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "Common frontend utilities and UI components for generalworks projects",
 	"type": "module",
 	"exports": {
@@ -31,9 +31,6 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.0",
-		"solid-js": "^1.9.0",
-		"vue": "^3.4.0",
-		"dayjs": "^1.11.0",
 		"@vitejs/plugin-vue-jsx": "^4.0.0"
 	}
 }
