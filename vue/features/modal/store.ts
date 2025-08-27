@@ -1,4 +1,4 @@
-import type { RefLike } from '../../types.ts';
+import type { RefLike } from '../../types';
 
 export interface ModalOptions {
 	message?: string;

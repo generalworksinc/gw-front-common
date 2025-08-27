@@ -1,5 +1,5 @@
-import type { LoadingStore } from './store.ts';
-import loadingStore from './store.ts';
+import type { LoadingStore } from './store';
+import loadingStore from './store';
 
 type AsyncFunction = (...args: any[]) => Promise<any>;
 type SyncFunction = (...args: any[]) => any;

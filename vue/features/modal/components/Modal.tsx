@@ -1,6 +1,6 @@
 import type { Component, PropType } from 'vue';
 import { defineComponent } from 'vue';
-import type { ModalStore } from '../store.ts';
+import type { ModalStore } from '../store';
 
 const Modal: Component = defineComponent({
 	name: 'Modal',

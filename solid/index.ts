@@ -1,3 +1,3 @@
 // Deprecated: kept temporarily for backward compatibility.
-export * from './components.ts';
-export * from './mod.ts';
+export * from './components';
+export * from './mod';

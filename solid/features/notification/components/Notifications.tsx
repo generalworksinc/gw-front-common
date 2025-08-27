@@ -1,6 +1,6 @@
 /** @jsxImportSource solid-js */
 import type { JSX } from 'solid-js';
-import type { NotificationStore } from '../store.ts';
+import type { NotificationStore } from '../store';
 
 export function Notifications(props: {
 	store: NotificationStore;

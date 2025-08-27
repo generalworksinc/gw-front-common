@@ -32,6 +32,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.0",
+		"@solid-primitives/storage": "^4.3.3",
 		"@types/clone": "^2.1.4",
 		"@vitejs/plugin-vue": "^6.0.1",
 		"@vitejs/plugin-vue-jsx": "^4.0.0",

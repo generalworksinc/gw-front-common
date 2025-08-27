@@ -1,6 +1,6 @@
 import type { Component, CSSProperties, PropType } from 'vue';
 import { computed, defineComponent } from 'vue';
-import type { LoadingStore } from '../store.ts';
+import type { LoadingStore } from '../store';
 
 const Loading: Component = defineComponent({
 	name: 'Loading',
