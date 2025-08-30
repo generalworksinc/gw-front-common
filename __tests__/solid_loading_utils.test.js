@@ -61,9 +61,7 @@ describe('solid/features/loading/utils', () => {
 	test('handles async rejected promise and ensures stopLoading', async () => {
 		const s = makeStore();
 		try {
-			await eventWithLoading(s, async () =>
-				Promise.reject(new Error('rej')),
-			);
+			await eventWithLoading(s, async () => Promise.reject(new Error('rej')));
 			throw new Error('should not reach');
 		} catch (e) {
 			expect(e instanceof Error ? e.message : String(e)).toBe('rej');

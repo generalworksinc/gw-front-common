@@ -1,5 +1,9 @@
-import { describe, test, expect } from 'bun:test';
-import { dayjsJp, formatDateForInput, parseInputDate } from '../core/common/features/date.ts';
+import { describe, expect, test } from 'bun:test';
+import {
+	dayjsJp,
+	formatDateForInput,
+	parseInputDate,
+} from '../core/common/features/date.ts';
 
 describe('Date Utils', () => {
 	describe('dayjsJp', () => {
@@ -75,5 +79,3 @@ describe('Date Utils', () => {
 		});
 	});
 });
-
-
