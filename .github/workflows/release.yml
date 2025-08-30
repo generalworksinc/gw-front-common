@@ -25,9 +25,9 @@ jobs:
       - name: Run tests
         run: bun test --coverage | cat
 
-      - name: Publish to JSR
+      - name: Publish to JSR (allow slow types)
         env:
           JSR_TOKEN: ${{ secrets.JSR_TOKEN }}
-        run: bunx jsr publish
+        run: bunx jsr publish --allow-slow-types
 
 

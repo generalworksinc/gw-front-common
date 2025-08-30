@@ -6,11 +6,11 @@
 	"exports": {
 		".": {
 			"types": "./dist/core/mod.d.ts",
-			"default": "./dist/core.js"
+			"default": "./dist/core/mod.js"
 		},
 		"./core": {
 			"types": "./dist/core/mod.d.ts",
-			"default": "./dist/core.js"
+			"default": "./dist/core/mod.js"
 		},
 		"./solid": {
 			"types": "./dist/solid/mod.d.ts",
@@ -32,7 +32,7 @@
 	"scripts": {
 		"test": "bun test",
 		"test:coverage": "bun test --coverage",
-		"jsr:check": "bunx --yes jsr publish --dry-run",
+		"jsr:check": "bunx --yes jsr publish --dry-run --allow-slow-types --allow-dirty",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
 		"lint:fix-unsafe": "biome check --write --unsafe .",

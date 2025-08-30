@@ -21,7 +21,15 @@ function isFunction(fn: unknown): boolean {
 	return typeof fn === 'function';
 }
 
-export function useModal() {
+export function useModal(): Readonly<{
+	state: RefLike<ReturnType<typeof defaultState>>;
+	open: (options?: Partial<ReturnType<typeof defaultState>>) => void;
+	confirm: (options?: Partial<ReturnType<typeof defaultState>>) => void;
+	close: () => void;
+	yes: () => void;
+	no: () => void;
+	reset: () => void;
+}> {
 	const state: RefLike<ReturnType<typeof defaultState>> = {
 		value: defaultState(),
 	};

@@ -23,7 +23,7 @@ function isFunction(fn: unknown): boolean {
 
 const [store, setStore] = createStore({ ...defaultState });
 
-const open = (obj?: Partial<typeof defaultState>) => {
+const open = (obj?: Partial<typeof defaultState>): void => {
 	setStore({
 		isOpen: true,
 		isConfirm: false,
@@ -42,7 +42,7 @@ const open = (obj?: Partial<typeof defaultState>) => {
 	});
 };
 
-const confirm = (obj?: Partial<typeof defaultState>) => {
+const confirm = (obj?: Partial<typeof defaultState>): void => {
 	setStore({
 		isOpen: true,
 		isConfirm: true,
@@ -61,16 +61,16 @@ const confirm = (obj?: Partial<typeof defaultState>) => {
 	});
 };
 
-const close = () => {
+const close = (): void => {
 	setStore({ ...defaultState });
 };
 
-const yes = () => {
+const yes = (): void => {
 	if (isFunction(store.yesFunc)) store.yesFunc();
 	close();
 };
 
-const no = () => {
+const no = (): void => {
 	if (isFunction(store.noFunc)) store.noFunc();
 	close();
 };

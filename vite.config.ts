@@ -27,9 +27,10 @@ export default defineConfig({
 		}),
 	],
 	build: {
+		outDir: 'dist',
 		lib: {
 			entry: {
-				core: 'core/mod.ts',
+				'core/mod': 'core/mod.ts',
 				'vue/mod': 'vue/mod.ts',
 				'vue/components': 'vue/components.ts',
 				'solid/mod': 'solid/mod.ts',
@@ -41,7 +42,7 @@ export default defineConfig({
 			external: ['vue', 'solid-js', 'dayjs'],
 			output: {
 				entryFileNames: '[name].js',
-				chunkFileNames: 'chunks/[name]-[hash].js',
+				// 共有チャンクはデフォルトのまま（必要に応じて自動分割）
 				assetFileNames: 'assets/[name]-[hash][extname]',
 			},
 		},
