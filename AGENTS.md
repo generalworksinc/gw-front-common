@@ -21,6 +21,34 @@
 - ファイル: コンポーネントは `features/*/components/` 配下の `PascalCase.tsx`。ストア/ユーティリティは `store.ts`/`utils.ts`。
 - エクスポート: 追加時は `core/mod.ts`、`solid/index.ts`、`vue/index.ts` を更新。
 
+### 型設計の方針（最小記述で型を効かせる）
+- ストアの公開型は「実装から導出」する。
+  - 例: `const store = { ... }` を実装し、`export type ModalStore = typeof store` を公開する。
+  - これにより interface の二重定義を避け、実装と型の乖離を防ぐ。
+- 共有型は必要最小限のみ export する。
+  - 例: Vue の `RefLike<T>` は `vue/types.ts` に集約し再利用。
+
+### JSX/tsconfig の方針
+- 既定の JSX ランタイムは Vue を使用（`tsconfig.build.json`: `jsx: preserve`, `jsxImportSource: "vue"`, `types: ["vue/jsx"]`）。
+- Solid 配下は `tsconfig.solid.json` を用いて `jsxImportSource: "solid-js"` を上書きし、ファイル先頭の `/** @jsxImportSource solid-js */` を不要化。
+- ライブラリ型生成は `vite-plugin-dts` を Vue/Core 用と Solid 用の2インスタンスで分割し、`rollupTypes: false`。
+
+### エクスポート設計（ツリーシェイク/テスト互換）
+- ストアとコンポーネントはエントリを分離。
+  - Vue: `@.../vue`（stores）, `@.../vue/components`（components）
+  - Solid: `@.../solid`（stores）, `@.../solid/components`（components）
+- TSX を静的再エクスポートしないことで、ストアのみ利用時の不要な TSX 参照を回避。
+
+### JSR 公開の注意
+### ファイル命名（検索性を高める）
+- ストアは `store.ts` のような汎名を避け、機能名を冠する。
+  - 例: Notification ストア → `notificationStore.ts`
+  - 例: Modal ストア → `modalStore.ts`（将来リネーム検討）
+- コンポーネントは `PascalCase.tsx`、ユーティリティは `utils.ts` を基本とする。
+- `jsr.json` の `exports` は条件なしの文字列パスのみ（`types` は `package.json` 側で定義）。
+- `publish.include: ["dist/**"]` を設定し、`.gitignore` は `vcs.useIgnoreFile: false` で無視。
+- エントリ JS には対応する `.d.ts` を必ず生成（`dist/vue|solid|core` 下に出力）。
+
 ## テスト指針
 - 実行: Bun test。`__tests__/` に `*.test.js` を配置（`core/mod.ts`、`solid`、`vue` から import）。
 - カバレッジ: CI で 90%以上必須（CI ワークフロー参照）。小さく決定的なテストを推奨。

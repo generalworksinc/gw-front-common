@@ -27,16 +27,7 @@ export interface ModalState {
 	options: ModalOptions;
 }
 
-export interface ModalStore {
-	get: () => ModalState;
-	set: (_: any) => void;
-	open: (opt?: ModalOptions) => void;
-	confirm: (opt?: ModalOptions) => void;
-	close: () => void;
-	yes: () => void;
-	no: () => void;
-	reset: () => void;
-}
+// ModalStore は下の store から typeof でエクスポートし、重複定義を回避する（将来 modalStore.ts にリネーム予定）
 
 // Global-only, minimal API (scheduler-compatible)
 const [isOpen, setIsOpen] = createSignal(false);
@@ -75,7 +66,7 @@ function reset(): void {
 	setOptions(defaultOptions());
 }
 
-const store: ModalStore = {
+const store = {
 	get: () => ({ isOpen: isOpen(), isConfirm: isConfirm(), options: options() }),
 	set: (_: any) => {},
 	open,
@@ -85,5 +76,7 @@ const store: ModalStore = {
 	no,
 	reset,
 };
+
+export type ModalStore = typeof store;
 
 export default store;
