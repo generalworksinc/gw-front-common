@@ -48,7 +48,8 @@
 - コンポーネントは `PascalCase.tsx`、ユーティリティは `utils.ts` を基本とする。
 
 ### フレームワーク別の再現方針
-- Solid/Vue ともに、`clinicit_front/src/composables/features_common` の仕様・UI を忠実に再現する。
+- Vue: `clinicit_front/src/composables/features_common` の仕様・UI を忠実に再現する。
+- Solid: `scheduler_front_solid/src/composables/features` の仕様・UI を忠実に再現する。
 - API 表面の違いは最小化し、コンポーネント/ストア名と挙動を一致させる。
 - `jsr.json` の `exports` は条件なしの文字列パスのみ（`types` は `package.json` 側で定義）。
 - `publish.include: ["dist/**"]` を設定し、`.gitignore` は `vcs.useIgnoreFile: false` で無視。

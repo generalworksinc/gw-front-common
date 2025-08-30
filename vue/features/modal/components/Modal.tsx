@@ -1,10 +1,9 @@
-import type { Component, PropType } from 'vue';
+import type { Component } from 'vue';
 import { defineComponent } from 'vue';
-import type { ModalStore } from '../modalStore';
 
 const Modal: Component = defineComponent({
 	name: 'Modal',
-	props: { store: Object as PropType<ModalStore>, class: String },
+	props: { store: Object as any, class: String },
 	setup(props) {
 		return () =>
 			props.store.state.value.isOpen ? (

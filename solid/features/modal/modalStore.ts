@@ -1,28 +1,6 @@
 import { createStore } from 'solid-js/store';
 
-interface ModalBase {
-	html: string;
-	message: string;
-	height: string;
-	width: string;
-	maxHeight: string;
-	maxWidth: string;
-	minHeight: string;
-	minWidth: string;
-	isScrollY: boolean;
-	isScrollX: boolean;
-	yesFunc: (() => void) | null;
-	noFunc: (() => void) | null;
-}
-
-interface ModalState extends ModalBase {
-	isOpen: boolean;
-	isConfirm: boolean;
-}
-
-type ModalOptions = Partial<ModalBase> & { message?: string; html?: string };
-
-const defaultState: ModalState = {
+const defaultState = {
 	isOpen: false,
 	isConfirm: false,
 	html: '',
@@ -43,14 +21,14 @@ function isFunction(fn: unknown): fn is Function {
 	return typeof fn === 'function';
 }
 
-const [store, setStore] = createStore<ModalState>({ ...defaultState });
+const [store, setStore] = createStore({ ...defaultState });
 
-const open = (obj?: ModalOptions) => {
+const open = (obj?: Partial<typeof defaultState>) => {
 	setStore({
 		isOpen: true,
 		isConfirm: false,
-		message: obj?.message ?? '',
-		html: obj?.html ?? '',
+		message: (obj as any)?.message ?? '',
+		html: (obj as any)?.html ?? '',
 		height: obj?.height ?? '',
 		width: obj?.width ?? '',
 		maxHeight: obj?.maxHeight ?? '',
@@ -59,17 +37,17 @@ const open = (obj?: ModalOptions) => {
 		minWidth: obj?.minWidth ?? '',
 		isScrollY: obj?.isScrollY ?? false,
 		isScrollX: obj?.isScrollX ?? false,
-		yesFunc: isFunction(obj?.yesFunc) ? obj?.yesFunc : null,
+		yesFunc: isFunction(obj?.yesFunc) ? (obj?.yesFunc as () => void) : null,
 		noFunc: null,
 	});
 };
 
-const confirm = (obj?: ModalOptions) => {
+const confirm = (obj?: Partial<typeof defaultState>) => {
 	setStore({
 		isOpen: true,
 		isConfirm: true,
-		message: obj?.message ?? '',
-		html: obj?.html ?? '',
+		message: (obj as any)?.message ?? '',
+		html: (obj as any)?.html ?? '',
 		height: obj?.height ?? '',
 		width: obj?.width ?? '',
 		maxHeight: obj?.maxHeight ?? '',
@@ -78,8 +56,8 @@ const confirm = (obj?: ModalOptions) => {
 		minWidth: obj?.minWidth ?? '',
 		isScrollY: obj?.isScrollY ?? false,
 		isScrollX: obj?.isScrollX ?? false,
-		yesFunc: isFunction(obj?.yesFunc) ? obj?.yesFunc : null,
-		noFunc: isFunction(obj?.noFunc) ? obj?.noFunc : null,
+		yesFunc: isFunction(obj?.yesFunc) ? (obj?.yesFunc as () => void) : null,
+		noFunc: isFunction(obj?.noFunc) ? (obj?.noFunc as () => void) : null,
 	});
 };
 

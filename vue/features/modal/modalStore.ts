@@ -1,38 +1,6 @@
 import type { RefLike } from '../../types';
 
-export interface ModalOptions {
-	message?: string;
-	html?: string;
-	height?: string;
-	width?: string;
-	maxHeight?: string;
-	maxWidth?: string;
-	minHeight?: string;
-	minWidth?: string;
-	isScrollY?: boolean;
-	isScrollX?: boolean;
-	yesFunc?: (() => void) | null;
-	noFunc?: (() => void) | null;
-}
-
-export interface ModalState {
-	isOpen: boolean;
-	isConfirm: boolean;
-	html: string;
-	message: string;
-	height: string;
-	width: string;
-	maxHeight: string;
-	maxWidth: string;
-	minHeight: string;
-	minWidth: string;
-	isScrollY: boolean;
-	isScrollX: boolean;
-	yesFunc: (() => void) | null;
-	noFunc: (() => void) | null;
-}
-
-const defaultState = (): ModalState => ({
+const defaultState = () => ({
 	isOpen: false,
 	isConfirm: false,
 	html: '',
@@ -49,24 +17,14 @@ const defaultState = (): ModalState => ({
 	noFunc: null,
 });
 
-export interface ModalStore {
-	state: RefLike<ModalState>;
-	open: (options?: Partial<ModalOptions>) => void;
-	confirm: (options?: Partial<ModalOptions>) => void;
-	close: () => void;
-	yes: () => void;
-	no: () => void;
-	reset: () => void;
-}
-
 function isFunction(fn: unknown): fn is Function {
 	return typeof fn === 'function';
 }
 
-export function useModal(): ModalStore {
-	const state: RefLike<ModalState> = { value: defaultState() };
+export function useModal() {
+	const state: RefLike<ReturnType<typeof defaultState>> = { value: defaultState() };
 
-	const open = (options?: Partial<ModalOptions>) => {
+	const open = (options?: Partial<ReturnType<typeof defaultState>>) => {
 		state.value.isOpen = true;
 		state.value.isConfirm = false;
 		state.value.message = options?.message ?? '';
@@ -85,7 +43,7 @@ export function useModal(): ModalStore {
 		state.value.noFunc = null;
 	};
 
-	const confirm = (options?: Partial<ModalOptions>) => {
+	const confirm = (options?: Partial<ReturnType<typeof defaultState>>) => {
 		open(options);
 		state.value.isConfirm = true;
 		state.value.noFunc = isFunction(options?.noFunc)
@@ -112,7 +70,7 @@ export function useModal(): ModalStore {
 		state.value = defaultState();
 	};
 
-	return { state, open, confirm, close, yes, no, reset };
+	return { state, open, confirm, close, yes, no, reset } as const;
 }
 
 
