@@ -1,0 +1,9 @@
+export declare const camelToSnake: (p: string) => string;
+export declare const snakeToCamel: (p: string) => string;
+export declare const snakeToCamelHeadUpper: (p: string) => string;
+export declare const headLower: (p: string) => string;
+export declare const headUpper: (p: string) => string;
+export declare const cNull: (str: any) => string;
+export declare const isBlank: (str: any) => boolean;
+export declare const strIns: (str: string, idx: number, val: string) => string;
+export declare const cardConv: (str: string) => string;

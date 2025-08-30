@@ -1,0 +1,57 @@
+declare const defaultState: {
+    isOpen: boolean;
+    isConfirm: boolean;
+    html: string;
+    message: string;
+    height: string;
+    width: string;
+    maxHeight: string;
+    maxWidth: string;
+    minHeight: string;
+    minWidth: string;
+    isScrollY: boolean;
+    isScrollX: boolean;
+    yesFunc: any;
+    noFunc: any;
+};
+declare const _default: {
+    get: () => {
+        isOpen: boolean;
+        isConfirm: boolean;
+        html: string;
+        message: string;
+        height: string;
+        width: string;
+        maxHeight: string;
+        maxWidth: string;
+        minHeight: string;
+        minWidth: string;
+        isScrollY: boolean;
+        isScrollX: boolean;
+        yesFunc: any;
+        noFunc: any;
+    };
+    set: import('solid-js/store').SetStoreFunction<{
+        isOpen: boolean;
+        isConfirm: boolean;
+        html: string;
+        message: string;
+        height: string;
+        width: string;
+        maxHeight: string;
+        maxWidth: string;
+        minHeight: string;
+        minWidth: string;
+        isScrollY: boolean;
+        isScrollX: boolean;
+        yesFunc: any;
+        noFunc: any;
+    }>;
+    open: (obj?: Partial<typeof defaultState>) => void;
+    confirm: (obj?: Partial<typeof defaultState>) => void;
+    close: () => void;
+    yes: () => void;
+    no: () => void;
+    reset: () => void;
+};
+export default _default;
