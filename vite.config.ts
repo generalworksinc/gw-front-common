@@ -7,13 +7,23 @@ export default defineConfig({
 	plugins: [
 		vue(),
 		vueJsx(),
+		// Vue/Core 用の d.ts 出力
 		dts({
 			outDir: 'dist',
-			include: ['core', 'vue', 'solid'],
+			include: ['core', 'vue'],
 			exclude: ['**/__tests__/**'],
-			rollupTypes: true,
+			rollupTypes: false,
 			copyDtsFiles: true,
 			tsconfigPath: 'tsconfig.build.json',
+		}),
+		// Solid 用の d.ts 出力（jsxImportSource: solid-js）
+		dts({
+			outDir: 'dist',
+			include: ['solid'],
+			exclude: ['**/__tests__/**'],
+			rollupTypes: false,
+			copyDtsFiles: true,
+			tsconfigPath: 'tsconfig.solid.json',
 		}),
 	],
 	build: {

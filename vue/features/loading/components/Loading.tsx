@@ -17,7 +17,7 @@ const Loading: Component = defineComponent({
 		return () =>
 			visible.value ? (
 				<div
-					class={['gw-loading', (props as any).class]}
+					class={`gw-loading ${((props as any).class ?? '').toString()}`}
 					style={props.style as any}
 				>
 					<span class="gw-loading__spinner" />

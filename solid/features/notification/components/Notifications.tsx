@@ -1,21 +1,45 @@
 /** @jsxImportSource solid-js */
 import type { JSX } from 'solid-js';
-import type { NotificationStore } from '../store';
+import { For } from 'solid-js';
+import defaultStore from '../store';
 
 export function Notifications(props: {
-	store: NotificationStore;
+	store?: any;
 	class?: string;
 	position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 }): JSX.Element {
-	const items = () => props.store.state.items;
-	const positionClass = () => `pos-${props.position ?? 'top-right'}`;
+	const store = () => props.store ?? defaultStore;
+	const items = () => store()?.get?.()?.list ?? [];
+	const pos = () => props.position ?? 'top-right';
+	const removeNotificationHandler = (id?: string | number) => {
+		if (id != null) store().remove?.(id);
+	};
 	return (
-		<div class={`${props.class ?? ''} gw-notifications ${positionClass()}`}>
-			{items().map((n) => (
-				<div class="gw-notification" data-type={n.type} key={n.id}>
-					{n.message}
-				</div>
-			))}
+		<div class="notifications">
+			<div class={`z-50 position-${pos()} default-position-style-${pos()}`}>
+				<For each={items()}>
+					{(notification: any) => (
+						<div
+							class={`z-50 notification default-notification-style default-notification-${notification.type}`}
+							role="status"
+							aria-live="polite"
+						>
+							<div
+								class={`z-50 notification-content default-notification-style-content default-notification-${notification.type}`}
+							>
+								<pre>{notification.message}</pre>
+							</div>
+							<button
+								class={`z-50 notification-button default-notification-style-button default-notification-${notification.type}`}
+								onClick={() => removeNotificationHandler(notification.id)}
+								aria-label="delete notification"
+							>
+								&times;
+							</button>
+						</div>
+					)}
+				</For>
+			</div>
 		</div>
 	);
 }

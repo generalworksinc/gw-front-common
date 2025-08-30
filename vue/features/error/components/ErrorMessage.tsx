@@ -10,7 +10,7 @@ const ErrorMessage: Component = defineComponent({
 	setup(props) {
 		return () =>
 			props.error ? (
-				<div class={['text-red-500', (props as any).class]}>{props.error}</div>
+				<div class={`text-red-500 ${((props as any).class ?? '').toString()}`}>{props.error}</div>
 			) : null;
 	},
 });

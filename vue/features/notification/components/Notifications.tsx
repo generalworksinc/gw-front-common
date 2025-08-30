@@ -17,16 +17,10 @@ const Notifications: Component = defineComponent({
 	setup(props) {
 		return () => (
 			<div
-				class={
-					[
-						props.class as any,
-						'gw-notifications',
-						`pos-${props.position}`,
-					] as any
-				}
+				class={`${(props.class ?? '') as any} gw-notifications pos-${props.position}`}
 			>
-				{props.store.state.items.map((n) => (
-					<div class="gw-notification" data-type={n.type} key={n.id}>
+				{props.store.notifications.value.map((n) => (
+					<div class="gw-notification" data-type={n.type}>
 						{n.message}
 					</div>
 				))}

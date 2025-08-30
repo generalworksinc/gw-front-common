@@ -7,14 +7,14 @@ const Modal: Component = defineComponent({
 	props: { store: Object as PropType<ModalStore>, class: String },
 	setup(props) {
 		return () =>
-			props.store.state.isOpen ? (
-				<div class={['gw-modal', (props as any).class]}>
+			props.store.state.value.isOpen ? (
+				<div class={`gw-modal ${((props as any).class ?? '').toString()}`}>
 					<div class="gw-modal__panel">
 						<div class="gw-modal__body">
-							{props.store.state.options.message ? (
-								<div>{props.store.state.options.message}</div>
-							) : props.store.state.options.html ? (
-								<div innerHTML={props.store.state.options.html as any} />
+							{props.store.state.value.options.message ? (
+								<div>{props.store.state.value.options.message}</div>
+							) : props.store.state.value.options.html ? (
+								<div innerHTML={props.store.state.value.options.html as any} />
 							) : (
 								<></>
 							)}

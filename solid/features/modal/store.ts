@@ -21,6 +21,23 @@ const defaultOptions = (): ModalOptions => ({
 	noFunc: null,
 });
 
+export interface ModalState {
+	isOpen: boolean;
+	isConfirm: boolean;
+	options: ModalOptions;
+}
+
+export interface ModalStore {
+	get: () => ModalState;
+	set: (_: any) => void;
+	open: (opt?: ModalOptions) => void;
+	confirm: (opt?: ModalOptions) => void;
+	close: () => void;
+	yes: () => void;
+	no: () => void;
+	reset: () => void;
+}
+
 // Global-only, minimal API (scheduler-compatible)
 const [isOpen, setIsOpen] = createSignal(false);
 const [isConfirm, setIsConfirm] = createSignal(false);
@@ -58,7 +75,7 @@ function reset(): void {
 	setOptions(defaultOptions());
 }
 
-export default {
+const store: ModalStore = {
 	get: () => ({ isOpen: isOpen(), isConfirm: isConfirm(), options: options() }),
 	set: (_: any) => {},
 	open,
@@ -68,3 +85,5 @@ export default {
 	no,
 	reset,
 };
+
+export default store;

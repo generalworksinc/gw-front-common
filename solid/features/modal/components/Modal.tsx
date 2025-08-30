@@ -7,7 +7,7 @@ export function Modal(props: {
 	store: ModalStore;
 	class?: string;
 }): JSX.Element {
-	const state = () => props.store.state;
+	const state = () => props.store.get();
 	return (
 		<Show when={state().isOpen}>
 			<div class={`gw-modal ${props.class ?? ''}`}>
