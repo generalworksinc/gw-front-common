@@ -21,8 +21,6 @@ export function Notifications(props: {
 					{(notification: any) => (
 						<div
 							class={`z-50 notification default-notification-style default-notification-${notification.type}`}
-							role="status"
-							aria-live="polite"
 						>
 							<div
 								class={`z-50 notification-content default-notification-style-content default-notification-${notification.type}`}
