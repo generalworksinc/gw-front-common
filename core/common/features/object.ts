@@ -18,7 +18,7 @@ export const deepFreeze = <T extends object>(object: T): T => {
 	for (const key in object as any) {
 		const value = (object as any)[key];
 		if (
-			!Object.hasOwn(object, key) ||
+			!Object.prototype.hasOwnProperty.call(object, key) ||
 			typeof value !== 'object' ||
 			Object.isFrozen(value)
 		) {
@@ -48,7 +48,7 @@ export const replaceKeys = (
 	const replacedObj: Record<string, any> = {};
 	for (const key in object) {
 		const value = object[key];
-		if (!Object.hasOwn(object, key)) {
+		if (!Object.prototype.hasOwnProperty.call(object, key)) {
 			continue;
 		}
 		replacedObj[func(key)] = value !== null ? replaceKeys(value, func) : null;

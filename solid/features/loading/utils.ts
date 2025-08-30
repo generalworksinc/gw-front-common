@@ -1,5 +1,5 @@
 import loadingStore from './loadingStore';
-import type { LoadingStore } from './store';
+import type { LoadingStore } from './loadingStore';
 
 type AsyncFunction = (...args: any[]) => Promise<any>;
 type SyncFunction = (...args: any[]) => any;
@@ -25,7 +25,7 @@ export async function eventWithLoading(
 		typeof arg1 === 'function'
 			? ({
 					get isLoading() {
-						return loadingStore.isLoading();
+						return loadingStore.get();
 					},
 					startLoading: () => loadingStore.start(),
 					stopLoading: () => loadingStore.stop(),
