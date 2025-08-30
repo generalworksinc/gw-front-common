@@ -1,5 +1,9 @@
+type LoadingStore = {
+	isLoading: () => boolean;
+	start: () => true;
+	stop: () => false;
+};
 import loadingStore from './loadingStore';
-import type { LoadingStore } from './loadingStore';
 
 type AsyncFunction = (...args: any[]) => Promise<any>;
 type SyncFunction = (...args: any[]) => any;
@@ -18,28 +22,20 @@ export async function eventWithLoading(
 	arg2?: any,
 	...rest: any[]
 ): Promise<any> {
-	const store: Pick<
-		LoadingStore,
-		'isLoading' | 'startLoading' | 'stopLoading'
-	> =
+	const store: Pick<LoadingStore, 'isLoading' | 'start' | 'stop'> =
 		typeof arg1 === 'function'
 			? ({
-					get isLoading() {
-						return loadingStore.get();
-					},
-					startLoading: () => loadingStore.start(),
-					stopLoading: () => loadingStore.stop(),
-				} as unknown as Pick<
-					LoadingStore,
-					'isLoading' | 'startLoading' | 'stopLoading'
-				>)
+					isLoading: () => loadingStore.isLoading(),
+					start: () => loadingStore.start(),
+					stop: () => loadingStore.stop(),
+				} as unknown as Pick<LoadingStore, 'isLoading' | 'start' | 'stop'>)
 			: arg1;
 	const func: AsyncFunction | SyncFunction =
 		typeof arg1 === 'function' ? arg1 : arg2;
 	const params: any[] = rest;
 
 	if ((store as any).isLoading) return false;
-	store.startLoading();
+	(store as any).start();
 	return await new Promise<any>((resolve, reject) => {
 		setTimeout(() => {
 			try {
@@ -51,11 +47,11 @@ export async function eventWithLoading(
 				) {
 					(result as Promise<any>)
 						.then((res) => {
-							store.stopLoading();
+							(store as any).stop();
 							resolve(Promise.resolve(res));
 						})
 						.catch((err) => {
-							store.stopLoading();
+							(store as any).stop();
 							resolve(Promise.reject(err));
 						});
 				} else {
@@ -63,7 +59,7 @@ export async function eventWithLoading(
 					resolve(result);
 				}
 			} catch (ex) {
-				store.stopLoading();
+				(store as any).stop();
 				reject(ex);
 			}
 		}, 1);

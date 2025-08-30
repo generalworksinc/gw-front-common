@@ -1,4 +1,4 @@
-import authStore, { resetAuth } from './authStore';
+import authStore from './authStore';
 
 export interface AuthEnv {
 	getToken: () =>
@@ -25,7 +25,7 @@ export const createAuthUser = (env: AuthEnv) => {
 
 	const $logout = async (navigate?: (path: string) => void): Promise<void> => {
 		await env.removeToken();
-		resetAuth();
+		authStore.reset();
 		if (navigate) navigate('/signin');
 	};
 
@@ -40,7 +40,7 @@ export const createAuthUser = (env: AuthEnv) => {
 	}> => {
 		const accessToken = await getAccessTokenFromApp();
 		if (!accessToken) {
-			resetAuth();
+			authStore.reset();
 			return { accessToken: null };
 		}
 		return { accessToken };

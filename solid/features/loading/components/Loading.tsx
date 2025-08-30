@@ -6,7 +6,7 @@ import loadingStore from '../loadingStore';
 export function Loading(): JSX.Element {
 	return (
 		<div>
-			<Show when={loadingStore.get()}>
+			<Show when={loadingStore.isLoading()}>
 				<div class="loading-page-manual element-animation">
 					<div class="element-animation__inner">
 						<div class="loader"></div>

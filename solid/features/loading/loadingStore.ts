@@ -4,6 +4,7 @@ const [isLoading, setIsLoading] = createSignal(false);
 
 export default {
 	get: isLoading,
+	isLoading,
 	start: () => setIsLoading(true),
 	stop: () => setIsLoading(false),
 	toggle: () => setIsLoading((v) => !v),

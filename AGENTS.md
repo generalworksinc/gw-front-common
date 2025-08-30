@@ -48,6 +48,14 @@
 - コンポーネントは `PascalCase.tsx`、ユーティリティは `utils.ts` を基本とする。
 
 ### フレームワーク別の再現方針
+### ストアの関数命名（可読性第一）
+- 状態取得は「意図が一目で分かる」動詞/疑問形を優先。
+  - 真偽値: `isLoading()`, `isLoggedIn()`
+  - 値取得: `getUser()`, `getState()` など、戻り値が具体的に分かる名前
+- 変更系は動詞の現在形を使用。
+  - `startLoading()`, `stopLoading()`, `open()`, `confirm()`, `close()`, `reset()`
+- ライブラリ内で共通化しない（各機能の分かりやすさを優先）。
+- 既存のアプリ実装（scheduler / clinicit）と齟齬がない範囲で命名を揃える。
 - Vue: `clinicit_front/src/composables/features_common` の仕様・UI を忠実に再現する。
 - Solid: `scheduler_front_solid/src/composables/features` の仕様・UI を忠実に再現する。
 - API 表面の違いは最小化し、コンポーネント/ストア名と挙動を一致させる。
