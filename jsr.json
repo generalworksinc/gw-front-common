@@ -1,25 +1,19 @@
 {
-  "name": "@generalworks/gw-front-common",
-  "version": "0.0.7",
-  "description": "Common frontend utilities and UI components for generalworks projects",
-  "exports": {
-    ".": "./dist/core.js",
-    "./core": "./dist/core.js",
-    "./solid": "./dist/solid/mod.js",
-    "./solid/components": "./dist/solid/components.js",
-    "./vue": "./dist/vue/mod.js",
-    "./vue/components": "./dist/vue/components.js"
-  },
-  "license": "MIT",
-  "publish": {
-    "include": [
-      "dist/**"
-    ],
-    "exclude": [
-      "__tests__/**",
-      "docs/**",
-      ".project_management/**"
-    ]
-  },
-  "vcs": { "useIgnoreFile": false }
+	"name": "@generalworks/gw-front-common",
+	"version": "0.0.7",
+	"description": "Common frontend utilities and UI components for generalworks projects",
+	"exports": {
+		".": "./dist/core.js",
+		"./core": "./dist/core.js",
+		"./solid": "./dist/solid/mod.js",
+		"./solid/components": "./dist/solid/components.js",
+		"./vue": "./dist/vue/mod.js",
+		"./vue/components": "./dist/vue/components.js"
+	},
+	"license": "MIT",
+	"publish": {
+		"include": ["dist/**"],
+		"exclude": ["__tests__/**", "docs/**", ".project_management/**"]
+	},
+	"vcs": { "useIgnoreFile": false }
 }

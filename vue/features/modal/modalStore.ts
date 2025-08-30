@@ -22,7 +22,9 @@ function isFunction(fn: unknown): fn is Function {
 }
 
 export function useModal() {
-	const state: RefLike<ReturnType<typeof defaultState>> = { value: defaultState() };
+	const state: RefLike<ReturnType<typeof defaultState>> = {
+		value: defaultState(),
+	};
 
 	const open = (options?: Partial<ReturnType<typeof defaultState>>) => {
 		state.value.isOpen = true;
@@ -72,5 +74,3 @@ export function useModal() {
 
 	return { state, open, confirm, close, yes, no, reset } as const;
 }
-
-

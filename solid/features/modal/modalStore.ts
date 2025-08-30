@@ -87,5 +87,3 @@ export default {
 	no,
 	reset,
 };
-
-

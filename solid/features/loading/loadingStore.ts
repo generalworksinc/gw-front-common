@@ -8,5 +8,3 @@ export default {
 	stop: () => setIsLoading(false),
 	toggle: () => setIsLoading((v) => !v),
 };
-
-

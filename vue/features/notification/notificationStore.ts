@@ -37,5 +37,3 @@ export function useNotification(): NotificationStore {
 
 	return { notifications, add, remove, clear };
 }
-
-
