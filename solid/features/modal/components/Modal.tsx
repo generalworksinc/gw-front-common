@@ -43,27 +43,30 @@ export default function Modal(): JSX.Element {
 						</div>
 						<div class="modal-footer">
 							<Show when={modalStore.get().isConfirm}>
-								<a
+								<button
+									type="button"
 									class="cursor-pointer modal-default-button is-right"
 									onClick={modalStore.yes}
 								>
 									<span style="cursor: pointer;">はい</span>
-								</a>
-								<a
+								</button>
+								<button
+									type="button"
 									class="cursor-pointer modal-default-button is-left"
 									onClick={modalStore.no}
 								>
 									<span style="cursor: pointer;">キャンセル</span>
-								</a>
+								</button>
 							</Show>
 							<Show when={!modalStore.get().isConfirm}>
-								<a
+								<button
+									type="button"
 									class="cursor-pointer modal-default-button is-right"
 									onClick={modalStore.close}
 									id="modal_component_OK"
 								>
 									<span style="cursor: pointer;">OK</span>
-								</a>
+								</button>
 							</Show>
 						</div>
 					</div>

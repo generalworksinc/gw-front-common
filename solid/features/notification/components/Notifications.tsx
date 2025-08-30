@@ -30,6 +30,7 @@ export function Notifications(props: {
 								<pre>{notification.message}</pre>
 							</div>
 							<button
+								type="button"
 								class={`z-50 notification-button default-notification-style-button default-notification-${notification.type}`}
 								onClick={() => removeNotificationHandler(notification.id)}
 								aria-label="delete notification"

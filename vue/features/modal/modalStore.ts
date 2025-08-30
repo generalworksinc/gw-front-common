@@ -17,7 +17,7 @@ const defaultState = () => ({
 	noFunc: null,
 });
 
-function isFunction(fn: unknown): fn is Function {
+function isFunction(fn: unknown): boolean {
 	return typeof fn === 'function';
 }
 

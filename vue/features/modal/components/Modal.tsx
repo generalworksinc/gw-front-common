@@ -14,9 +14,7 @@ const Modal: Component = defineComponent({
 								<div>{props.store.state.value.message}</div>
 							) : props.store.state.value.html ? (
 								<div innerHTML={props.store.state.value.html as any} />
-							) : (
-								<></>
-							)}
+							) : null}
 						</div>
 						<div class="gw-modal__actions">
 							<button

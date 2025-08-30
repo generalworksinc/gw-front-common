@@ -93,24 +93,21 @@ export const objectFilter = (
 	} else {
 		filterFunc = (_key) => true;
 	}
-	return Object.keys(obj)
-		.filter(filterFunc)
-		.reduce(
-			(o, key) =>
-				Object.assign(o, {
-					[convSnakeCase
-						? camelToSnake(key)
-						: convCamelCase
-							? snakeToCamel(key)
-							: key]: objectFilter(
-						obj[key],
-						undefined,
-						convSnakeCase,
-						convCamelCase,
-					),
-				}),
-			{} as Record<string, any>,
+	const out: Record<string, any> = {};
+	for (const key of Object.keys(obj).filter(filterFunc)) {
+		const outKey = convSnakeCase
+			? camelToSnake(key)
+			: convCamelCase
+				? snakeToCamel(key)
+				: key;
+		out[outKey] = objectFilter(
+			obj[key],
+			undefined,
+			convSnakeCase,
+			convCamelCase,
 		);
+	}
+	return out;
 };
 
 export const objectFilterKey = (
@@ -120,37 +117,23 @@ export const objectFilterKey = (
 ): Record<string, any> => {
 	const targetParams =
 		!params || params.length === 0 ? Object.keys(obj) : params;
-	return Object.keys(obj)
-		.filter((key) => targetParams?.includes(key))
-		.reduce(
-			(o, key) => {
-				if (keyFunc) {
-					return Object.assign(o, {
-						[keyFunc(key)]: obj[key],
-					});
-				} else {
-					return Object.assign(o, {
-						[key]: obj[key],
-					});
-				}
-			},
-			{} as Record<string, any>,
-		);
+	const out: Record<string, any> = {};
+	for (const key of Object.keys(obj).filter((k) => targetParams?.includes(k))) {
+		const outKey = keyFunc ? keyFunc(key) : key;
+		out[outKey] = obj[key];
+	}
+	return out;
 };
 
 export const objectFilterFunc = (
 	obj: Record<string, any>,
 	func: (value: any) => boolean,
 ): Record<string, any> => {
-	return Object.keys(obj)
-		.filter((key) => func(obj[key]))
-		.reduce(
-			(o, key) =>
-				Object.assign(o, {
-					[key]: obj[key],
-				}),
-			{} as Record<string, any>,
-		);
+	const out: Record<string, any> = {};
+	for (const key of Object.keys(obj).filter((k) => func(obj[k]))) {
+		out[key] = obj[key];
+	}
+	return out;
 };
 
 const makeNewObject = (
