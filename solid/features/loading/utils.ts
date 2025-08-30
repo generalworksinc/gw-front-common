@@ -9,7 +9,7 @@ type AsyncFunction = (...args: any[]) => Promise<any>;
 type SyncFunction = (...args: any[]) => any;
 
 export async function eventWithLoading(
-	store: Pick<LoadingStore, 'isLoading' | 'startLoading' | 'stopLoading'>,
+	store: Pick<LoadingStore, 'isLoading' | 'start' | 'stop'>,
 	func: AsyncFunction | SyncFunction,
 	...params: any[]
 ): Promise<any>;
@@ -34,7 +34,12 @@ export async function eventWithLoading(
 		typeof arg1 === 'function' ? arg1 : arg2;
 	const params: any[] = rest;
 
-	if ((store as any).isLoading) return false;
+	// Already loading
+	if (typeof (store as any).isLoading === 'function') {
+		if ((store as any).isLoading()) return false;
+	} else if ((store as any).isLoading) {
+		return false;
+	}
 	(store as any).start();
 	return await new Promise<any>((resolve, reject) => {
 		setTimeout(() => {
@@ -55,7 +60,7 @@ export async function eventWithLoading(
 							resolve(Promise.reject(err));
 						});
 				} else {
-					store.stopLoading();
+					(store as any).stop();
 					resolve(result);
 				}
 			} catch (ex) {
@@ -67,7 +72,7 @@ export async function eventWithLoading(
 }
 
 export const awaitLoadingWith = (
-	store: Pick<LoadingStore, 'isLoading' | 'startLoading' | 'stopLoading'>,
+	store: Pick<LoadingStore, 'isLoading' | 'start' | 'stop'>,
 	asyncFn: () => Promise<void>,
 ) => {
 	return async () => await eventWithLoading(store, asyncFn);

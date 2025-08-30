@@ -1,4 +1,5 @@
 {
+	// ES2020 方針: Object.hasOwn は使わず hasOwnProperty.call を許容
 	"$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
 	"formatter": { "enabled": true },
 	"linter": {
@@ -35,10 +36,15 @@
 					}
 				}
 			}
+		},
+		{
+			// ES2020 互換のため、hasOwnProperty.call を許容
+			"includes": ["core/common/features/object.ts"],
+			"linter": {
+				"rules": { "suspicious": { "noPrototypeBuiltins": "off" } }
+			}
 		}
 	],
-	"javascript": {
-		"formatter": { "quoteStyle": "single" }
-	},
+	"javascript": { "formatter": { "quoteStyle": "single" } },
 	"vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true }
 }

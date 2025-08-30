@@ -5,72 +5,78 @@ import {
 
 describe('solid/features/loading/utils', () => {
 	const makeStore = () => {
-		const store = {
-			isLoading: false,
-			startLoading: () => {
-				store.isLoading = true;
+		let v = false;
+		return {
+			isLoading() {
+				return v;
 			},
-			stopLoading: () => {
-				store.isLoading = false;
+			start() {
+				v = true;
+				return true;
+			},
+			stop() {
+				v = false;
+				return false;
 			},
 		};
-		return store;
 	};
 
 	test('returns false when already loading', async () => {
 		const store = makeStore();
-		store.isLoading = true;
-		const res = await eventWithLoading(store, () => 1);
+		const s = makeStore();
+		// set loading
+		s.start();
+		const res = await eventWithLoading(s, () => 1);
 		expect(res).toBe(false);
-		expect(store.isLoading).toBe(true);
+		expect(s.isLoading()).toBe(true);
 	});
 
 	test('handles sync function and toggles loading', async () => {
-		const store = makeStore();
-		const res = await eventWithLoading(store, (a, b) => a + b, 2, 3);
+		const s = makeStore();
+		const res = await eventWithLoading(s, (a, b) => a + b, 2, 3);
 		expect(res).toBe(5);
-		expect(store.isLoading).toBe(false);
+		expect(s.isLoading()).toBe(false);
 	});
 
 	test('handles async function success', async () => {
-		const store = makeStore();
-		const res = await eventWithLoading(store, async () => {
+		const s = makeStore();
+		const res = await eventWithLoading(s, async () => {
 			await new Promise((r) => setTimeout(r, 5));
 			return 'ok';
 		});
 		expect(res).toBe('ok');
-		expect(store.isLoading).toBe(false);
+		expect(s.isLoading()).toBe(false);
 	});
 
 	test('handles thrown error and ensures stopLoading', async () => {
-		const store = makeStore();
+		const s = makeStore();
 		await expect(
-			eventWithLoading(store, () => {
+			eventWithLoading(s, () => {
 				throw new Error('boom');
 			}),
 		).rejects.toThrow('boom');
-		expect(store.isLoading).toBe(false);
+		expect(s.isLoading()).toBe(false);
 	});
 
 	test('handles async rejected promise and ensures stopLoading', async () => {
-		const store = makeStore();
+		const s = makeStore();
 		try {
-			await eventWithLoading(store, async () =>
+			await eventWithLoading(s, async () =>
 				Promise.reject(new Error('rej')),
 			);
 			throw new Error('should not reach');
 		} catch (e) {
 			expect(e instanceof Error ? e.message : String(e)).toBe('rej');
 		}
-		expect(store.isLoading).toBe(false);
+		expect(s.isLoading()).toBe(false);
 	});
 
 	test('awaitLoadingWith wraps async function', async () => {
-		const store = makeStore();
-		const fn = awaitLoadingWith(store, async () => {
+		const s = makeStore();
+		const fn = awaitLoadingWith(s, async () => {
 			await new Promise((r) => setTimeout(r, 5));
 		});
 		await expect(fn()).resolves.toBeUndefined();
-		expect(store.isLoading).toBe(false);
+		expect(s.isLoading()).toBe(false);
 	});
 });

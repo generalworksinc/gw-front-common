@@ -1,6 +1,6 @@
 // createLoadingStore removed (global-only)
-import modalStore from '../solid/features/modal/store.ts';
-import notificationStore from '../solid/features/notification/store.ts';
+import modalStore from '../solid/features/modal/modalStore.ts';
+import notificationStore from '../solid/features/notification/notificationStore.ts';
 
 describe('solid stores (no runtime dep)', () => {
 	// loading store is global-only now
