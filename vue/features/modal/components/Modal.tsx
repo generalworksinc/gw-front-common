@@ -1,6 +1,6 @@
 import type { Component, PropType } from 'vue';
 import { defineComponent } from 'vue';
-import type { ModalStore } from '../store';
+import type { ModalStore } from '../modalStore';
 
 const Modal: Component = defineComponent({
 	name: 'Modal',
@@ -11,10 +11,10 @@ const Modal: Component = defineComponent({
 				<div class={`gw-modal ${((props as any).class ?? '').toString()}`}>
 					<div class="gw-modal__panel">
 						<div class="gw-modal__body">
-							{props.store.state.value.options.message ? (
-								<div>{props.store.state.value.options.message}</div>
-							) : props.store.state.value.options.html ? (
-								<div innerHTML={props.store.state.value.options.html as any} />
+							{props.store.state.value.message ? (
+								<div>{props.store.state.value.message}</div>
+							) : props.store.state.value.html ? (
+								<div innerHTML={props.store.state.value.html as any} />
 							) : (
 								<></>
 							)}
