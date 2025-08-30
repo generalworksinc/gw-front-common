@@ -23,17 +23,17 @@ const [persistedStore, persistedSetStore] = isServer
 	? [store, setStore]
 	: makePersisted([store, setStore], { name: 'authStore' });
 
-export const resetAuth = (): void => {
+const reset = (): void => {
 	persistedSetStore({ ...defaultState });
 };
 
-export const isLoggedIn = (): boolean => persistedStore.id !== null;
+const isLoggedIn = (): boolean => persistedStore.id !== null;
 
-export const authStore = {
+export default {
 	get: () => persistedStore,
 	set: persistedSetStore,
-	reset: resetAuth,
+	reset,
 	isLoggedIn,
 };
 
-export default authStore;
+
