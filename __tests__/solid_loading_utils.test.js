@@ -22,7 +22,6 @@ describe('solid/features/loading/utils', () => {
 	};
 
 	test('returns false when already loading', async () => {
-		const store = makeStore();
 		const s = makeStore();
 		// set loading
 		s.start();
