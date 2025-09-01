@@ -8,5 +8,9 @@ export type StyleLike = string | Record<string, string | number>;
 
 // Common PropType for class-like attributes (string | object | array)
 import type { PropType } from 'vue';
-export const classLikeProp = [String, Object, Array] as unknown as PropType<ClassLike>;
+export const classLikeProp = [
+	String,
+	Object,
+	Array,
+] as unknown as PropType<ClassLike>;
 export const styleLikeProp = [String, Object] as unknown as PropType<StyleLike>;

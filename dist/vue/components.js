@@ -1,6 +1,6 @@
-import { defineComponent as a, createVNode as e, computed as o, Transition as c, createTextVNode as n } from "vue";
-import { u as d } from "../loadingStore-DFAXCLyM.js";
-const i = [String, Object, Array], r = [String, Object], m = /* @__PURE__ */ a({
+import { defineComponent as a, createVNode as e, Transition as l, createTextVNode as n } from "vue";
+import { u as o } from "../loadingStore-DFAXCLyM.js";
+const i = [String, Object, Array], c = [String, Object], u = /* @__PURE__ */ a({
   name: "ErrorMessage",
   props: {
     field: Object,
@@ -17,18 +17,18 @@ const i = [String, Object, Array], r = [String, Object], m = /* @__PURE__ */ a({
       }, [s]) : null;
     };
   }
-}), v = /* @__PURE__ */ a({
+}), g = /* @__PURE__ */ a({
   name: "Loading",
   props: {
     class: i,
-    style: r
+    style: c
   },
   setup(t) {
-    const s = d(), l = o(() => s.isLoading.value);
-    return () => e(c, {
+    const s = o();
+    return () => e(l, {
       name: "loading-transition"
     }, {
-      default: () => [l.value ? e("div", {
+      default: () => [s.isLoading.value ? e("div", {
         class: ["loading-page-manual element-animation", t.class],
         style: t.style
       }, [e("div", {
@@ -38,7 +38,7 @@ const i = [String, Object, Array], r = [String, Object], m = /* @__PURE__ */ a({
       }, null)])]) : null]
     });
   }
-}), b = /* @__PURE__ */ a({
+}), m = /* @__PURE__ */ a({
   name: "Modal",
   props: {
     store: Object,
@@ -65,7 +65,7 @@ const i = [String, Object, Array], r = [String, Object], m = /* @__PURE__ */ a({
       onClick: () => t.store.no()
     }, [n("Cancel")])])])]) : null;
   }
-}), f = /* @__PURE__ */ a({
+}), v = /* @__PURE__ */ a({
   name: "Notifications",
   props: {
     store: Object,
@@ -85,8 +85,8 @@ const i = [String, Object, Array], r = [String, Object], m = /* @__PURE__ */ a({
   }
 });
 export {
-  m as ErrorMessage,
-  v as Loading,
-  b as Modal,
-  f as Notifications
+  u as ErrorMessage,
+  g as Loading,
+  m as Modal,
+  v as Notifications
 };

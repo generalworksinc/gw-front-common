@@ -1,6 +1,6 @@
 /** @jsxImportSource vue */
 import type { Component, CSSProperties, PropType } from 'vue';
-import { Transition, computed, defineComponent } from 'vue';
+import { defineComponent, Transition } from 'vue';
 import { classLikeProp, styleLikeProp } from '../../../types';
 import { useLoading } from '../loadingStore';
 import './loading.css';
@@ -13,10 +13,9 @@ const Loading: Component = defineComponent({
 	},
 	setup(props) {
 		const store = useLoading();
-		const visible = computed(() => store.isLoading.value);
 		return () => (
 			<Transition name="loading-transition">
-				{visible.value ? (
+				{store.isLoading.value ? (
 					<div
 						class={[
 							'loading-page-manual element-animation',
