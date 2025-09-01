@@ -1,16 +1,22 @@
-import { defineComponent as a, createVNode as e, computed as o, createTextVNode as n } from "vue";
-const i = /* @__PURE__ */ a({
+import { defineComponent as a, createVNode as e, computed as n, createTextVNode as l } from "vue";
+const o = /* @__PURE__ */ a({
   name: "ErrorMessage",
   props: {
-    error: String,
-    class: String
+    field: Object,
+    classObj: [String, Object, Array],
+    id: String
   },
   setup(t) {
-    return () => t.error ? e("div", {
-      class: `text-red-500 ${(t.class ?? "").toString()}`
-    }, [t.error]) : null;
+    return () => {
+      const s = t.field?.validator?.message;
+      return s ? e("div", {
+        key: t.field?.id,
+        id: t.id ?? t.field?.id,
+        class: ["text-red-500", t.classObj]
+      }, [s]) : null;
+    };
   }
-}), r = /* @__PURE__ */ a({
+}), c = /* @__PURE__ */ a({
   name: "Loading",
   props: {
     store: Object,
@@ -19,7 +25,7 @@ const i = /* @__PURE__ */ a({
     show: Boolean
   },
   setup(t) {
-    const s = o(() => t.show ?? t.store?.isLoading.value ?? !1);
+    const s = n(() => t.show ?? t.store?.isLoading.value ?? !1);
     return () => s.value ? e("div", {
       class: `gw-loading ${(t.class ?? "").toString()}`,
       style: t.style
@@ -27,7 +33,7 @@ const i = /* @__PURE__ */ a({
       class: "gw-loading__spinner"
     }, null)]) : null;
   }
-}), c = /* @__PURE__ */ a({
+}), d = /* @__PURE__ */ a({
   name: "Modal",
   props: {
     store: Object,
@@ -48,13 +54,13 @@ const i = /* @__PURE__ */ a({
       type: "button",
       class: "gw-modal__btn",
       onClick: () => t.store.yes()
-    }, [n("OK")]), e("button", {
+    }, [l("OK")]), e("button", {
       type: "button",
       class: "gw-modal__btn",
       onClick: () => t.store.no()
-    }, [n("Cancel")])])])]) : null;
+    }, [l("Cancel")])])])]) : null;
   }
-}), d = /* @__PURE__ */ a({
+}), r = /* @__PURE__ */ a({
   name: "Notifications",
   props: {
     store: Object,
@@ -74,8 +80,8 @@ const i = /* @__PURE__ */ a({
   }
 });
 export {
-  i as ErrorMessage,
-  r as Loading,
-  c as Modal,
-  d as Notifications
+  o as ErrorMessage,
+  c as Loading,
+  d as Modal,
+  r as Notifications
 };
