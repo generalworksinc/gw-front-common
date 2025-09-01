@@ -2,9 +2,7 @@
 import type { ClassLike, StyleLike } from '../../../types';
 import { useLoading } from '../loadingStore';
 
-// biome-ignore lint/correctness/noUnusedVariables: used in template
 const props = defineProps<{ class?: ClassLike; style?: StyleLike }>();
-// biome-ignore lint/correctness/noUnusedVariables: used in template
 const loadingStore = useLoading();
 </script>
 

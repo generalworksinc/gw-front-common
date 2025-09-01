@@ -43,6 +43,11 @@
 			"linter": {
 				"rules": { "suspicious": { "noPrototypeBuiltins": "off" } }
 			}
+		},
+		{
+			// .vue ファイルではテンプレート参照で未使用に見える変数があるため無効化
+			"includes": ["**/*.vue"],
+			"linter": { "rules": { "correctness": { "noUnusedVariables": "off" } } }
 		}
 	],
 	"javascript": { "formatter": { "quoteStyle": "single" } },
