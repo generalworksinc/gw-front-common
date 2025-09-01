@@ -1,6 +1,6 @@
 {
 	"name": "@generalworks/gw-front-common",
-	"version": "0.0.13",
+	"version": "0.0.14",
 	"description": "Common frontend utilities and UI components for generalworks projects",
 	"type": "module",
 	"exports": {
@@ -39,6 +39,7 @@
 		"format": "biome format --write core vue solid __tests__",
 		"build": "vite build",
 		"typecheck": "tsc -p ./tsconfig.build.json --noEmit",
+		"fix": "bun run lint:fix && bun run format",
 		"check": "bun run lint && bun run typecheck && bun run jsr:check"
 	},
 	"dependencies": {
