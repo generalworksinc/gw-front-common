@@ -1,92 +1,96 @@
-import { defineComponent as a, createVNode as e, Transition as l, createTextVNode as n } from "vue";
-import { u as o } from "../loadingStore-DFAXCLyM.js";
-const i = [String, Object, Array], c = [String, Object], u = /* @__PURE__ */ a({
+import { defineComponent as a, createVNode as t, Transition as o, createTextVNode as i } from "vue";
+import { u as c, a as d, b as r } from "../notificationStore-DRI6SltE.js";
+const l = [
+  String,
+  Object,
+  Array
+], u = [String, Object], v = /* @__PURE__ */ a({
   name: "ErrorMessage",
   props: {
     field: Object,
-    classObj: i,
+    classObj: l,
     id: String
   },
-  setup(t) {
+  setup(e) {
     return () => {
-      const s = t.field?.validator?.message;
-      return s ? e("div", {
-        key: t.field?.id,
-        id: t.id ?? t.field?.id,
-        class: ["text-red-500", t.classObj]
+      const s = e.field?.validator?.message;
+      return s ? t("div", {
+        key: e.field?.id,
+        id: e.id ?? e.field?.id,
+        class: ["text-red-500", e.classObj]
       }, [s]) : null;
     };
   }
-}), g = /* @__PURE__ */ a({
+}), p = /* @__PURE__ */ a({
   name: "Loading",
   props: {
-    class: i,
-    style: c
+    class: l,
+    style: u
   },
-  setup(t) {
-    const s = o();
-    return () => e(l, {
+  setup(e) {
+    const s = c();
+    return () => t(o, {
       name: "loading-transition"
     }, {
-      default: () => [s.isLoading.value ? e("div", {
-        class: ["loading-page-manual element-animation", t.class],
-        style: t.style
-      }, [e("div", {
+      default: () => [s.isLoading.value ? t("div", {
+        class: ["loading-page-manual element-animation", e.class],
+        style: e.style
+      }, [t("div", {
         class: "element-animation__inner"
-      }, [e("div", {
+      }, [t("div", {
         class: "loader"
       }, null)])]) : null]
     });
   }
-}), m = /* @__PURE__ */ a({
+}), f = /* @__PURE__ */ a({
   name: "Modal",
   props: {
-    store: Object,
     class: String
   },
-  setup(t) {
-    return () => t.store.state.value.isOpen ? e("div", {
-      class: `gw-modal ${(t.class ?? "").toString()}`
-    }, [e("div", {
+  setup(e) {
+    const s = d();
+    return () => s.state.value.isOpen ? t("div", {
+      class: `gw-modal ${(e.class ?? "").toString()}`
+    }, [t("div", {
       class: "gw-modal__panel"
-    }, [e("div", {
+    }, [t("div", {
       class: "gw-modal__body"
-    }, [t.store.state.value.message ? e("div", null, [t.store.state.value.message]) : t.store.state.value.html ? e("div", {
-      innerHTML: t.store.state.value.html
-    }, null) : null]), e("div", {
+    }, [s.state.value.message ? t("div", null, [s.state.value.message]) : s.state.value.html ? t("div", {
+      innerHTML: s.state.value.html
+    }, null) : null]), t("div", {
       class: "gw-modal__actions"
-    }, [e("button", {
+    }, [t("button", {
       type: "button",
       class: "gw-modal__btn",
-      onClick: () => t.store.yes()
-    }, [n("OK")]), e("button", {
+      onClick: () => s.yes()
+    }, [i("OK")]), t("button", {
       type: "button",
       class: "gw-modal__btn",
-      onClick: () => t.store.no()
-    }, [n("Cancel")])])])]) : null;
+      onClick: () => s.no()
+    }, [i("Cancel")])])])]) : null;
   }
-}), v = /* @__PURE__ */ a({
+}), b = /* @__PURE__ */ a({
   name: "Notifications",
   props: {
-    store: Object,
     class: String,
     position: {
       type: String,
       default: "top-right"
     }
   },
-  setup(t) {
-    return () => e("div", {
-      class: `${t.class ?? ""} gw-notifications pos-${t.position}`
-    }, [t.store.notifications.value.map((s) => e("div", {
+  setup(e) {
+    const s = r();
+    return () => t("div", {
+      class: `${e.class ?? ""} gw-notifications pos-${e.position}`
+    }, [s.notifications.value.map((n) => t("div", {
       class: "gw-notification",
-      "data-type": s.type
-    }, [s.message]))]);
+      "data-type": n.type
+    }, [n.message]))]);
   }
 });
 export {
-  u as ErrorMessage,
-  g as Loading,
-  m as Modal,
-  v as Notifications
+  v as ErrorMessage,
+  p as Loading,
+  f as Modal,
+  b as Notifications
 };
