@@ -2,8 +2,8 @@
 import type { ClassLike, StyleLike } from '../../../types';
 import { useLoading } from '../loadingStore';
 
-const props = defineProps<{ class?: ClassLike; style?: StyleLike }>();
-const loadingStore = useLoading();
+const props = defineProps<{ class?: ClassLike; style?: StyleLike; store?: any }>();
+const loadingStore = props.store ?? useLoading();
 </script>
 
 <template>
