@@ -12,6 +12,7 @@ const loadingStore = props.store ?? useLoading();
 
 <template>
   <Transition name="loading-transition">
+    <div>loading: {{ loadingStore.isLoading }}</div>
     <div v-if="loadingStore.isLoading" :class="['loading-page-manual element-animation', props.class]" :style="props.style as any">
       <div class="element-animation__inner">
         <div class="loader"></div>
