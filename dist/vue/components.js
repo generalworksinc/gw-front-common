@@ -1,138 +1,113 @@
-import { defineComponent, createElementBlock, createCommentVNode, openBlock, normalizeClass, toDisplayString, createElementVNode, createVNode, unref, Transition, withCtx, normalizeStyle, Fragment, renderList, renderSlot } from "vue";
-import { u as useLoading, a as useModal, b as useNotification } from "../notificationStore-DWRD-bq7.js";
-const _hoisted_1$2 = ["id"];
-const _sfc_main$3 = /* @__PURE__ */ defineComponent({
+import { defineComponent as _, createElementBlock as i, createCommentVNode as u, openBlock as n, normalizeClass as r, toDisplayString as m, createElementVNode as s, createVNode as f, unref as o, Transition as p, withCtx as v, normalizeStyle as g, Fragment as y, renderList as b, renderSlot as $ } from "vue";
+import { u as h, a as k, b as C } from "../notificationStore-Dm6DjWDD.js";
+const L = ["id"], B = /* @__PURE__ */ _({
   __name: "ErrorMessage",
   props: {
     field: {},
     classObj: {},
     id: {}
   },
-  setup(__props) {
-    return (_ctx, _cache) => {
-      return _ctx.field?.validator?.message ? (openBlock(), createElementBlock("div", {
-        key: _ctx.field?.id,
-        id: _ctx.id ?? _ctx.field?.id,
-        class: normalizeClass(["text-red-500", _ctx.classObj])
-      }, toDisplayString(_ctx.field?.validator?.message), 11, _hoisted_1$2)) : createCommentVNode("", true);
-    };
+  setup(c) {
+    return (t, e) => t.field?.validator?.message ? (n(), i("div", {
+      key: t.field?.id,
+      id: t.id ?? t.field?.id,
+      class: r(["text-red-500", t.classObj])
+    }, m(t.field?.validator?.message), 11, L)) : u("", !0);
   }
-});
-const _sfc_main$2 = /* @__PURE__ */ defineComponent({
+}), D = /* @__PURE__ */ _({
   __name: "Loading",
   props: {
     class: {},
     style: {},
     store: {}
   },
-  setup(__props) {
-    const props = __props;
-    const loadingStore = props.store ?? useLoading();
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", null, [
-        createElementVNode("div", null, "loading: " + toDisplayString(unref(loadingStore).isLoading), 1),
-        createVNode(Transition, { name: "loading-transition" }, {
-          default: withCtx(() => [
-            unref(loadingStore).isLoading ? (openBlock(), createElementBlock("div", {
-              key: 0,
-              class: normalizeClass(["loading-page-manual element-animation", props.class]),
-              style: normalizeStyle(props.style)
-            }, [..._cache[0] || (_cache[0] = [
-              createElementVNode("div", { class: "element-animation__inner" }, [
-                createElementVNode("div", { class: "loader" })
-              ], -1)
-            ])], 6)) : createCommentVNode("", true)
-          ]),
-          _: 1
-        })
-      ]);
-    };
+  setup(c) {
+    const t = c, e = t.store ?? h();
+    return (d, a) => (n(), i("div", null, [
+      s("div", null, "loading: " + m(o(e).isLoading), 1),
+      f(p, { name: "loading-transition" }, {
+        default: v(() => [
+          o(e).isLoading ? (n(), i("div", {
+            key: 0,
+            class: r(["loading-page-manual element-animation", t.class]),
+            style: g(t.style)
+          }, [...a[0] || (a[0] = [
+            s("div", { class: "element-animation__inner" }, [
+              s("div", { class: "loader" })
+            ], -1)
+          ])], 6)) : u("", !0)
+        ]),
+        _: 1
+      })
+    ]));
   }
-});
-const _hoisted_1$1 = { class: "gw-modal__panel" };
-const _hoisted_2$1 = { class: "gw-modal__body" };
-const _hoisted_3$1 = { key: 0 };
-const _hoisted_4 = ["innerHTML"];
-const _hoisted_5 = { class: "gw-modal__actions" };
-const _sfc_main$1 = /* @__PURE__ */ defineComponent({
+}), w = { class: "gw-modal__panel" }, M = { class: "gw-modal__body" }, N = { key: 0 }, z = ["innerHTML"], E = { class: "gw-modal__actions" }, F = /* @__PURE__ */ _({
   __name: "Modal",
   props: {
     class: {}
   },
-  setup(__props) {
-    const props = __props;
-    const store = useModal();
-    return (_ctx, _cache) => {
-      return unref(store).state.value.isOpen ? (openBlock(), createElementBlock("div", {
-        key: 0,
-        class: normalizeClass(["gw-modal", props.class])
-      }, [
-        createElementVNode("div", _hoisted_1$1, [
-          createElementVNode("div", _hoisted_2$1, [
-            unref(store).state.value.message ? (openBlock(), createElementBlock("div", _hoisted_3$1, toDisplayString(unref(store).state.value.message), 1)) : unref(store).state.value.html ? (openBlock(), createElementBlock("div", {
-              key: 1,
-              innerHTML: unref(store).state.value.html
-            }, null, 8, _hoisted_4)) : createCommentVNode("", true)
-          ]),
-          createElementVNode("div", _hoisted_5, [
-            createElementVNode("button", {
-              type: "button",
-              class: "gw-modal__btn",
-              onClick: _cache[0] || (_cache[0] = ($event) => unref(store).yes())
-            }, "OK"),
-            createElementVNode("button", {
-              type: "button",
-              class: "gw-modal__btn",
-              onClick: _cache[1] || (_cache[1] = ($event) => unref(store).no())
-            }, "Cancel")
-          ])
+  setup(c) {
+    const t = c, e = k();
+    return (d, a) => o(e).state.value.isOpen ? (n(), i("div", {
+      key: 0,
+      class: r(["gw-modal", t.class])
+    }, [
+      s("div", w, [
+        s("div", M, [
+          o(e).state.value.message ? (n(), i("div", N, m(o(e).state.value.message), 1)) : o(e).state.value.html ? (n(), i("div", {
+            key: 1,
+            innerHTML: o(e).state.value.html
+          }, null, 8, z)) : u("", !0)
+        ]),
+        s("div", E, [
+          s("button", {
+            type: "button",
+            class: "gw-modal__btn",
+            onClick: a[0] || (a[0] = (l) => o(e).yes())
+          }, "OK"),
+          s("button", {
+            type: "button",
+            class: "gw-modal__btn",
+            onClick: a[1] || (a[1] = (l) => o(e).no())
+          }, "Cancel")
         ])
-      ], 2)) : createCommentVNode("", true);
-    };
+      ])
+    ], 2)) : u("", !0);
   }
-});
-const _hoisted_1 = { class: "notifications" };
-const _hoisted_2 = { class: "z-50 position-top-right default-position-style-top-right" };
-const _hoisted_3 = ["onClick"];
-const _sfc_main = /* @__PURE__ */ defineComponent({
+}), O = { class: "notifications" }, S = { class: "z-50 position-top-right default-position-style-top-right" }, H = ["onClick"], K = /* @__PURE__ */ _({
   __name: "Notifications",
-  setup(__props) {
-    const store = useNotification();
-    const removeNotificationHandler = (id) => {
-      if (id) store.remove(id);
+  setup(c) {
+    const t = C(), e = (d) => {
+      d && t.remove(d);
     };
-    return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1, [
-        createElementVNode("div", _hoisted_2, [
-          (openBlock(true), createElementBlock(Fragment, null, renderList(unref(store).notifications, (n) => {
-            return openBlock(), createElementBlock("div", {
-              key: n.id,
-              class: normalizeClass(["z-50 notification default-notification-style", `default-notification-${n.type}`]),
-              role: "status",
-              "aria-live": "polite"
-            }, [
-              createElementVNode("div", {
-                class: normalizeClass(["z-50 notification-content default-notification-style-content", `default-notification-${n.type}`])
-              }, [
-                renderSlot(_ctx.$slots, "default", {}, () => [
-                  createElementVNode("pre", null, toDisplayString(n.message), 1)
-                ])
-              ], 2),
-              createElementVNode("button", {
-                class: normalizeClass(["z-50 notification-button default-notification-style-button", `default-notification-${n.type}`]),
-                onClick: ($event) => removeNotificationHandler(n.id),
-                "aria-label": "delete notification"
-              }, " × ", 10, _hoisted_3)
-            ], 2);
-          }), 128))
-        ])
-      ]);
-    };
+    return (d, a) => (n(), i("div", O, [
+      s("div", S, [
+        (n(!0), i(y, null, b(o(t).notifications, (l) => (n(), i("div", {
+          key: l.id,
+          class: r(["z-50 notification default-notification-style", `default-notification-${l.type}`]),
+          role: "status",
+          "aria-live": "polite"
+        }, [
+          s("div", {
+            class: r(["z-50 notification-content default-notification-style-content", `default-notification-${l.type}`])
+          }, [
+            $(d.$slots, "default", {}, () => [
+              s("pre", null, m(l.message), 1)
+            ])
+          ], 2),
+          s("button", {
+            class: r(["z-50 notification-button default-notification-style-button", `default-notification-${l.type}`]),
+            onClick: (T) => e(l.id),
+            "aria-label": "delete notification"
+          }, " × ", 10, H)
+        ], 2))), 128))
+      ])
+    ]));
   }
 });
 export {
-  _sfc_main$3 as ErrorMessage,
-  _sfc_main$2 as Loading,
-  _sfc_main$1 as Modal,
-  _sfc_main as Notifications
+  B as ErrorMessage,
+  D as Loading,
+  F as Modal,
+  K as Notifications
 };
