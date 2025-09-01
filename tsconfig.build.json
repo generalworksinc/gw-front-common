@@ -15,6 +15,7 @@
 	"include": [
 		"core/**/*.ts",
 		"vue/**/*.ts",
+		"vue/**/*.vue",
 		"vue/**/*.tsx",
 		"solid/**/*.ts",
 		"solid/**/*.tsx"
