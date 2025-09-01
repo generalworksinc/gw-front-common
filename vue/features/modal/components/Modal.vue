@@ -2,7 +2,9 @@
 import type { ClassLike } from '../../../types';
 import { useModal } from '../modalStore';
 
+// biome-ignore lint/correctness/noUnusedVariables: used in template
 const props = defineProps<{ class?: ClassLike }>();
+// biome-ignore lint/correctness/noUnusedVariables: used in template
 const store = useModal();
 </script>
 

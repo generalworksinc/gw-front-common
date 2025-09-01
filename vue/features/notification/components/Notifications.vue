@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useNotification } from '../notificationStore';
 
+// biome-ignore lint/correctness/noUnusedVariables: used in template
 const store = useNotification();
+// biome-ignore lint/correctness/noUnusedVariables: used in template
 const removeNotificationHandler = (id?: string) => {
 	if (id) store.remove(id);
 };
