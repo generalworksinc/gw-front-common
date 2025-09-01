@@ -1,9 +1,10 @@
-import { defineComponent as a, createVNode as e, computed as n, createTextVNode as l } from "vue";
-const o = /* @__PURE__ */ a({
+import { defineComponent as a, createVNode as e, computed as o, Transition as c, createTextVNode as n } from "vue";
+import { u as d } from "../loadingStore-DFAXCLyM.js";
+const i = [String, Object, Array], r = [String, Object], m = /* @__PURE__ */ a({
   name: "ErrorMessage",
   props: {
     field: Object,
-    classObj: [String, Object, Array],
+    classObj: i,
     id: String
   },
   setup(t) {
@@ -16,24 +17,28 @@ const o = /* @__PURE__ */ a({
       }, [s]) : null;
     };
   }
-}), c = /* @__PURE__ */ a({
+}), v = /* @__PURE__ */ a({
   name: "Loading",
   props: {
-    store: Object,
-    class: String,
-    style: [String, Object],
-    show: Boolean
+    class: i,
+    style: r
   },
   setup(t) {
-    const s = n(() => t.show ?? t.store?.isLoading.value ?? !1);
-    return () => s.value ? e("div", {
-      class: `gw-loading ${(t.class ?? "").toString()}`,
-      style: t.style
-    }, [e("span", {
-      class: "gw-loading__spinner"
-    }, null)]) : null;
+    const s = d(), l = o(() => s.isLoading.value);
+    return () => e(c, {
+      name: "loading-transition"
+    }, {
+      default: () => [l.value ? e("div", {
+        class: ["loading-page-manual element-animation", t.class],
+        style: t.style
+      }, [e("div", {
+        class: "element-animation__inner"
+      }, [e("div", {
+        class: "loader"
+      }, null)])]) : null]
+    });
   }
-}), d = /* @__PURE__ */ a({
+}), b = /* @__PURE__ */ a({
   name: "Modal",
   props: {
     store: Object,
@@ -54,13 +59,13 @@ const o = /* @__PURE__ */ a({
       type: "button",
       class: "gw-modal__btn",
       onClick: () => t.store.yes()
-    }, [l("OK")]), e("button", {
+    }, [n("OK")]), e("button", {
       type: "button",
       class: "gw-modal__btn",
       onClick: () => t.store.no()
-    }, [l("Cancel")])])])]) : null;
+    }, [n("Cancel")])])])]) : null;
   }
-}), r = /* @__PURE__ */ a({
+}), f = /* @__PURE__ */ a({
   name: "Notifications",
   props: {
     store: Object,
@@ -80,8 +85,8 @@ const o = /* @__PURE__ */ a({
   }
 });
 export {
-  o as ErrorMessage,
-  c as Loading,
-  d as Modal,
-  r as Notifications
+  m as ErrorMessage,
+  v as Loading,
+  b as Modal,
+  f as Notifications
 };

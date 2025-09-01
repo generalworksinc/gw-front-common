@@ -1,6 +1,6 @@
 /** @jsxImportSource vue */
 import { defineComponent, type PropType } from 'vue';
-import type { ClassLike } from '../../../types';
+import { classLikeProp } from '../../../types';
 
 type FieldProp = { validator?: { message?: string }; id?: string };
 
@@ -8,7 +8,7 @@ export default defineComponent({
 	name: 'ErrorMessage',
 	props: {
 		field: Object as PropType<FieldProp>,
-		classObj: [String, Object, Array] as PropType<ClassLike>,
+		classObj: classLikeProp,
 		id: String,
 	},
 	setup(props) {

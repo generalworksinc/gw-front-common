@@ -1,28 +1,36 @@
+/** @jsxImportSource vue */
 import type { Component, CSSProperties, PropType } from 'vue';
-import { computed, defineComponent } from 'vue';
-import type { LoadingStore } from '../loadingStore';
+import { Transition, computed, defineComponent } from 'vue';
+import { classLikeProp, styleLikeProp } from '../../../types';
+import { useLoading } from '../loadingStore';
+import './loading.css';
 
 const Loading: Component = defineComponent({
 	name: 'Loading',
 	props: {
-		store: Object as PropType<LoadingStore | undefined>,
-		class: String,
-		style: [String, Object] as PropType<string | CSSProperties>,
-		show: Boolean,
+		class: classLikeProp,
+		style: styleLikeProp as PropType<string | CSSProperties>,
 	},
 	setup(props) {
-		const visible = computed(
-			() => (props as any).show ?? props.store?.isLoading.value ?? false,
+		const store = useLoading();
+		const visible = computed(() => store.isLoading.value);
+		return () => (
+			<Transition name="loading-transition">
+				{visible.value ? (
+					<div
+						class={[
+							'loading-page-manual element-animation',
+							(props as any).class,
+						]}
+						style={props.style as any}
+					>
+						<div class="element-animation__inner">
+							<div class="loader"></div>
+						</div>
+					</div>
+				) : null}
+			</Transition>
 		);
-		return () =>
-			visible.value ? (
-				<div
-					class={`gw-loading ${((props as any).class ?? '').toString()}`}
-					style={props.style as any}
-				>
-					<span class="gw-loading__spinner" />
-				</div>
-			) : null;
 	},
 });
 
