@@ -1,3 +1,4 @@
+import { type Ref, ref } from 'vue';
 import type { RefLike } from '../../types';
 
 const defaultState = () => ({
@@ -22,7 +23,7 @@ function isFunction(fn: unknown): boolean {
 }
 
 export function useModal(): Readonly<{
-	state: RefLike<ReturnType<typeof defaultState>>;
+	state: Ref<ReturnType<typeof defaultState>>;
 	open: (options?: Partial<ReturnType<typeof defaultState>>) => void;
 	confirm: (options?: Partial<ReturnType<typeof defaultState>>) => void;
 	close: () => void;
@@ -30,9 +31,7 @@ export function useModal(): Readonly<{
 	no: () => void;
 	reset: () => void;
 }> {
-	const state: RefLike<ReturnType<typeof defaultState>> = {
-		value: defaultState(),
-	};
+	const state: Ref<ReturnType<typeof defaultState>> = ref(defaultState());
 
 	const open = (options?: Partial<ReturnType<typeof defaultState>>) => {
 		state.value.isOpen = true;

@@ -1,4 +1,4 @@
-import { RefLike } from '../../types';
+import { Ref } from 'vue';
 export type NotificationType = 'success' | 'warning' | 'danger' | 'info';
 export interface NotificationItem {
     id: string;
@@ -7,7 +7,7 @@ export interface NotificationItem {
     removeAfter?: number;
 }
 export interface NotificationStore {
-    notifications: RefLike<NotificationItem[]>;
+    notifications: Ref<NotificationItem[]>;
     add: (n: Omit<NotificationItem, 'id'>) => void;
     remove: (id: string) => void;
     clear: () => void;

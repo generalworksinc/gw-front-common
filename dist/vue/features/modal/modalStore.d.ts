@@ -1,4 +1,4 @@
-import { RefLike } from '../../types';
+import { Ref } from 'vue';
 declare const defaultState: () => {
     isOpen: boolean;
     isConfirm: boolean;
@@ -16,7 +16,7 @@ declare const defaultState: () => {
     noFunc: any;
 };
 export declare function useModal(): Readonly<{
-    state: RefLike<ReturnType<typeof defaultState>>;
+    state: Ref<ReturnType<typeof defaultState>>;
     open: (options?: Partial<ReturnType<typeof defaultState>>) => void;
     confirm: (options?: Partial<ReturnType<typeof defaultState>>) => void;
     close: () => void;

@@ -1,3 +1,4 @@
+import { type Ref, ref } from 'vue';
 import type { RefLike } from '../../types';
 
 export interface LoadingStore {
@@ -8,7 +9,7 @@ export interface LoadingStore {
 }
 
 export function useLoading(): LoadingStore {
-	const isLoading: RefLike<boolean> = { value: false };
+	const isLoading: Ref<boolean> = ref(false);
 
 	const setLoading = (loading: boolean) => {
 		isLoading.value = loading;
