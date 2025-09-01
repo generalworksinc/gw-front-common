@@ -1,27 +1,41 @@
-import { u as r } from "../notificationStore-Dm6DjWDD.js";
-import { a as p, b as L } from "../notificationStore-Dm6DjWDD.js";
-async function c(i, ...e) {
-  const o = r();
-  return o.isLoading ? !1 : (o.startLoading(), await new Promise((n, s) => {
+import { u as useLoading } from "../notificationStore-DWRD-bq7.js";
+import { a, b } from "../notificationStore-DWRD-bq7.js";
+async function eventWithLoading(func, ...params) {
+  const loading = useLoading();
+  if (loading.isLoading) {
+    return false;
+  }
+  loading.startLoading();
+  return await new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        const t = i(...e);
-        t instanceof Promise || t && typeof t.then == "function" && typeof t.catch == "function" ? t.then((a) => {
-          o.stopLoading(), n(Promise.resolve(a));
-        }).catch((a) => {
-          o.stopLoading(), n(Promise.reject(a));
-        }) : (o.stopLoading(), n(t));
-      } catch (t) {
-        o.stopLoading(), s(t);
+        const result = func(...params);
+        if (result instanceof Promise || result && typeof result.then === "function" && typeof result.catch === "function") {
+          result.then((res) => {
+            loading.stopLoading();
+            resolve(Promise.resolve(res));
+          }).catch((err) => {
+            loading.stopLoading();
+            resolve(Promise.reject(err));
+          });
+        } else {
+          loading.stopLoading();
+          resolve(result);
+        }
+      } catch (ex) {
+        loading.stopLoading();
+        reject(ex);
       }
     }, 1);
-  }));
+  });
 }
-const u = (i) => async () => await c(i);
+const awaitLoadingWith = (asyncFn) => {
+  return async () => await eventWithLoading(asyncFn);
+};
 export {
-  u as awaitLoadingWith,
-  c as eventWithLoading,
-  r as useLoading,
-  p as useModal,
-  L as useNotification
+  awaitLoadingWith,
+  eventWithLoading,
+  useLoading,
+  a as useModal,
+  b as useNotification
 };

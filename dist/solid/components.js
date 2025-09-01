@@ -1,43 +1,46 @@
-import { createVNode as t, createTextVNode as s } from "vue";
-import { Show as c, For as d } from "solid-js";
-import { l as f, d as r } from "../notificationStore-DwNojmzH.js";
-function v() {
-  return t("div", null, [t(c, {
-    when: f.isLoading()
+import { createVNode, createTextVNode } from "vue";
+import { Show, For } from "solid-js";
+import { l as loadingStore, d as defaultStore } from "../notificationStore-BpzZy_iz.js";
+function Loading() {
+  return createVNode("div", null, [createVNode(Show, {
+    "when": loadingStore.isLoading()
   }, {
-    default: () => [t("div", {
-      class: "loading-page-manual element-animation"
-    }, [t("div", {
-      class: "element-animation__inner"
-    }, [t("div", {
-      class: "loader"
+    default: () => [createVNode("div", {
+      "class": "loading-page-manual element-animation"
+    }, [createVNode("div", {
+      "class": "element-animation__inner"
+    }, [createVNode("div", {
+      "class": "loader"
     }, null)])])]
   })]);
 }
-function g(o) {
-  const e = () => o.store ?? r, a = () => e()?.get?.()?.list ?? [], n = () => o.position ?? "top-right", l = (i) => {
-    i != null && e().remove?.(i);
+function Notifications(props) {
+  const store = () => props.store ?? defaultStore;
+  const items = () => store()?.get?.()?.list ?? [];
+  const pos = () => props.position ?? "top-right";
+  const removeNotificationHandler = (id) => {
+    if (id != null) store().remove?.(id);
   };
-  return t("div", {
-    class: "notifications"
-  }, [t("div", {
-    class: `z-50 position-${n()} default-position-style-${n()}`
-  }, [t(d, {
-    each: a()
+  return createVNode("div", {
+    "class": "notifications"
+  }, [createVNode("div", {
+    "class": `z-50 position-${pos()} default-position-style-${pos()}`
+  }, [createVNode(For, {
+    "each": items()
   }, {
-    default: (i) => t("div", {
-      class: `z-50 notification default-notification-style default-notification-${i.type}`
-    }, [t("div", {
-      class: `z-50 notification-content default-notification-style-content default-notification-${i.type}`
-    }, [t("pre", null, [i.message])]), t("button", {
-      type: "button",
-      class: `z-50 notification-button default-notification-style-button default-notification-${i.type}`,
-      onClick: () => l(i.id),
+    default: (notification) => createVNode("div", {
+      "class": `z-50 notification default-notification-style default-notification-${notification.type}`
+    }, [createVNode("div", {
+      "class": `z-50 notification-content default-notification-style-content default-notification-${notification.type}`
+    }, [createVNode("pre", null, [notification.message])]), createVNode("button", {
+      "type": "button",
+      "class": `z-50 notification-button default-notification-style-button default-notification-${notification.type}`,
+      "onClick": () => removeNotificationHandler(notification.id),
       "aria-label": "delete notification"
-    }, [s("×")])])
+    }, [createTextVNode("×")])])
   })])]);
 }
 export {
-  v as Loading,
-  g as Notifications
+  Loading,
+  Notifications
 };

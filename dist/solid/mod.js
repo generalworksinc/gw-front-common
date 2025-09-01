@@ -1,58 +1,85 @@
-import { createUniqueId as N, untrack as S } from "solid-js";
-import { r as p, c as I } from "../notificationStore-DwNojmzH.js";
-import { m as P } from "../notificationStore-DwNojmzH.js";
-function O(r, o = {}) {
-  const s = o.storage || globalThis.localStorage, n = o.name || `storage-${N()}`;
-  if (!s)
-    return [r[0], r[1], null];
-  const l = o.storageOptions, u = o.serialize || JSON.stringify.bind(JSON), m = o.deserialize || JSON.parse.bind(JSON), c = s.getItem(n, l), i = typeof r[0] == "function" ? (t) => {
+import { createUniqueId, untrack } from "solid-js";
+import { r as reconcile, c as createStore } from "../notificationStore-BpzZy_iz.js";
+import { m } from "../notificationStore-BpzZy_iz.js";
+function makePersisted(signal, options = {}) {
+  const storage = options.storage || globalThis.localStorage;
+  const name = options.name || `storage-${createUniqueId()}`;
+  if (!storage) {
+    return [signal[0], signal[1], null];
+  }
+  const storageOptions = options.storageOptions;
+  const serialize = options.serialize || JSON.stringify.bind(JSON);
+  const deserialize = options.deserialize || JSON.parse.bind(JSON);
+  const init = storage.getItem(name, storageOptions);
+  const set = typeof signal[0] === "function" ? (data) => {
     try {
-      const e = m(t);
-      r[1](() => e);
-    } catch {
+      const value = deserialize(data);
+      signal[1](() => value);
+    } catch (e) {
     }
-  } : (t) => {
+  } : (data) => {
     try {
-      const e = m(t);
-      r[1](p(e));
-    } catch {
+      const value = deserialize(data);
+      signal[1](reconcile(value));
+    } catch (e) {
     }
   };
-  let a = !0;
-  if (c instanceof Promise ? c.then((t) => a && t && i(t)) : c && i(c), typeof o.sync?.[0] == "function") {
-    const t = typeof r[0] == "function" ? r[0] : () => r[0];
-    o.sync[0]((e) => {
-      e.key !== n || (e.url || globalThis.location.href) !== globalThis.location.href || e.newValue === u(S(t)) || i(e.newValue);
+  let unchanged = true;
+  if (init instanceof Promise)
+    init.then((data) => unchanged && data && set(data));
+  else if (init)
+    set(init);
+  if (typeof options.sync?.[0] === "function") {
+    const get = typeof signal[0] === "function" ? signal[0] : () => signal[0];
+    options.sync[0]((data) => {
+      if (data.key !== name || (data.url || globalThis.location.href) !== globalThis.location.href || data.newValue === serialize(untrack(get))) {
+        return;
+      }
+      set(data.newValue);
     });
   }
   return [
-    r[0],
-    typeof r[0] == "function" ? (t) => {
-      const e = r[1](t), f = t != null ? u(e) : t;
-      return o.sync?.[1](n, f), f != null ? s.setItem(n, f, l) : s.removeItem(n, l), a = !1, e;
-    } : (...t) => {
-      r[1](...t);
-      const e = u(S(() => r[0]));
-      o.sync?.[1](n, e), s.setItem(n, e, l), a = !1;
+    signal[0],
+    typeof signal[0] === "function" ? (value) => {
+      const output = signal[1](value);
+      const serialized = value != null ? serialize(output) : value;
+      options.sync?.[1](name, serialized);
+      if (serialized != null)
+        storage.setItem(name, serialized, storageOptions);
+      else
+        storage.removeItem(name, storageOptions);
+      unchanged = false;
+      return output;
+    } : (...args) => {
+      signal[1](...args);
+      const value = serialize(untrack(() => signal[0]));
+      options.sync?.[1](name, value);
+      storage.setItem(name, value, storageOptions);
+      unchanged = false;
     },
-    c
+    init
   ];
 }
-const y = {
+const defaultState = {
   id: null,
   email: null,
   fullName: null,
   firstName: null,
   lastName: null
-}, [b, z] = I(y), [d, h] = O([b, z], { name: "authStore" }), g = () => {
-  h({ ...y });
-}, J = () => d.id !== null, v = {
-  get: () => d,
-  set: h,
-  reset: g,
-  isLoggedIn: J
+};
+const [store, setStore] = createStore(defaultState);
+const [persistedStore, persistedSetStore] = makePersisted([store, setStore], { name: "authStore" });
+const reset = () => {
+  persistedSetStore({ ...defaultState });
+};
+const isLoggedIn = () => persistedStore.id !== null;
+const authStore = {
+  get: () => persistedStore,
+  set: persistedSetStore,
+  reset,
+  isLoggedIn
 };
 export {
-  v as authStore,
-  P as modalStore
+  authStore,
+  m as modalStore
 };
