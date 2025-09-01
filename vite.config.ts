@@ -39,7 +39,7 @@ export default defineConfig({
 			formats: ['es'],
 		},
 		rollupOptions: {
-			external: ['vue', 'solid-js', 'dayjs'],
+			external: ['vue', 'solid-js', 'dayjs', 'pinia'],
 			output: {
 				entryFileNames: '[name].js',
 				// 共有チャンクはデフォルトのまま（必要に応じて自動分割）

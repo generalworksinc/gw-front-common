@@ -1,6 +1,6 @@
 {
 	"name": "@generalworks/gw-front-common",
-	"version": "0.0.14",
+	"version": "0.0.15",
 	"description": "Common frontend utilities and UI components for generalworks projects",
 	"type": "module",
 	"exports": {
@@ -49,7 +49,8 @@
 	"peerDependencies": {
 		"solid-js": ">=1.9.0",
 		"vue": ">=3.4.0",
-		"dayjs": ">=1.11.0"
+		"dayjs": ">=1.11.0",
+		"pinia": ">=2.1.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.0",
@@ -62,6 +63,7 @@
 		"typescript": "~5.6.3",
 		"vite": "^7.1.3",
 		"vite-plugin-dts": "^4.5.4",
-		"vue": "^3.4.0"
+		"vue": "^3.4.0",
+		"pinia": "^2.1.7"
 	}
 }

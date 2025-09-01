@@ -1,4 +1,4 @@
-import { type Ref, ref } from 'vue';
+import { defineStore } from 'pinia';
 
 export type NotificationType = 'success' | 'warning' | 'danger' | 'info';
 
@@ -9,38 +9,23 @@ export interface NotificationItem {
 	removeAfter?: number;
 }
 
-export interface NotificationStore {
-	notifications: Ref<NotificationItem[]>;
-	add: (n: Omit<NotificationItem, 'id'>) => void;
-	remove: (id: string) => void;
-	clear: () => void;
-}
-
 const randomId = () => Math.random().toString(36).slice(2);
 
-const notifications: Ref<NotificationItem[]> = ref([]);
-
-const remove = (id: string) => {
-	notifications.value = notifications.value.filter((n) => n.id !== id);
-};
-
-const add = (n: Omit<NotificationItem, 'id'>) => {
-	const item: NotificationItem = { id: randomId(), ...n };
-	notifications.value = [...notifications.value, item];
-	if (item.removeAfter && item.removeAfter > 0) {
-		setTimeout(() => remove(item.id), item.removeAfter);
-	}
-};
-
-const clear = () => (notifications.value = []);
-
-const notificationStore: NotificationStore = {
-	notifications,
-	add,
-	remove,
-	clear,
-};
-
-export function useNotification(): NotificationStore {
-	return notificationStore;
-}
+export const useNotification = defineStore('notification', {
+	state: () => ({ notifications: [] as NotificationItem[] }),
+	actions: {
+		add(n: Omit<NotificationItem, 'id'>): void {
+			const item: NotificationItem = { id: randomId(), ...n };
+			this.notifications = [...this.notifications, item];
+			if (item.removeAfter && item.removeAfter > 0) {
+				setTimeout(() => this.remove(item.id), item.removeAfter);
+			}
+		},
+		remove(id: string): void {
+			this.notifications = this.notifications.filter((n) => n.id !== id);
+		},
+		clear(): void {
+			this.notifications = [];
+		},
+	},
+});

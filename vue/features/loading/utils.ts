@@ -8,7 +8,7 @@ export async function eventWithLoading(
 	...params: any[]
 ): Promise<any> {
 	const loading = useLoading();
-	if (loading.isLoading.value) {
+	if (loading.isLoading) {
 		return false;
 	}
 	loading.startLoading();

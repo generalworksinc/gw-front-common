@@ -1,29 +1,25 @@
-import { type Ref, ref } from 'vue';
+import { defineStore } from 'pinia';
 
-export interface LoadingStore {
-	isLoading: Ref<boolean>;
-	setLoading: (loading: boolean) => void;
-	startLoading: () => void;
-	stopLoading: () => void;
-}
-
-// singleton state
-const isLoading: Ref<boolean> = ref(false);
-
-const setLoading = (loading: boolean) => {
-	isLoading.value = loading;
-};
-
-const startLoading = () => setLoading(true);
-const stopLoading = () => setLoading(false);
-
-const store: LoadingStore = {
-	isLoading,
-	setLoading,
-	startLoading,
-	stopLoading,
-};
-
-export function useLoading(): LoadingStore {
-	return store;
-}
+export const useLoading = defineStore('loading', {
+	state: () => ({
+		isLoading: false as boolean,
+	}),
+	actions: {
+		setLoading(loading: boolean): void {
+			this.isLoading = loading;
+		},
+		startLoading(): void {
+			this.setLoading(true);
+		},
+		stopLoading(): void {
+			this.setLoading(false);
+		},
+		// compatibility with legacy API
+		LOADING(): void {
+			this.startLoading();
+		},
+		NOT_LOADING(): void {
+			this.stopLoading();
+		},
+	},
+});

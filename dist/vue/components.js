@@ -1,5 +1,5 @@
 import { defineComponent as _, createElementBlock as l, createCommentVNode as u, openBlock as i, normalizeClass as d, toDisplayString as m, createBlock as f, Transition as p, withCtx as v, unref as o, normalizeStyle as g, createElementVNode as s, Fragment as y, renderList as b, renderSlot as $ } from "vue";
-import { u as k, a as h, b as C } from "../notificationStore-Pf28puhW.js";
+import { u as k, a as h, b as C } from "../notificationStore-Dm6DjWDD.js";
 const w = ["id"], V = /* @__PURE__ */ _({
   __name: "ErrorMessage",
   props: {
@@ -24,7 +24,7 @@ const w = ["id"], V = /* @__PURE__ */ _({
     const t = c, e = k();
     return (r, n) => (i(), f(p, { name: "loading-transition" }, {
       default: v(() => [
-        o(e).isLoading ? (i(), l("div", {
+        o(e).isLoading.value ? (i(), l("div", {
           key: 0,
           class: d(["loading-page-manual element-animation", t.class]),
           style: g(t.style)
@@ -78,7 +78,7 @@ const w = ["id"], V = /* @__PURE__ */ _({
     };
     return (r, n) => (i(), l("div", O, [
       s("div", S, [
-        (i(!0), l(y, null, b(o(t).notifications.value, (a) => (i(), l("div", {
+        (i(!0), l(y, null, b(o(t).notifications, (a) => (i(), l("div", {
           key: a.id,
           class: d(["z-50 notification default-notification-style", `default-notification-${a.type}`]),
           role: "status",
