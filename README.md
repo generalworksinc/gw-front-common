@@ -27,7 +27,7 @@ import { Loading, Modal, Notifications } from '@generalworks/gw-front-common/vue
 ```
 
 ## 設計方針（Vue と Solid の分離）
-- Vue3 専用層（`@generalworks/gw-front-common/vue`）は、Vue 本体に依存しない `RefLike<T> = { value: T }` でストアAPIを提供します。
+// NOTE: 以前は `RefLike<T> = { value: T }` を用意していましたが、現在は Vue の `ref`/`Ref` に統一しています。
   - 例: `useLoading().isLoading.value`, `useModal().state.value` など
   - 目的: ランタイム依存を避けつつ Composition API 互換の使用感を維持
 - Solid 専用層（`@generalworks/gw-front-common/solid`）は、Solid の Signal/Store 文化に合わせた独立実装（関数ベースAPI）を提供します。

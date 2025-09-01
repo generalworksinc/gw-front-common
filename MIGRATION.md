@@ -69,7 +69,7 @@ export default defineConfig({
 ```
 
 ## 3. Vue と Solid の違い（互換方針）
-- **Vue** は `RefLike<T> = { value: T }` ベースのAPI（例: `useLoading().isLoading.value`）
+- **Vue** は `ref`/`Ref` ベースのAPI（例: `useLoading().isLoading` をテンプレートでそのまま参照可）
 - **Solid** は Signal/Store ベースのAPI。現状はコンポーネントの提供が中心で、ストアAPIは今後拡充予定です。
   - Loading は `<Loading show />` のように `show` props でも制御可能です。
   - Modal/Notifications は `store` props を要求します。現時点ではアプリ側で簡易ストアを用意して渡してください（将来、公式ストアAPIを公開予定）。

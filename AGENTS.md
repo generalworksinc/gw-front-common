@@ -26,7 +26,7 @@
   - 例: `const store = { ... }` を実装し、`export type ModalStore = typeof store` を公開する。
   - これにより interface の二重定義を避け、実装と型の乖離を防ぐ。
 - 共有型は必要最小限のみ export する。
-  - 例: Vue の `RefLike<T>` は `vue/types.ts` に集約し再利用。
+- Vue のストアは `ref`/`Ref` を用いる（独自の `RefLike<T>` は廃止）。
 
 ### JSX/tsconfig の方針
 - 既定の JSX ランタイムは Vue を使用（`tsconfig.build.json`: `jsx: preserve`, `jsxImportSource: "vue"`, `types: ["vue/jsx"]`）。

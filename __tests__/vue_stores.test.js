@@ -1,6 +1,6 @@
 import { useLoading, useModal, useNotification } from '../vue/mod.ts';
 
-describe('vue stores (RefLike)', () => {
+describe('vue stores (ref)', () => {
 	test('useLoading toggles state', () => {
 		const s = useLoading();
 		expect(s.isLoading.value).toBe(false);

@@ -15,13 +15,44 @@ declare const defaultState: () => {
     yesFunc: any;
     noFunc: any;
 };
-export declare function useModal(): Readonly<{
-    state: Ref<ReturnType<typeof defaultState>>;
-    open: (options?: Partial<ReturnType<typeof defaultState>>) => void;
-    confirm: (options?: Partial<ReturnType<typeof defaultState>>) => void;
-    close: () => void;
-    yes: () => void;
-    no: () => void;
-    reset: () => void;
-}>;
+declare const modalStore: {
+    readonly state: Ref<{
+        isOpen: boolean;
+        isConfirm: boolean;
+        html: string;
+        message: string;
+        height: string;
+        width: string;
+        maxHeight: string;
+        maxWidth: string;
+        minHeight: string;
+        minWidth: string;
+        isScrollY: boolean;
+        isScrollX: boolean;
+        yesFunc: any;
+        noFunc: any;
+    }, {
+        isOpen: boolean;
+        isConfirm: boolean;
+        html: string;
+        message: string;
+        height: string;
+        width: string;
+        maxHeight: string;
+        maxWidth: string;
+        minHeight: string;
+        minWidth: string;
+        isScrollY: boolean;
+        isScrollX: boolean;
+        yesFunc: any;
+        noFunc: any;
+    }>;
+    readonly open: (options?: Partial<ReturnType<typeof defaultState>>) => void;
+    readonly confirm: (options?: Partial<ReturnType<typeof defaultState>>) => void;
+    readonly close: () => void;
+    readonly yes: () => void;
+    readonly no: () => void;
+    readonly reset: () => void;
+};
+export declare function useModal(): Readonly<typeof modalStore>;
 export {};

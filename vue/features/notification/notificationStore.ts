@@ -1,5 +1,4 @@
 import { type Ref, ref } from 'vue';
-import type { RefLike } from '../../types';
 
 export type NotificationType = 'success' | 'warning' | 'danger' | 'info';
 
@@ -19,22 +18,29 @@ export interface NotificationStore {
 
 const randomId = () => Math.random().toString(36).slice(2);
 
+const notifications: Ref<NotificationItem[]> = ref([]);
+
+const remove = (id: string) => {
+	notifications.value = notifications.value.filter((n) => n.id !== id);
+};
+
+const add = (n: Omit<NotificationItem, 'id'>) => {
+	const item: NotificationItem = { id: randomId(), ...n };
+	notifications.value = [...notifications.value, item];
+	if (item.removeAfter && item.removeAfter > 0) {
+		setTimeout(() => remove(item.id), item.removeAfter);
+	}
+};
+
+const clear = () => (notifications.value = []);
+
+const notificationStore: NotificationStore = {
+	notifications,
+	add,
+	remove,
+	clear,
+};
+
 export function useNotification(): NotificationStore {
-	const notifications: Ref<NotificationItem[]> = ref([]);
-
-	const remove = (id: string) => {
-		notifications.value = notifications.value.filter((n) => n.id !== id);
-	};
-
-	const add = (n: Omit<NotificationItem, 'id'>) => {
-		const item: NotificationItem = { id: randomId(), ...n };
-		notifications.value = [...notifications.value, item];
-		if (item.removeAfter && item.removeAfter > 0) {
-			setTimeout(() => remove(item.id), item.removeAfter);
-		}
-	};
-
-	const clear = () => (notifications.value = []);
-
-	return { notifications, add, remove, clear };
+	return notificationStore;
 }
