@@ -1,6 +1,6 @@
 {
 	"name": "@generalworks/gw-front-common",
-	"version": "0.0.19",
+	"version": "0.0.20",
 	"description": "Common frontend utilities and UI components for generalworks projects",
 	"type": "module",
 	"exports": {
@@ -27,6 +27,10 @@
 		"./vue/components": {
 			"types": "./dist/vue/components.d.ts",
 			"default": "./dist/vue/components.js"
+		},
+		"./vue/nuxt/module": {
+			"types": "./dist/vue/nuxt/module.d.ts",
+			"default": "./dist/vue/nuxt/module.js"
 		}
 	},
 	"scripts": {
@@ -47,6 +51,7 @@
 		"ofetch": "^1.4.1"
 	},
 	"peerDependencies": {
+		"@nuxt/kit": ">=3.0.0",
 		"solid-js": ">=1.9.0",
 		"vue": ">=3.4.0",
 		"dayjs": ">=1.11.0",

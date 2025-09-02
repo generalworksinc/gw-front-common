@@ -1,5 +1,6 @@
-import { Ref } from 'vue';
-declare const defaultState: () => {
+import { ComputedRef } from 'vue';
+type ModalFn = (() => void) | null;
+export type ModalState = {
     isOpen: boolean;
     isConfirm: boolean;
     html: string;
@@ -12,47 +13,16 @@ declare const defaultState: () => {
     minWidth: string;
     isScrollY: boolean;
     isScrollX: boolean;
-    yesFunc: any;
-    noFunc: any;
+    yesFunc: ModalFn;
+    noFunc: ModalFn;
 };
-declare const modalStore: {
-    readonly state: Ref<{
-        isOpen: boolean;
-        isConfirm: boolean;
-        html: string;
-        message: string;
-        height: string;
-        width: string;
-        maxHeight: string;
-        maxWidth: string;
-        minHeight: string;
-        minWidth: string;
-        isScrollY: boolean;
-        isScrollX: boolean;
-        yesFunc: any;
-        noFunc: any;
-    }, {
-        isOpen: boolean;
-        isConfirm: boolean;
-        html: string;
-        message: string;
-        height: string;
-        width: string;
-        maxHeight: string;
-        maxWidth: string;
-        minHeight: string;
-        minWidth: string;
-        isScrollY: boolean;
-        isScrollX: boolean;
-        yesFunc: any;
-        noFunc: any;
-    }>;
-    readonly open: (options?: Partial<ReturnType<typeof defaultState>>) => void;
-    readonly confirm: (options?: Partial<ReturnType<typeof defaultState>>) => void;
+export declare function useModal(): {
+    readonly state: ComputedRef<ModalState>;
+    readonly open: (options?: Partial<ModalState>) => void;
+    readonly confirm: (options?: Partial<ModalState>) => void;
     readonly close: () => void;
     readonly yes: () => void;
     readonly no: () => void;
     readonly reset: () => void;
 };
-export declare function useModal(): Readonly<typeof modalStore>;
 export {};

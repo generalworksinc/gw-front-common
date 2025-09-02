@@ -24,7 +24,6 @@
 		"**/__tests__/**",
 		"dist/**",
 		"node_modules/**",
-		"vue/nuxt/**",
 		"vue/types.ts"
 	]
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineNuxtPlugin } from 'nuxt/app';
 import { setPinia } from '../../pinia';
 

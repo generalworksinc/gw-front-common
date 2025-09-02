@@ -11,7 +11,7 @@ export default defineConfig({
 		dts({
 			outDir: 'dist',
 			include: ['core', 'vue'],
-			exclude: ['**/__tests__/**'],
+			exclude: ['**/__tests__/**', 'vue/types.ts'],
 			rollupTypes: false,
 			copyDtsFiles: true,
 			tsconfigPath: 'tsconfig.build.json',
@@ -33,13 +33,14 @@ export default defineConfig({
 				'core/mod': 'core/mod.ts',
 				'vue/mod': 'vue/mod.ts',
 				'vue/components': 'vue/components.ts',
+				'vue/nuxt/module': 'vue/nuxt/module.ts',
 				'solid/mod': 'solid/mod.ts',
 				'solid/components': 'solid/components.ts',
 			},
 			formats: ['es'],
 		},
 		rollupOptions: {
-			external: ['vue', 'solid-js', 'dayjs', 'pinia'],
+			external: ['vue', 'solid-js', 'dayjs', 'pinia', '@nuxt/kit', /^node:.*/],
 			output: {
 				entryFileNames: '[name].js',
 				// 共有チャンクはデフォルトのまま（必要に応じて自動分割）

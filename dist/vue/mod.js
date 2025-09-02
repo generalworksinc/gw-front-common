@@ -1,27 +1,29 @@
-import { u as r } from "../notificationStore-Dm6DjWDD.js";
-import { a as p, b as L } from "../notificationStore-Dm6DjWDD.js";
-async function c(i, ...e) {
+import { u as r } from "../notificationStore-BCgJjQ4Z.js";
+import { a as p, b as m } from "../notificationStore-BCgJjQ4Z.js";
+import { default as h } from "./nuxt/module.js";
+async function c(a, ...e) {
   const o = r();
-  return o.isLoading ? !1 : (o.startLoading(), await new Promise((n, s) => {
+  return o.isLoading ? !1 : (o.startLoading(), await new Promise((i, s) => {
     setTimeout(() => {
       try {
-        const t = i(...e);
-        t instanceof Promise || t && typeof t.then == "function" && typeof t.catch == "function" ? t.then((a) => {
-          o.stopLoading(), n(Promise.resolve(a));
-        }).catch((a) => {
-          o.stopLoading(), n(Promise.reject(a));
-        }) : (o.stopLoading(), n(t));
+        const t = a(...e);
+        t instanceof Promise || t && typeof t.then == "function" && typeof t.catch == "function" ? t.then((n) => {
+          o.stopLoading(), i(Promise.resolve(n));
+        }).catch((n) => {
+          o.stopLoading(), i(Promise.reject(n));
+        }) : (o.stopLoading(), i(t));
       } catch (t) {
         o.stopLoading(), s(t);
       }
     }, 1);
   }));
 }
-const u = (i) => async () => await c(i);
+const f = (a) => async () => await c(a);
 export {
-  u as awaitLoadingWith,
+  h as NuxtModule,
+  f as awaitLoadingWith,
   c as eventWithLoading,
   r as useLoading,
   p as useModal,
-  L as useNotification
+  m as useNotification
 };

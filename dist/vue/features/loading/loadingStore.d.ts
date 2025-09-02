@@ -1,4 +1,4 @@
-export declare const useLoading: import('pinia').StoreDefinition<"loading", {
+export declare function useLoading(): import('pinia').Store<"loading", {
     isLoading: boolean;
 }, {}, {
     setLoading(loading: boolean): void;
