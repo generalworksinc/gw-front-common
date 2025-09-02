@@ -1,13 +1,21 @@
+import { createPinia, setActivePinia } from 'pinia';
+import { setPinia } from '../vue/pinia.ts';
 import { useLoading, useModal, useNotification } from '../vue/mod.ts';
+
+beforeAll(() => {
+  const pinia = createPinia();
+  setPinia(pinia);
+  setActivePinia(pinia);
+});
 
 describe('vue stores (ref)', () => {
 	test('useLoading toggles state', () => {
 		const s = useLoading();
-		expect(s.isLoading.value).toBe(false);
+		expect(s.isLoading).toBe(false);
 		s.startLoading();
-		expect(s.isLoading.value).toBe(true);
+		expect(s.isLoading).toBe(true);
 		s.stopLoading();
-		expect(s.isLoading.value).toBe(false);
+		expect(s.isLoading).toBe(false);
 	});
 
 	test('useModal open/confirm/yes/no/close/reset', () => {
@@ -35,23 +43,23 @@ describe('vue stores (ref)', () => {
 
 	test('useNotification add/remove/clear + auto-remove', async () => {
 		const n = useNotification();
-		expect(n.notifications.value).toHaveLength(0);
+		expect(n.notifications).toHaveLength(0);
 
 		n.add({ type: 'info', message: 'hi', removeAfter: 30 });
-		expect(n.notifications.value.length).toBe(1);
+		expect(n.notifications.length).toBe(1);
 
-		const id = n.notifications.value[0].id;
+		const id = n.notifications[0].id;
 		n.remove(id);
-		expect(n.notifications.value.length).toBe(0);
+		expect(n.notifications.length).toBe(0);
 
 		n.add({ type: 'success', message: 'bye', removeAfter: 10 });
-		expect(n.notifications.value.length).toBe(1);
+		expect(n.notifications.length).toBe(1);
 		await new Promise((r) => setTimeout(r, 25));
-		expect(n.notifications.value.length).toBe(0);
+		expect(n.notifications.length).toBe(0);
 
 		n.add({ type: 'danger', message: 'x' });
 		n.add({ type: 'warning', message: 'y' });
 		n.clear();
-		expect(n.notifications.value.length).toBe(0);
+		expect(n.notifications.length).toBe(0);
 	});
 });
