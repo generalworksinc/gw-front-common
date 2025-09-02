@@ -6,23 +6,23 @@ const emit = defineEmits(['yes', 'no', 'close']);
 const store = useModal();
 
 const containerStyle = computed(() => {
-    const s = store.state.value;
-    const width = s.width;
-    const height = s.height;
-    const maxWidth = s.maxWidth;
-    const maxHeight = s.maxHeight;
-    const minWidth = s.minWidth;
-    const minHeight = s.minHeight;
-    const isScrollY = s.isScrollY;
-    const styleStr =
-        (width ? 'width:' + width + ';' : '') +
-        (height ? ' height:' + height + ';' : '') +
-        (maxWidth ? 'max-width:' + maxWidth + ';' : '') +
-        (maxHeight ? ' max-height:' + maxHeight + ';' : '') +
-        (minWidth ? 'min-width:' + minWidth + ';' : '') +
-        (minHeight ? ' min-height:' + minHeight + ';' : '') +
-        (isScrollY ? 'overflow-y: scroll;' : '');
-    return styleStr;
+	const s = store.state.value;
+	const width = s.width;
+	const height = s.height;
+	const maxWidth = s.maxWidth;
+	const maxHeight = s.maxHeight;
+	const minWidth = s.minWidth;
+	const minHeight = s.minHeight;
+	const isScrollY = s.isScrollY;
+	const styleStr =
+		(width ? `width:${width};` : '') +
+		(height ? ` height:${height};` : '') +
+		(maxWidth ? `max-width:${maxWidth};` : '') +
+		(maxHeight ? ` max-height:${maxHeight};` : '') +
+		(minWidth ? `min-width:${minWidth};` : '') +
+		(minHeight ? ` min-height:${minHeight};` : '') +
+		(isScrollY ? 'overflow-y: scroll;' : '');
+	return styleStr;
 });
 </script>
 
