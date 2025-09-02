@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
+import { resolvePinia } from '../../pinia';
 
-export const useLoading = defineStore('loading', {
+const useLoadingPinia = defineStore('loading', {
 	state: () => ({
 		isLoading: false as boolean,
 	}),
@@ -23,3 +24,8 @@ export const useLoading = defineStore('loading', {
 		},
 	},
 });
+
+// 明示的に pinia の受け渡しを必須化
+export function useLoading() {
+	return useLoadingPinia(resolvePinia());
+}

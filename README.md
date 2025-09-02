@@ -8,6 +8,66 @@ generalworks inc. 向けの共通フロントエンドライブラリ（JSR配�
 - `@generalworks/gw-front-common/solid` → `solid/index.ts`
 - `@generalworks/gw-front-common/vue` → `vue/index.ts`
 
+## 使用方法
+
+### Vue（Nuxtを使わない通常SPA）
+
+1) Piniaの注入
+```ts
+// main.ts
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import { setPinia } from '@generalworks/gw-front-common/vue/pinia';
+
+const app = createApp(App);
+const pinia = createPinia();
+app.use(pinia);
+
+// ライブラリにPiniaを提供（1回だけ）
+setPinia(pinia);
+
+app.mount('#app');
+```
+
+2) ストア/コンポーネントの利用
+```ts
+import { useLoading, useModal } from '@generalworks/gw-front-common/vue';
+import { Loading, Modal, Notifications } from '@generalworks/gw-front-common/vue/components';
+
+const loading = useLoading(); // setPinia済みなら引数不要
+const modal = useModal();
+
+loading.startLoading();
+modal.open({ message: 'hello' });
+```
+
+テンプレート例：
+```vue
+<template>
+  <Loading />
+  <Modal />
+  <Notifications />
+  <!-- ... -->
+  <button @click="onClick">OPEN</button>
+  <button @click="onLoad">LOAD</button>
+  <!-- ... -->
+</template>
+```
+
+### Nuxt 3（モジュール注入）
+
+nuxt.config.ts
+```ts
+export default defineNuxtConfig({
+  modules: [
+    '@pinia/nuxt',
+    '@generalworks/gw-front-common/vue/nuxt/module',
+  ],
+});
+```
+
+これで `$pinia` が自動でライブラリに注入され、`useLoading()` / `useModal()` をそのまま利用できます。`plugins/` に独自注入を追加する必要はありません。
+
 コンポーネントは以下いずれかの方法で import できます。
 例：
 ```ts
@@ -40,7 +100,7 @@ import { Loading, Modal, Notifications } from '@generalworks/gw-front-common/vue
 - 本ライブラリはfetch/通信ユーティリティを提供しません。API BASE、X-Client-Id、認証ヘッダなど製品依存が強いため、各プロダクトのサービス層で実装してください。
 - モック/本番の切替は、サービス層に小さなファクトリ（Config/Authプロバイダ注入）を設ける設計を推奨します。
 
-## Nuxt 3 での自動インポート設定
+## Nuxt 3 での自動インポート設定（任意）
 
 ```ts
 // nuxt.config.ts

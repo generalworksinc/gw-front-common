@@ -20,5 +20,11 @@
 		"solid/**/*.ts",
 		"solid/**/*.tsx"
 	],
-	"exclude": ["**/__tests__/**", "dist/**", "node_modules/**"]
+	"exclude": [
+		"**/__tests__/**",
+		"dist/**",
+		"node_modules/**",
+		"vue/nuxt/**",
+		"vue/types.ts"
+	]
 }

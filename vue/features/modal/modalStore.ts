@@ -1,6 +1,31 @@
-import { type Ref, ref } from 'vue';
+import { defineStore } from 'pinia';
+import { type ComputedRef, computed } from 'vue';
+import { resolvePinia } from '../../pinia';
 
-const defaultState = () => ({
+type ModalFn = (() => void) | null;
+
+export type ModalState = {
+	isOpen: boolean;
+	isConfirm: boolean;
+	html: string;
+	message: string;
+	height: string;
+	width: string;
+	maxHeight: string;
+	maxWidth: string;
+	minHeight: string;
+	minWidth: string;
+	isScrollY: boolean;
+	isScrollX: boolean;
+	yesFunc: ModalFn;
+	noFunc: ModalFn;
+};
+
+function isFunction(fn: unknown): fn is () => void {
+	return typeof fn === 'function';
+}
+
+const defaultState = (): ModalState => ({
 	isOpen: false,
 	isConfirm: false,
 	html: '',
@@ -17,60 +42,80 @@ const defaultState = () => ({
 	noFunc: null,
 });
 
-function isFunction(fn: unknown): boolean {
-	return typeof fn === 'function';
-}
+const useModalPinia = defineStore('modal', {
+	state: (): ModalState => defaultState(),
+	actions: {
+		open(options?: Partial<ModalState>): void {
+			this.isOpen = true;
+			this.isConfirm = false;
+			this.message = options?.message ?? '';
+			this.html = options?.html ?? '';
+			this.height = options?.height ?? '';
+			this.width = options?.width ?? '';
+			this.maxHeight = options?.maxHeight ?? '';
+			this.maxWidth = options?.maxWidth ?? '';
+			this.minHeight = options?.minHeight ?? '';
+			this.minWidth = options?.minWidth ?? '';
+			this.isScrollY = options?.isScrollY ?? false;
+			this.isScrollX = options?.isScrollX ?? false;
+			this.yesFunc = isFunction(options?.yesFunc)
+				? (options?.yesFunc as () => void)
+				: () => null;
+			this.noFunc = null;
+		},
+		confirm(options?: Partial<ModalState>): void {
+			this.open(options);
+			this.isConfirm = true;
+			this.noFunc = isFunction(options?.noFunc)
+				? (options?.noFunc as () => void)
+				: () => null;
+		},
+		close(): void {
+			if (isFunction(this.yesFunc)) this.yesFunc();
+			this.reset();
+		},
+		no(): void {
+			if (isFunction(this.noFunc)) this.noFunc();
+			this.reset();
+		},
+		yes(): void {
+			if (isFunction(this.yesFunc)) this.yesFunc();
+			this.reset();
+		},
+		reset(): void {
+			Object.assign(this, defaultState());
+		},
+	},
+});
 
-const state: Ref<ReturnType<typeof defaultState>> = ref(defaultState());
+// 互換レイヤ（従来の API: state.value.xxx / yes()/no()/close() などを維持）
+export function useModal() {
+	const s = useModalPinia(resolvePinia());
 
-const open = (options?: Partial<ReturnType<typeof defaultState>>) => {
-	state.value.isOpen = true;
-	state.value.isConfirm = false;
-	state.value.message = options?.message ?? '';
-	state.value.html = options?.html ?? '';
-	state.value.height = options?.height ?? '';
-	state.value.width = options?.width ?? '';
-	state.value.maxHeight = options?.maxHeight ?? '';
-	state.value.maxWidth = options?.maxWidth ?? '';
-	state.value.minHeight = options?.minHeight ?? '';
-	state.value.minWidth = options?.minWidth ?? '';
-	state.value.isScrollY = options?.isScrollY ?? false;
-	state.value.isScrollX = options?.isScrollX ?? false;
-	state.value.yesFunc = isFunction(options?.yesFunc)
-		? (options?.yesFunc as () => void)
-		: () => null;
-	state.value.noFunc = null;
-};
+	const state: ComputedRef<ModalState> = computed(() => ({
+		isOpen: s.isOpen,
+		isConfirm: s.isConfirm,
+		html: s.html,
+		message: s.message,
+		height: s.height,
+		width: s.width,
+		maxHeight: s.maxHeight,
+		maxWidth: s.maxWidth,
+		minHeight: s.minHeight,
+		minWidth: s.minWidth,
+		isScrollY: s.isScrollY,
+		isScrollX: s.isScrollX,
+		yesFunc: s.yesFunc,
+		noFunc: s.noFunc,
+	}));
 
-const confirm = (options?: Partial<ReturnType<typeof defaultState>>) => {
-	open(options);
-	state.value.isConfirm = true;
-	state.value.noFunc = isFunction(options?.noFunc)
-		? (options?.noFunc as () => void)
-		: () => null;
-};
-
-const close = () => {
-	if (isFunction(state.value.yesFunc)) state.value.yesFunc();
-	reset();
-};
-
-const no = () => {
-	if (isFunction(state.value.noFunc)) state.value.noFunc();
-	reset();
-};
-
-const yes = () => {
-	if (isFunction(state.value.yesFunc)) state.value.yesFunc();
-	reset();
-};
-
-const reset = () => {
-	state.value = defaultState();
-};
-
-const modalStore = { state, open, confirm, close, yes, no, reset } as const;
-
-export function useModal(): Readonly<typeof modalStore> {
-	return modalStore;
+	return {
+		state,
+		open: (options?: Partial<ModalState>) => s.open(options),
+		confirm: (options?: Partial<ModalState>) => s.confirm(options),
+		close: () => s.close(),
+		yes: () => s.yes(),
+		no: () => s.no(),
+		reset: () => s.reset(),
+	} as const;
 }

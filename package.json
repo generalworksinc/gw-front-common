@@ -53,6 +53,7 @@
 		"pinia": ">=2.1.0"
 	},
 	"devDependencies": {
+		"@nuxt/kit": "^3.15.1",
 		"@biomejs/biome": "^2.2.2",
 		"@solid-primitives/storage": "^4.3.3",
 		"@types/clone": "^2.1.4",
