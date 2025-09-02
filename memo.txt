@@ -2,5 +2,5 @@ github
 "@generalworks/gw-front-common": "https://github.com/generalworksinc/gw-front-common.git#428d1a0",
 
 jsr
-"@generalworks/gw-front-common": "npm:@jsr/generalworks__gw-front-common@^0.0.12",
+"@generalworks/gw-front-common": "npm:@jsr/generalworks__gw-front-common@^0.0.18",
 
