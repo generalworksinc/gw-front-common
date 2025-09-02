@@ -1,109 +1,145 @@
-import { defineComponent as _, createElementBlock as l, createCommentVNode as u, openBlock as i, normalizeClass as d, toDisplayString as m, createBlock as f, Transition as p, withCtx as v, unref as o, normalizeStyle as g, createElementVNode as s, Fragment as y, renderList as b, renderSlot as $ } from "vue";
-import { u as k, a as h, b as C } from "../notificationStore-Ceh-rjGw.js";
-const w = ["id"], V = /* @__PURE__ */ _({
+import { defineComponent as _, createElementBlock as a, createCommentVNode as d, openBlock as n, normalizeClass as m, toDisplayString as v, createBlock as k, Transition as C, withCtx as b, unref as l, normalizeStyle as w, createElementVNode as e, computed as z, renderSlot as p, Fragment as H, renderList as L } from "vue";
+import { u as M, a as N, b as x } from "../notificationStore-Ceh-rjGw.js";
+const O = ["id"], P = /* @__PURE__ */ _({
   __name: "ErrorMessage",
   props: {
     field: {},
     classObj: {},
     id: {}
   },
-  setup(c) {
-    return (t, e) => t.field?.validator?.message ? (i(), l("div", {
-      key: t.field?.id,
-      id: t.id ?? t.field?.id,
-      class: d(["text-red-500", t.classObj])
-    }, m(t.field?.validator?.message), 11, w)) : u("", !0);
+  setup(f) {
+    return (o, r) => o.field?.validator?.message ? (n(), a("div", {
+      key: o.field?.id,
+      id: o.id ?? o.field?.id,
+      class: m(["text-red-500", o.classObj])
+    }, v(o.field?.validator?.message), 11, O)) : d("", !0);
   }
-}), D = /* @__PURE__ */ _({
+}), Q = /* @__PURE__ */ _({
   __name: "Loading",
   props: {
     class: {},
     style: {}
   },
-  setup(c) {
-    const t = c, e = k();
-    return (r, n) => (i(), f(p, { name: "loading-transition" }, {
-      default: v(() => [
-        o(e).isLoading ? (i(), l("div", {
+  setup(f) {
+    const o = f, r = M();
+    return (i, c) => (n(), k(C, { name: "loading-transition" }, {
+      default: b(() => [
+        l(r).isLoading ? (n(), a("div", {
           key: 0,
-          class: d(["loading-page-manual element-animation", t.class]),
-          style: g(t.style)
-        }, [...n[0] || (n[0] = [
-          s("div", { class: "element-animation__inner" }, [
-            s("div", { class: "loader" })
+          class: m(["loading-page-manual element-animation", o.class]),
+          style: w(o.style)
+        }, [...c[0] || (c[0] = [
+          e("div", { class: "element-animation__inner" }, [
+            e("div", { class: "loader" })
           ], -1)
-        ])], 6)) : u("", !0)
+        ])], 6)) : d("", !0)
       ]),
       _: 1
     }));
   }
-}), L = { class: "gw-modal__panel" }, M = { class: "gw-modal__body" }, z = { key: 0 }, N = ["innerHTML"], E = { class: "gw-modal__actions" }, F = /* @__PURE__ */ _({
+}), E = {
+  key: 0,
+  class: "modal-mask"
+}, W = { class: "modal-wrapper" }, B = { class: "modal-header" }, T = { class: "modal-body is-size-6" }, j = ["innerHTML"], K = ["textContent"], V = { class: "modal-footer" }, Y = { key: 0 }, D = { key: 1 }, R = /* @__PURE__ */ _({
   __name: "Modal",
-  props: {
-    class: {}
-  },
-  setup(c) {
-    const t = c, e = h();
-    return (r, n) => o(e).state.value.isOpen ? (i(), l("div", {
-      key: 0,
-      class: d(["gw-modal", t.class])
-    }, [
-      s("div", L, [
-        s("div", M, [
-          o(e).state.value.message ? (i(), l("div", z, m(o(e).state.value.message), 1)) : o(e).state.value.html ? (i(), l("div", {
-            key: 1,
-            innerHTML: o(e).state.value.html
-          }, null, 8, N)) : u("", !0)
-        ]),
-        s("div", E, [
-          s("button", {
-            type: "button",
-            class: "gw-modal__btn",
-            onClick: n[0] || (n[0] = (a) => o(e).yes())
-          }, "OK"),
-          s("button", {
-            type: "button",
-            class: "gw-modal__btn",
-            onClick: n[1] || (n[1] = (a) => o(e).no())
-          }, "Cancel")
-        ])
-      ])
-    ], 2)) : u("", !0);
+  emits: ["yes", "no", "close"],
+  setup(f, { emit: o }) {
+    const r = o, i = N(), c = z(() => {
+      const t = i.state.value, s = t.width, u = t.height, h = t.maxWidth, y = t.maxHeight, g = t.minWidth, $ = t.minHeight, S = t.isScrollY;
+      return (s ? "width:" + s + ";" : "") + (u ? " height:" + u + ";" : "") + (h ? "max-width:" + h + ";" : "") + (y ? " max-height:" + y + ";" : "") + (g ? "min-width:" + g + ";" : "") + ($ ? " min-height:" + $ + ";" : "") + (S ? "overflow-y: scroll;" : "");
+    });
+    return (t, s) => (n(), k(C, { name: "modal" }, {
+      default: b(() => [
+        l(i).state.value.isOpen ? (n(), a("div", E, [
+          e("div", W, [
+            e("div", {
+              class: "modal-container",
+              style: w(c.value)
+            }, [
+              e("div", B, [
+                p(t.$slots, "header")
+              ]),
+              e("div", T, [
+                p(t.$slots, "body", {}, () => [
+                  l(i).state.value.html ? (n(), a("div", {
+                    key: 0,
+                    innerHTML: l(i).state.value.html
+                  }, null, 8, j)) : d("", !0),
+                  l(i).state.value.message ? (n(), a("div", {
+                    key: 1,
+                    style: { "white-space": "pre-wrap" },
+                    textContent: v(l(i).state.value.message)
+                  }, null, 8, K)) : d("", !0)
+                ])
+              ]),
+              e("div", V, [
+                p(t.$slots, "footer", {}, () => [
+                  l(i).state.value.isConfirm ? (n(), a("div", Y, [
+                    e("a", {
+                      class: "cursor-pointer modal-default-button is-right",
+                      onClick: s[0] || (s[0] = (u) => r("yes"))
+                    }, [...s[3] || (s[3] = [
+                      e("span", { style: { cursor: "pointer" } }, "はい", -1)
+                    ])]),
+                    e("a", {
+                      class: "cursor-pointer modal-default-button is-left",
+                      onClick: s[1] || (s[1] = (u) => r("no"))
+                    }, [...s[4] || (s[4] = [
+                      e("span", { style: { cursor: "pointer" } }, "キャンセル", -1)
+                    ])])
+                  ])) : d("", !0),
+                  l(i).state.value.isConfirm ? d("", !0) : (n(), a("div", D, [
+                    e("a", {
+                      class: "cursor-pointer modal-default-button is-right",
+                      onClick: s[2] || (s[2] = (u) => r("close")),
+                      id: "modal_component_OK"
+                    }, [...s[5] || (s[5] = [
+                      e("span", { style: { cursor: "pointer" } }, "OK", -1)
+                    ])])
+                  ]))
+                ])
+              ])
+            ], 4)
+          ])
+        ])) : d("", !0)
+      ]),
+      _: 3
+    }));
   }
-}), O = { class: "notifications" }, S = { class: "z-50 position-top-right default-position-style-top-right" }, B = ["onClick"], K = /* @__PURE__ */ _({
+}), F = { class: "notifications" }, q = { class: "z-50 position-top-right default-position-style-top-right" }, A = ["onClick"], U = /* @__PURE__ */ _({
   __name: "Notifications",
-  setup(c) {
-    const t = C(), e = (r) => {
-      r && t.remove(r);
+  setup(f) {
+    const o = x(), r = (i) => {
+      i && o.remove(i);
     };
-    return (r, n) => (i(), l("div", O, [
-      s("div", S, [
-        (i(!0), l(y, null, b(o(t).notifications, (a) => (i(), l("div", {
-          key: a.id,
-          class: d(["z-50 notification default-notification-style", `default-notification-${a.type}`]),
+    return (i, c) => (n(), a("div", F, [
+      e("div", q, [
+        (n(!0), a(H, null, L(l(o).notifications, (t) => (n(), a("div", {
+          key: t.id,
+          class: m(["z-50 notification default-notification-style", `default-notification-${t.type}`]),
           role: "status",
           "aria-live": "polite"
         }, [
-          s("div", {
-            class: d(["z-50 notification-content default-notification-style-content", `default-notification-${a.type}`])
+          e("div", {
+            class: m(["z-50 notification-content default-notification-style-content", `default-notification-${t.type}`])
           }, [
-            $(r.$slots, "default", {}, () => [
-              s("pre", null, m(a.message), 1)
+            p(i.$slots, "default", {}, () => [
+              e("pre", null, v(t.message), 1)
             ])
           ], 2),
-          s("button", {
-            class: d(["z-50 notification-button default-notification-style-button", `default-notification-${a.type}`]),
-            onClick: (H) => e(a.id),
+          e("button", {
+            class: m(["z-50 notification-button default-notification-style-button", `default-notification-${t.type}`]),
+            onClick: (s) => r(t.id),
             "aria-label": "delete notification"
-          }, " × ", 10, B)
+          }, " × ", 10, A)
         ], 2))), 128))
       ])
     ]));
   }
 });
 export {
-  V as ErrorMessage,
-  D as Loading,
-  F as Modal,
-  K as Notifications
+  P as ErrorMessage,
+  Q as Loading,
+  R as Modal,
+  U as Notifications
 };
