@@ -11,5 +11,7 @@ export function resolvePinia(): Pinia {
 	if (providedPinia) return providedPinia;
 	const active = getActivePinia() as Pinia | undefined;
 	if (active) return active;
-	throw new Error('[gw-front-common] Pinia instance is not available. Call setPinia(pinia) once on app init or enable the Nuxt module.');
+	throw new Error(
+		'[gw-front-common] Pinia instance is not available. Call setPinia(pinia) once on app init or enable the Nuxt module.',
+	);
 }
