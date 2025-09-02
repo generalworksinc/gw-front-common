@@ -1,11 +1,11 @@
 import { createPinia, setActivePinia } from 'pinia';
-import { setPinia } from '../vue/pinia.ts';
 import { useLoading, useModal, useNotification } from '../vue/mod.ts';
+import { setPinia } from '../vue/pinia.ts';
 
 beforeAll(() => {
-  const pinia = createPinia();
-  setPinia(pinia);
-  setActivePinia(pinia);
+	const pinia = createPinia();
+	setPinia(pinia);
+	setActivePinia(pinia);
 });
 
 describe('vue stores (ref)', () => {
