@@ -34,6 +34,7 @@ export default defineConfig({
 				'vue/mod': 'vue/mod.ts',
 				'vue/components': 'vue/components.ts',
 				'vue/nuxt/module': 'vue/nuxt/module.ts',
+				'vue/nuxt/runtime/plugin': 'vue/nuxt/runtime/plugin.ts',
 				'solid/mod': 'solid/mod.ts',
 				'solid/components': 'solid/components.ts',
 			},
