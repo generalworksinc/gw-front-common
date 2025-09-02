@@ -1,13 +1,7 @@
-import { getActivePinia as h, defineStore as n } from "pinia";
-import { computed as c } from "vue";
-function a() {
-  const i = h();
-  if (i) return i;
-  throw new Error(
-    "[gw-front-common] Pinia instance is not available. Call setPinia(pinia) once on app init or enable the Nuxt module."
-  );
-}
-const r = n("loading", {
+import { defineStore as n } from "pinia";
+import { r as h } from "./pinia-CXsK1c83.js";
+import { computed as a } from "vue";
+const c = n("loading", {
   state: () => ({
     isLoading: !1
   }),
@@ -31,7 +25,7 @@ const r = n("loading", {
   }
 });
 function d() {
-  return r(a());
+  return c(h());
 }
 function s(i) {
   return typeof i == "function";
@@ -51,7 +45,7 @@ const o = () => ({
   isScrollX: !1,
   yesFunc: null,
   noFunc: null
-}), l = n("modal", {
+}), r = n("modal", {
   state: () => o(),
   actions: {
     open(i) {
@@ -75,9 +69,9 @@ const o = () => ({
   }
 });
 function g() {
-  const i = l(a());
+  const i = r(h());
   return {
-    state: c(() => ({
+    state: a(() => ({
       isOpen: i.isOpen,
       isConfirm: i.isConfirm,
       html: i.html,
@@ -101,11 +95,11 @@ function g() {
     reset: () => i.reset()
   };
 }
-const m = () => Math.random().toString(36).slice(2), F = n("notification", {
+const l = () => Math.random().toString(36).slice(2), F = n("notification", {
   state: () => ({ notifications: [] }),
   actions: {
     add(i) {
-      const t = { id: m(), ...i };
+      const t = { id: l(), ...i };
       this.notifications = [...this.notifications, t], t.removeAfter && t.removeAfter > 0 && setTimeout(() => this.remove(t.id), t.removeAfter);
     },
     remove(i) {

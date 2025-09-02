@@ -41,7 +41,7 @@ export default defineConfig({
 			formats: ['es'],
 		},
 		rollupOptions: {
-			external: ['vue', 'solid-js', 'dayjs', 'pinia', '@nuxt/kit', /^node:.*/],
+			external: ['vue', 'solid-js', 'dayjs', 'pinia', '@nuxt/kit', 'nuxt/app', /^node:.*/],
 			output: {
 				entryFileNames: '[name].js',
 				// 共有チャンクはデフォルトのまま（必要に応じて自動分割）
