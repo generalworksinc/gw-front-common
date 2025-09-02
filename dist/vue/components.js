@@ -46,7 +46,7 @@ const O = ["id"], P = /* @__PURE__ */ _({
   setup(f, { emit: o }) {
     const r = o, i = N(), c = z(() => {
       const t = i.state.value, s = t.width, u = t.height, h = t.maxWidth, y = t.maxHeight, g = t.minWidth, $ = t.minHeight, S = t.isScrollY;
-      return (s ? "width:" + s + ";" : "") + (u ? " height:" + u + ";" : "") + (h ? "max-width:" + h + ";" : "") + (y ? " max-height:" + y + ";" : "") + (g ? "min-width:" + g + ";" : "") + ($ ? " min-height:" + $ + ";" : "") + (S ? "overflow-y: scroll;" : "");
+      return (s ? `width:${s};` : "") + (u ? ` height:${u};` : "") + (h ? `max-width:${h};` : "") + (y ? ` max-height:${y};` : "") + (g ? `min-width:${g};` : "") + ($ ? ` min-height:${$};` : "") + (S ? "overflow-y: scroll;" : "");
     });
     return (t, s) => (n(), k(C, { name: "modal" }, {
       default: b(() => [
