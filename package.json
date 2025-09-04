@@ -1,6 +1,6 @@
 {
   "name": "@generalworks/gw-front-common",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "Common frontend utilities and UI components for generalworks projects",
   "type": "module",
   "exports": {
