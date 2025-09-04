@@ -1,9 +1,9 @@
-import { $PROXY as y, batch as J, $TRACK as E, getListener as N, createSignal as L } from "solid-js";
-const T = Symbol("store-raw"), F = Symbol("store-node"), m = Symbol("store-has"), z = Symbol("store-self");
-function q(n) {
+import { $PROXY as y, batch as G, $TRACK as E, getListener as N, createSignal as L } from "solid-js";
+const T = Symbol("store-raw"), F = Symbol("store-node"), m = Symbol("store-has"), M = Symbol("store-self");
+function z(n) {
   let e = n[y];
   if (!e && (Object.defineProperty(n, y, {
-    value: e = new Proxy(n, Z)
+    value: e = new Proxy(n, U)
   }), !Array.isArray(n))) {
     const l = Object.keys(n), t = Object.getOwnPropertyDescriptors(n);
     for (let s = 0, i = l.length; s < i; s++) {
@@ -50,22 +50,22 @@ function H(n, e, l) {
   });
   return t.$ = s, n[e] = t;
 }
-function Q(n, e) {
+function J(n, e) {
   const l = Reflect.getOwnPropertyDescriptor(n, e);
   return !l || l.get || !l.configurable || e === y || e === F || (delete l.value, delete l.writable, l.get = () => n[y][e]), l;
 }
-function v(n) {
-  N() && H(K(n, F), z)();
+function q(n) {
+  N() && H(K(n, F), M)();
 }
-function U(n) {
-  return v(n), Reflect.ownKeys(n);
+function Q(n) {
+  return q(n), Reflect.ownKeys(n);
 }
-const Z = {
+const U = {
   get(n, e, l) {
     if (e === T) return n;
     if (e === y) return l;
     if (e === E)
-      return v(n), l;
+      return q(n), l;
     const t = K(n, F), s = t[e];
     let i = s ? s() : n[e];
     if (e === F || e === m || e === "__proto__") return i;
@@ -73,7 +73,7 @@ const Z = {
       const f = Object.getOwnPropertyDescriptor(n, e);
       N() && (typeof i != "function" || n.hasOwnProperty(e)) && !(f && f.get) && (i = H(t, e, i)());
     }
-    return S(i) ? q(i) : i;
+    return S(i) ? z(i) : i;
   },
   has(n, e) {
     return e === T || e === y || e === E || e === F || e === m || e === "__proto__" ? !0 : (N() && H(K(n, m), e)(), e in n);
@@ -84,8 +84,8 @@ const Z = {
   deleteProperty() {
     return !0;
   },
-  ownKeys: U,
-  getOwnPropertyDescriptor: Q
+  ownKeys: Q,
+  getOwnPropertyDescriptor: J
 };
 function g(n, e, l, t = !1) {
   if (!t && n[e] === l) return;
@@ -96,16 +96,16 @@ function g(n, e, l, t = !1) {
     for (let u = n.length; u < i; u++) (d = f[u]) && d.$();
     (d = H(f, "length", i)) && d.$(n.length);
   }
-  (d = f[z]) && d.$();
+  (d = f[M]) && d.$();
 }
-function V(n, e) {
+function v(n, e) {
   const l = Object.keys(e);
   for (let t = 0; t < l.length; t += 1) {
     const s = l[t];
     g(n, s, e[s]);
   }
 }
-function p(n, e) {
+function Z(n, e) {
   if (typeof e == "function" && (e = e(n)), e = $(e), Array.isArray(e)) {
     if (n === e) return;
     let l = 0, t = e.length;
@@ -114,7 +114,7 @@ function p(n, e) {
       n[l] !== s && g(n, l, s);
     }
     g(n, "length", t);
-  } else V(n, e);
+  } else v(n, e);
 }
 function W(n, e, l = []) {
   let t, s = n;
@@ -145,13 +145,13 @@ function W(n, e, l = []) {
     s = n[t], l = [t].concat(l);
   }
   let i = e[0];
-  typeof i == "function" && (i = i(s, l), i === s) || t === void 0 && i == null || (i = $(i), t === void 0 || S(s) && S(i) && !Array.isArray(i) ? V(s, i) : g(n, t, i));
+  typeof i == "function" && (i = i(s, l), i === s) || t === void 0 && i == null || (i = $(i), t === void 0 || S(s) && S(i) && !Array.isArray(i) ? v(s, i) : g(n, t, i));
 }
-function j(...[n, e]) {
-  const l = $(n || {}), t = Array.isArray(l), s = q(l);
+function p(...[n, e]) {
+  const l = $(n || {}), t = Array.isArray(l), s = z(l);
   function i(...f) {
-    J(() => {
-      t && f.length === 1 ? p(l, f[0]) : W(l, f);
+    G(() => {
+      t && f.length === 1 ? Z(l, f[0]) : W(l, f);
     });
   }
   return [s, i];
@@ -212,13 +212,12 @@ function un(n, e = {}) {
     return f === void 0 ? i : f;
   };
 }
-const [M, I] = L(!1), dn = {
-  get: M,
-  isLoading: M,
+const [j, I] = L(!1), dn = {
+  isLoading: j,
   start: () => I(!0),
   stop: () => I(!1),
   toggle: () => I((n) => !n)
-}, B = {
+}, V = {
   isOpen: !1,
   isConfirm: !1,
   html: "",
@@ -237,7 +236,7 @@ const [M, I] = L(!1), dn = {
 function _(n) {
   return typeof n == "function";
 }
-const [x, R] = j({ ...B }), k = (n) => {
+const [x, R] = p({ ...V }), k = (n) => {
   R({
     isOpen: !0,
     isConfirm: !1,
@@ -272,7 +271,7 @@ const [x, R] = j({ ...B }), k = (n) => {
     noFunc: _(n?.noFunc) ? n?.noFunc : null
   });
 }, X = () => {
-  R({ ...B });
+  R({ ...V });
 }, en = () => {
   _(x.yesFunc) && x.yesFunc(), X();
 }, sn = () => {
@@ -294,9 +293,9 @@ function fn(n) {
     type: n.type,
     removeAfter: n.removeAfter
   };
-  b((l) => [...l, e]), e.removeAfter && e.removeAfter > 0 && setTimeout(() => G(e.id), e.removeAfter);
+  b((l) => [...l, e]), e.removeAfter && e.removeAfter > 0 && setTimeout(() => B(e.id), e.removeAfter);
 }
-function G(n) {
+function B(n) {
   b((e) => e.filter((l) => l.id !== String(n)));
 }
 function cn() {
@@ -305,11 +304,11 @@ function cn() {
 const gn = {
   get: () => ({ list: on() }),
   add: fn,
-  remove: G,
+  remove: B,
   reset: cn
 };
 export {
-  j as c,
+  p as c,
   gn as d,
   dn as l,
   hn as m,
