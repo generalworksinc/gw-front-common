@@ -18,6 +18,7 @@
         "development": "./dist/solid/mod/dev.jsx",
         "import": "./dist/solid/mod/index.jsx"
       },
+      "node": "./dist/solid/mod/server.js",
       "import": "./dist/solid/mod/index.js"
     },
     "./solid/components": {
@@ -26,6 +27,7 @@
         "development": "./dist/solid/components/dev.jsx",
         "import": "./dist/solid/components/index.jsx"
       },
+      "node": "./dist/solid/components/server.js",
       "import": "./dist/solid/components/index.js"
     },
     "./vue": {
