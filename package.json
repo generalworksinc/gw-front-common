@@ -1,6 +1,6 @@
 {
   "name": "@generalworks/gw-front-common",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "Common frontend utilities and UI components for generalworks projects",
   "type": "module",
   "exports": {
@@ -14,17 +14,19 @@
     },
     "./solid": {
       "types": "./dist/solid/mod.d.ts",
-      "default": "./dist/solid/mod.js"
+      "solid": {
+        "development": "./dist/solid/mod.dev.jsx",
+        "import": "./dist/solid/mod.jsx"
+      },
+      "import": "./dist/solid/mod.js"
     },
     "./solid/components": {
       "types": "./dist/solid/components.d.ts",
-      "browser": "./dist/solid/components.js",
-      "node": "./dist/solid/components-ssr.js",
-      "default": "./dist/solid/components.js"
-    },
-    "./solid/components-ssr": {
-      "types": "./dist/solid/components.d.ts",
-      "default": "./dist/solid/components-ssr.js"
+      "solid": {
+        "development": "./dist/solid/components.dev.jsx",
+        "import": "./dist/solid/components.jsx"
+      },
+      "import": "./dist/solid/components.js"
     },
     "./vue": {
       "types": "./dist/vue/mod.d.ts",
@@ -47,7 +49,7 @@
     "lint:fix": "biome check --write core vue solid __tests__ ./*.ts",
     "lint:fix-unsafe": "biome check --write --unsafe core vue solid __tests__ ./*.ts",
     "format": "biome format --write core vue solid __tests__ ./*.ts",
-    "build": "vite build && vite build -c vite.ssr.config.ts",
+    "build": "vite build && tsup",
     "typecheck": "tsc -p ./tsconfig.build.json --noEmit",
     "fix": "bun run lint:fix && bun run format",
     "check": "bun run lint && bun run typecheck && bun run jsr:check"
@@ -63,18 +65,20 @@
     "pinia": ">=2.1.0"
   },
   "devDependencies": {
-    "@nuxt/kit": "^3.15.1",
     "@biomejs/biome": "^2.2.2",
+    "@nuxt/kit": "^3.15.1",
     "@solid-primitives/storage": "^4.3.3",
     "@types/clone": "^2.1.4",
     "@vitejs/plugin-vue": "^6.0.1",
     "dayjs": "^1.11.18",
+    "pinia": "^2.3.1",
     "solid-js": "^1.9.9",
+    "tsup": "^8.5.0",
+    "tsup-preset-solid": "^2.2.0",
     "typescript": "~5.6.3",
     "vite": "^7.1.4",
-    "vite-plugin-solid": "^2.10.2",
     "vite-plugin-dts": "^4.5.4",
-    "vue": "^3.5.20",
-    "pinia": "^2.3.1"
+    "vite-plugin-solid": "^2.10.2",
+    "vue": "^3.5.20"
   }
 }
