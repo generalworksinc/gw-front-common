@@ -182,6 +182,12 @@ export default defineConfig({
   notificationStore.add({ type: 'info', message: '保存しました', removeAfter: 3000 })
   ```
 
+型エイリアス（Solid ストア）
+- 利用側で型を参照する場合はエクスポート済みの型エイリアスを使用できます。
+  ```ts
+  import type { LoadingStore, ModalStore, NotificationStore, AuthStore } from '@generalworks/gw-front-common/solid'
+  ```
+
 ## スクリプト
 - `bun test`
 - `bun test --coverage`
