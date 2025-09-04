@@ -6,7 +6,8 @@ generalworks inc. 向けの共通フロントエンドライブラリ（JSR配�
 - `@generalworks/gw-front-common` → `core/mod.ts`
 - `@generalworks/gw-front-common/core` → `core/mod.ts`
 - `@generalworks/gw-front-common/solid` → `solid/mod.ts`
-- `@generalworks/gw-front-common/solid/components` → `solid/components.ts`
+- `@generalworks/gw-front-common/solid/components` → `solid/components.ts`（CSR/ブラウザ向け）
+- `@generalworks/gw-front-common/solid/components-ssr` → `solid/components.ssr.ts`（SSR/サーバ向け）
 - `@generalworks/gw-front-common/vue` → `vue/mod.ts`
 - `@generalworks/gw-front-common/vue/components` → `vue/components.ts`
 - `@generalworks/gw-front-common/vue/nuxt/module` → `vue/nuxt/module.ts`
@@ -96,6 +97,22 @@ import { Loading, Modal, Notifications } from '@generalworks/gw-front-common/vue
   - Vue の Ref とは互換にしません（必要であれば薄いアダプタは実装可能ですが推奨しません）
 
 双方で提供する機能は「ローディング・モーダル・通知」を中心に名称と挙動をできるだけ揃えますが、リアクティビティの型は各フレームワークに準拠します。
+
+### Solid の SSR/CSR の自動解決
+- 本ライブラリは Solid コンポーネントを CSR/SSR の二系統で配布しています。
+  - CSR（ブラウザ）: `@generalworks/gw-front-common/solid/components`
+  - SSR（サーバ）: `@generalworks/gw-front-common/solid/components-ssr`
+- `package.json` の `exports` で `browser`/`node` 条件を設定しているため、Vite/SolidStart 等のツールはインポートを自動で適切なビルドへ解決します。
+- もしツールが条件解決をサポートしない場合は、SSR ビルド時のみ以下の alias を設定してください。
+  ```ts
+  // 例: Vite/Vinxi のサーバビルド用設定
+  resolve: {
+    alias: {
+      '@generalworks/gw-front-common/solid/components':
+        '@generalworks/gw-front-common/solid/components-ssr'
+    }
+  }
+  ```
 
 通信（fetch）に関して
 - 本ライブラリはfetch/通信ユーティリティを提供しません。API BASE、X-Client-Id、認証ヘッダなど製品依存が強いため、各プロダクトのサービス層で実装してください。

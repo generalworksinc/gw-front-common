@@ -1,74 +1,80 @@
 {
-	"name": "@generalworks/gw-front-common",
-	"version": "0.0.29",
-	"description": "Common frontend utilities and UI components for generalworks projects",
-	"type": "module",
-	"exports": {
-		".": {
-			"types": "./dist/core/mod.d.ts",
-			"default": "./dist/core/mod.js"
-		},
-		"./core": {
-			"types": "./dist/core/mod.d.ts",
-			"default": "./dist/core/mod.js"
-		},
-		"./solid": {
-			"types": "./dist/solid/mod.d.ts",
-			"default": "./dist/solid/mod.js"
-		},
-		"./solid/components": {
-			"types": "./dist/solid/components.d.ts",
-			"default": "./dist/solid/components.js"
-		},
-		"./vue": {
-			"types": "./dist/vue/mod.d.ts",
-			"default": "./dist/vue/mod.js"
-		},
-		"./vue/components": {
-			"types": "./dist/vue/components.d.ts",
-			"default": "./dist/vue/components.js"
-		},
-		"./vue/nuxt/module": {
-			"types": "./dist/vue/nuxt/module.d.ts",
-			"default": "./dist/vue/nuxt/module.js"
-		}
-	},
-	"scripts": {
-		"test": "bun test",
-		"test:coverage": "bun test --coverage",
-		"jsr:check": "bunx --yes jsr publish --dry-run --allow-slow-types --allow-dirty",
-		"lint": "biome check core vue solid __tests__",
-		"lint:fix": "biome check --write core vue solid __tests__",
-		"lint:fix-unsafe": "biome check --write --unsafe core vue solid __tests__",
-		"format": "biome format --write core vue solid __tests__",
-		"build": "vite build",
-		"typecheck": "tsc -p ./tsconfig.build.json --noEmit",
-		"fix": "bun run lint:fix && bun run format",
-		"check": "bun run lint && bun run typecheck && bun run jsr:check"
-	},
-	"dependencies": {
-		"clone": "^2.1.2"
-	},
-	"peerDependencies": {
-		"@nuxt/kit": ">=3.0.0",
-		"solid-js": ">=1.9.0",
-		"vue": ">=3.4.0",
-		"dayjs": ">=1.11.0",
-		"pinia": ">=2.1.0"
-	},
-	"devDependencies": {
-		"@nuxt/kit": "^3.15.1",
-		"@biomejs/biome": "^2.2.2",
-		"@solid-primitives/storage": "^4.3.3",
-		"@types/clone": "^2.1.4",
-		"@vitejs/plugin-vue": "^6.0.1",
-		"dayjs": "^1.11.18",
-		"solid-js": "^1.9.9",
-		"typescript": "~5.6.3",
-		"vite": "^7.1.4",
-		"vite-plugin-solid": "^2.10.2",
-		"vite-plugin-dts": "^4.5.4",
-		"vue": "^3.5.20",
-		"pinia": "^2.3.1"
-	}
+  "name": "@generalworks/gw-front-common",
+  "version": "0.0.30",
+  "description": "Common frontend utilities and UI components for generalworks projects",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/core/mod.d.ts",
+      "default": "./dist/core/mod.js"
+    },
+    "./core": {
+      "types": "./dist/core/mod.d.ts",
+      "default": "./dist/core/mod.js"
+    },
+    "./solid": {
+      "types": "./dist/solid/mod.d.ts",
+      "default": "./dist/solid/mod.js"
+    },
+    "./solid/components": {
+      "types": "./dist/solid/components.d.ts",
+      "default": "./dist/solid/components.js",
+      "browser": "./dist/solid/components.js",
+      "node": "./dist/solid/components-ssr.js"
+    },
+    "./solid/components-ssr": {
+      "types": "./dist/solid/components.d.ts",
+      "default": "./dist/solid/components-ssr.js"
+    },
+    "./vue": {
+      "types": "./dist/vue/mod.d.ts",
+      "default": "./dist/vue/mod.js"
+    },
+    "./vue/components": {
+      "types": "./dist/vue/components.d.ts",
+      "default": "./dist/vue/components.js"
+    },
+    "./vue/nuxt/module": {
+      "types": "./dist/vue/nuxt/module.d.ts",
+      "default": "./dist/vue/nuxt/module.js"
+    }
+  },
+  "scripts": {
+    "test": "bun test",
+    "test:coverage": "bun test --coverage",
+    "jsr:check": "bunx --yes jsr publish --dry-run --allow-slow-types --allow-dirty",
+    "lint": "biome check core vue solid __tests__",
+    "lint:fix": "biome check --write core vue solid __tests__",
+    "lint:fix-unsafe": "biome check --write --unsafe core vue solid __tests__",
+    "format": "biome format --write core vue solid __tests__",
+    "build": "vite build && vite build -c vite.ssr.config.ts",
+    "typecheck": "tsc -p ./tsconfig.build.json --noEmit",
+    "fix": "bun run lint:fix && bun run format",
+    "check": "bun run lint && bun run typecheck && bun run jsr:check"
+  },
+  "dependencies": {
+    "clone": "^2.1.2"
+  },
+  "peerDependencies": {
+    "@nuxt/kit": ">=3.0.0",
+    "solid-js": ">=1.9.0",
+    "vue": ">=3.4.0",
+    "dayjs": ">=1.11.0",
+    "pinia": ">=2.1.0"
+  },
+  "devDependencies": {
+    "@nuxt/kit": "^3.15.1",
+    "@biomejs/biome": "^2.2.2",
+    "@solid-primitives/storage": "^4.3.3",
+    "@types/clone": "^2.1.4",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "dayjs": "^1.11.18",
+    "solid-js": "^1.9.9",
+    "typescript": "~5.6.3",
+    "vite": "^7.1.4",
+    "vite-plugin-solid": "^2.10.2",
+    "vite-plugin-dts": "^4.5.4",
+    "vue": "^3.5.20",
+    "pinia": "^2.3.1"
+  }
 }

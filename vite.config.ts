@@ -36,18 +36,18 @@ export default defineConfig({
 	},
 	build: {
 		outDir: 'dist',
-		lib: {
-			entry: {
-				'core/mod': 'core/mod.ts',
-				'vue/mod': 'vue/mod.ts',
-				'vue/components': 'vue/components.ts',
-				'vue/nuxt/module': 'vue/nuxt/module.ts',
-				'vue/nuxt/runtime/plugin': 'vue/nuxt/runtime/plugin.ts',
-				'solid/mod': 'solid/mod.ts',
-				'solid/components': 'solid/components.ts',
-			},
-			formats: ['es'],
-		},
+    lib: {
+      entry: {
+        'core/mod': 'core/mod.ts',
+        'vue/mod': 'vue/mod.ts',
+        'vue/components': 'vue/components.ts',
+        'vue/nuxt/module': 'vue/nuxt/module.ts',
+        'vue/nuxt/runtime/plugin': 'vue/nuxt/runtime/plugin.ts',
+        'solid/mod': 'solid/mod.ts',
+        'solid/components': 'solid/components.ts',
+      },
+      formats: ['es'],
+    },
 		rollupOptions: {
 			external: ['vue', 'solid-js', 'dayjs', 'pinia', '@nuxt/kit', 'nuxt/app', /^node:.*/],
 			output: {
