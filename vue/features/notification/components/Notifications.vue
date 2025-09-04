@@ -12,8 +12,7 @@ const removeNotificationHandler = (id?: string) => {
     <div class="z-50 position-top-right default-position-style-top-right">
       <div v-for="n in store.notifications" :key="n.id"
         class="z-50 notification default-notification-style"
-        :class="`default-notification-${n.type}`"
-        role="status" aria-live="polite">
+        :class="`default-notification-${n.type}`">
         <div class="z-50 notification-content default-notification-style-content"
           :class="`default-notification-${n.type}`">
           <slot>
