@@ -1,6 +1,6 @@
 {
 	"name": "@generalworks/gw-front-common",
-	"version": "0.0.27",
+	"version": "0.0.28",
 	"description": "Common frontend utilities and UI components for generalworks projects",
 	"type": "module",
 	"exports": {
@@ -47,8 +47,7 @@
 		"check": "bun run lint && bun run typecheck && bun run jsr:check"
 	},
 	"dependencies": {
-		"clone": "^2.1.2",
-		"ofetch": "^1.4.1"
+		"clone": "^2.1.2"
 	},
 	"peerDependencies": {
 		"@nuxt/kit": ">=3.0.0",
