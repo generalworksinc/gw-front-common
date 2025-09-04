@@ -5,8 +5,8 @@ import dts from 'vite-plugin-dts';
 
 export default defineConfig({
 	plugins: [
-		// Solid: TSX を Solid の JSX 変換で処理
-		solid(),
+		// Solid: TSX を Solid の JSX 変換で処理（SSR安全のためイベント委譲を無効化）
+		solid({ solid: { delegateEvents: false } }),
 		// Vue: .vue SFC を処理
 		vue(),
 		// Vue/Core 用の d.ts 出力
