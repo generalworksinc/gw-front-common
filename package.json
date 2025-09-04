@@ -49,7 +49,7 @@
     "lint:fix": "biome check --write core vue solid __tests__ ./*.ts",
     "lint:fix-unsafe": "biome check --write --unsafe core vue solid __tests__ ./*.ts",
     "format": "biome format --write core vue solid __tests__ ./*.ts",
-    "build": "vite build && tsup",
+    "build": "tsup && vite build",
     "typecheck": "tsc -p ./tsconfig.build.json --noEmit",
     "fix": "bun run lint:fix && bun run format",
     "check": "bun run lint && bun run typecheck"
