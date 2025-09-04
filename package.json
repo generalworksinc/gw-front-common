@@ -1,6 +1,6 @@
 {
 	"name": "@generalworks/gw-front-common",
-	"version": "0.0.26",
+	"version": "0.0.27",
 	"description": "Common frontend utilities and UI components for generalworks projects",
 	"type": "module",
 	"exports": {
@@ -68,6 +68,7 @@
 		"solid-js": "^1.9.9",
 		"typescript": "~5.6.3",
 		"vite": "^7.1.4",
+		"vite-plugin-solid": "^2.10.2",
 		"vite-plugin-dts": "^4.5.4",
 		"vue": "^3.5.20",
 		"pinia": "^2.3.1"

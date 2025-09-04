@@ -1,12 +1,14 @@
 import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
 import { defineConfig } from 'vite';
+import solid from 'vite-plugin-solid';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
 	plugins: [
+		// Solid: TSX を Solid の JSX 変換で処理
+		solid(),
+		// Vue: .vue SFC を処理
 		vue(),
-		vueJsx(),
 		// Vue/Core 用の d.ts 出力
 		dts({
 			outDir: 'dist',
@@ -26,6 +28,12 @@ export default defineConfig({
 			tsconfigPath: 'tsconfig.solid.json',
 		}),
 	],
+	esbuild: {
+		// Solid TSX を esbuild の自動 JSX 変換で処理
+		// （Vue 側は .vue SFC を使用し TSX は未使用のため影響なし）
+		jsx: 'automatic',
+		jsxImportSource: 'solid-js',
+	},
 	build: {
 		outDir: 'dist',
 		lib: {

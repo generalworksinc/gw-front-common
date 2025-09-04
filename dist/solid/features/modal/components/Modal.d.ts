@@ -1,2 +1,2 @@
 import { JSX } from 'solid-js';
-export default function Modal(): JSX.Element;
+export declare function Modal(): JSX.Element;

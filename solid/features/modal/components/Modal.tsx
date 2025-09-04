@@ -3,7 +3,7 @@ import type { JSX } from 'solid-js';
 import { createMemo, Show } from 'solid-js';
 import modalStore from '../modalStore';
 
-export default function Modal(): JSX.Element {
+export function Modal(): JSX.Element {
 	const containerStyle = createMemo(() => {
 		const {
 			width,
