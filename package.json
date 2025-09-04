@@ -18,9 +18,9 @@
     },
     "./solid/components": {
       "types": "./dist/solid/components.d.ts",
-      "default": "./dist/solid/components.js",
       "browser": "./dist/solid/components.js",
-      "node": "./dist/solid/components-ssr.js"
+      "node": "./dist/solid/components-ssr.js",
+      "default": "./dist/solid/components.js"
     },
     "./solid/components-ssr": {
       "types": "./dist/solid/components.d.ts",
