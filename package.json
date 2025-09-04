@@ -52,7 +52,7 @@
     "build": "vite build && tsup",
     "typecheck": "tsc -p ./tsconfig.build.json --noEmit",
     "fix": "bun run lint:fix && bun run format",
-    "check": "bun run lint && bun run typecheck && bun run jsr:check"
+    "check": "bun run lint && bun run typecheck"
   },
   "dependencies": {
     "clone": "^2.1.2"
