@@ -1,4 +1,4 @@
-import authStore from './authStore';
+import { authStore } from './authStore';
 
 export interface AuthEnv {
 	getToken: () =>

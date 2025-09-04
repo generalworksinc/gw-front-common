@@ -35,9 +35,14 @@ function reset(): void {
 	setItems([]);
 }
 
-export default {
+const notificationStore = {
 	get: () => ({ list: items() }),
 	add,
 	remove,
 	reset,
 };
+
+// default export removed to favor named imports
+export { notificationStore };
+
+export type NotificationStore = typeof notificationStore;

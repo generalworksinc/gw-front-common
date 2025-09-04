@@ -1,7 +1,7 @@
 /** @jsxImportSource solid-js */
 import type { JSX } from 'solid-js';
 import { For } from 'solid-js';
-import defaultStore from '../notificationStore';
+import { notificationStore as defaultStore } from '../notificationStore';
 
 export function Notifications(props: {
 	store?: any;

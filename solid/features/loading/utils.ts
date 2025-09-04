@@ -4,7 +4,7 @@ type LoadingStore = {
 	stop: () => false;
 };
 
-import loadingStore from './loadingStore';
+import { loadingStore } from './loadingStore';
 
 type AsyncFunction = (...args: any[]) => Promise<any>;
 type SyncFunction = (...args: any[]) => any;

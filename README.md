@@ -5,8 +5,11 @@ generalworks inc. 向けの共通フロントエンドライブラリ（JSR配�
 ## エントリポイント
 - `@generalworks/gw-front-common` → `core/mod.ts`
 - `@generalworks/gw-front-common/core` → `core/mod.ts`
-- `@generalworks/gw-front-common/solid` → `solid/index.ts`
-- `@generalworks/gw-front-common/vue` → `vue/index.ts`
+- `@generalworks/gw-front-common/solid` → `solid/mod.ts`
+- `@generalworks/gw-front-common/solid/components` → `solid/components.ts`
+- `@generalworks/gw-front-common/vue` → `vue/mod.ts`
+- `@generalworks/gw-front-common/vue/components` → `vue/components.ts`
+- `@generalworks/gw-front-common/vue/nuxt/module` → `vue/nuxt/module.ts`
 
 ## 使用方法
 
@@ -71,10 +74,8 @@ export default defineNuxtConfig({
 コンポーネントは以下いずれかの方法で import できます。
 例：
 ```ts
-// Solid
-import { Loading } from '@generalworks/gw-front-common/solid/features/loading/components/Loading';
-import { Modal } from '@generalworks/gw-front-common/solid/features/modal/components/Modal';
-import { Notifications } from '@generalworks/gw-front-common/solid/features/notification/components/Notifications';
+// Solid（推奨: バレル経由）
+import { Loading, Modal, Notifications } from '@generalworks/gw-front-common/solid/components';
 
 // Vue
 // 直接パス指定（従来通り）
@@ -117,8 +118,8 @@ export default defineNuxtConfig({
     dts: true
   }
 })
-注意（NuxtでTSXを使う場合）
-- `@vitejs/plugin-vue-jsx` を有効にしてください（Nuxtは内部でViteを利用）。
+注意（NuxtでTSXを使う場合・任意）
+- Vue 側で TSX/JSX を使う場合に限り、`@vitejs/plugin-vue-jsx` を有効にしてください（Nuxt は内部で Vite を利用）。SFC（`.vue`）のみなら不要です。
   ```ts
   // nuxt.config.ts
   import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -156,11 +157,30 @@ export default defineConfig({
 ```
 
 注意（Solid の使用について）
-- 現状、Solid では Loading コンポーネントを `show` プロパティで制御できます。
+- Solid の Loading は内部のグローバルストアで表示状態を管理します。`import { loadingStore } from '@generalworks/gw-front-common/solid'` を使い、`loadingStore.start()`/`loadingStore.stop()` で制御します。
   ```tsx
-  <Loading show class="fixed inset-0" />
+  import { Loading } from '@generalworks/gw-front-common/solid/components'
+  import { loadingStore } from '@generalworks/gw-front-common/solid'
+
+  function App() {
+    const onLoad = async () => {
+      loadingStore.start()
+      try { /* ... */ } finally { loadingStore.stop() }
+    }
+    return <>
+      <Loading />
+      <button onClick={onLoad}>load</button>
+    </>
+  }
   ```
-- Modal/Notifications のストアAPIは今後拡充予定です。現時点ではアプリ側で最小実装のストアを渡すか、次リリースの API 公開をお待ちください。
+- Modal/Notifications は `modalStore`/`notificationStore` を直接操作します。
+  ```tsx
+  import { Modal, Notifications } from '@generalworks/gw-front-common/solid/components'
+  import { modalStore, notificationStore } from '@generalworks/gw-front-common/solid'
+
+  modalStore.open({ message: '確認しますか？' })
+  notificationStore.add({ type: 'info', message: '保存しました', removeAfter: 3000 })
+  ```
 
 ## スクリプト
 - `bun test`

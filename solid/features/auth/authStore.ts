@@ -29,9 +29,12 @@ const reset = (): void => {
 
 const isLoggedIn = (): boolean => persistedStore.id !== null;
 
-export default {
+export const authStore = {
 	get: () => persistedStore,
 	set: persistedSetStore,
 	reset,
 	isLoggedIn,
 };
+
+export type AuthStore = typeof authStore;
+// default export removed to favor named imports

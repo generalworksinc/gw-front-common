@@ -5,10 +5,10 @@ export interface AuthUser {
     firstName: string | null;
     lastName: string | null;
 }
-declare const _default: {
+export declare const authStore: {
     get: () => AuthUser;
     set: import('solid-js/store').SetStoreFunction<AuthUser>;
     reset: () => void;
     isLoggedIn: () => boolean;
 };
-export default _default;
+export type AuthStore = typeof authStore;

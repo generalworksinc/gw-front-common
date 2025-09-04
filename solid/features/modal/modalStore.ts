@@ -77,7 +77,7 @@ const no = (): void => {
 
 const reset = close;
 
-export default {
+export const modalStore = {
 	get: () => store,
 	set: setStore,
 	open,
@@ -87,3 +87,6 @@ export default {
 	no,
 	reset,
 };
+
+export type ModalStore = typeof modalStore;
+// default export removed to favor named imports

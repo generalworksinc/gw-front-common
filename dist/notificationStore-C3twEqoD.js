@@ -26,13 +26,13 @@ function $(n, e = /* @__PURE__ */ new Set()) {
   if (!S(n) || e.has(n)) return n;
   if (Array.isArray(n)) {
     Object.isFrozen(n) ? n = n.slice(0) : e.add(n);
-    for (let f = 0, d = n.length; f < d; f++)
+    for (let f = 0, h = n.length; f < h; f++)
       s = n[f], (t = $(s, e)) !== s && (n[f] = t);
   } else {
     Object.isFrozen(n) ? n = Object.assign({}, n) : e.add(n);
-    const f = Object.keys(n), d = Object.getOwnPropertyDescriptors(n);
+    const f = Object.keys(n), h = Object.getOwnPropertyDescriptors(n);
     for (let u = 0, c = f.length; u < c; u++)
-      i = f[u], !d[i].get && (s = n[i], (t = $(s, e)) !== s && (n[i] = t));
+      i = f[u], !h[i].get && (s = n[i], (t = $(s, e)) !== s && (n[i] = t));
   }
   return n;
 }
@@ -91,12 +91,12 @@ function g(n, e, l, t = !1) {
   if (!t && n[e] === l) return;
   const s = n[e], i = n.length;
   l === void 0 ? (delete n[e], n[m] && n[m][e] && s !== void 0 && n[m][e].$()) : (n[e] = l, n[m] && n[m][e] && s === void 0 && n[m][e].$());
-  let f = K(n, F), d;
-  if ((d = H(f, e, s)) && d.$(() => l), Array.isArray(n) && n.length !== i) {
-    for (let u = n.length; u < i; u++) (d = f[u]) && d.$();
-    (d = H(f, "length", i)) && d.$(n.length);
+  let f = K(n, F), h;
+  if ((h = H(f, e, s)) && h.$(() => l), Array.isArray(n) && n.length !== i) {
+    for (let u = n.length; u < i; u++) (h = f[u]) && h.$();
+    (h = H(f, "length", i)) && h.$(n.length);
   }
-  (d = f[M]) && d.$();
+  (h = f[M]) && h.$();
 }
 function v(n, e) {
   const l = Object.keys(e);
@@ -120,16 +120,16 @@ function W(n, e, l = []) {
   let t, s = n;
   if (e.length > 1) {
     t = e.shift();
-    const f = typeof t, d = Array.isArray(n);
+    const f = typeof t, h = Array.isArray(n);
     if (Array.isArray(t)) {
       for (let u = 0; u < t.length; u++)
         W(n, [t[u]].concat(e), l);
       return;
-    } else if (d && f === "function") {
+    } else if (h && f === "function") {
       for (let u = 0; u < n.length; u++)
         t(n[u], u) && W(n, [u].concat(e), l);
       return;
-    } else if (d && f === "object") {
+    } else if (h && f === "object") {
       const {
         from: u = 0,
         to: c = n.length - 1,
@@ -167,13 +167,13 @@ function w(n, e, l, t, s) {
   }
   if (f) {
     if (n.length && i.length && (!t || s && n[0] && n[0][s] != null)) {
-      let c, o, r, h, a, A, Y, O;
-      for (r = 0, h = Math.min(i.length, n.length); r < h && (i[r] === n[r] || s && i[r] && n[r] && i[r][s] && i[r][s] === n[r][s]); r++)
+      let c, o, r, d, a, A, Y, O;
+      for (r = 0, d = Math.min(i.length, n.length); r < d && (i[r] === n[r] || s && i[r] && n[r] && i[r][s] && i[r][s] === n[r][s]); r++)
         w(n[r], i, r, t, s);
       const P = new Array(n.length), D = /* @__PURE__ */ new Map();
-      for (h = i.length - 1, a = n.length - 1; h >= r && a >= r && (i[h] === n[a] || s && i[h] && n[a] && i[h][s] && i[h][s] === n[a][s]); h--, a--)
-        P[a] = i[h];
-      if (r > a || r > h) {
+      for (d = i.length - 1, a = n.length - 1; d >= r && a >= r && (i[d] === n[a] || s && i[d] && n[a] && i[d][s] && i[d][s] === n[a][s]); d--, a--)
+        P[a] = i[d];
+      if (r > a || r > d) {
         for (o = r; o <= a; o++) g(i, o, n[o]);
         for (; o < n.length; o++)
           g(i, o, P[o]), w(n[o], i, o, t, s);
@@ -182,7 +182,7 @@ function w(n, e, l, t, s) {
       }
       for (Y = new Array(a + 1), o = a; o >= r; o--)
         A = n[o], O = s && A ? A[s] : A, c = D.get(O), Y[o] = c === void 0 ? -1 : c, D.set(O, o);
-      for (c = r; c <= h; c++)
+      for (c = r; c <= d; c++)
         A = i[c], O = s && A ? A[s] : A, o = D.get(O), o !== void 0 && o !== -1 && (P[o] = i[c], o = Y[o], D.set(O, o));
       for (o = r; o < n.length; o++)
         o in P ? (g(i, o, P[o]), w(n[o], i, o, t, s)) : g(i, o, n[o]);
@@ -192,9 +192,9 @@ function w(n, e, l, t, s) {
     i.length > n.length && g(i, "length", n.length);
     return;
   }
-  const d = Object.keys(n);
-  for (let c = 0, o = d.length; c < o; c++)
-    w(n[d[c]], i, d[c], t, s);
+  const h = Object.keys(n);
+  for (let c = 0, o = h.length; c < o; c++)
+    w(n[h[c]], i, h[c], t, s);
   const u = Object.keys(i);
   for (let c = 0, o = u.length; c < o; c++)
     n[u[c]] === void 0 && g(i, u[c], void 0);
@@ -212,7 +212,7 @@ function un(n, e = {}) {
     return f === void 0 ? i : f;
   };
 }
-const [j, I] = L(!1), dn = {
+const [j, I] = L(!1), hn = {
   isLoading: j,
   start: () => I(!0),
   stop: () => I(!1),
@@ -276,7 +276,7 @@ const [x, R] = p({ ...V }), k = (n) => {
   _(x.yesFunc) && x.yesFunc(), X();
 }, sn = () => {
   _(x.noFunc) && x.noFunc(), X();
-}, ln = X, hn = {
+}, ln = X, dn = {
   get: () => x,
   set: R,
   open: k,
@@ -309,8 +309,8 @@ const gn = {
 };
 export {
   p as c,
-  gn as d,
-  dn as l,
-  hn as m,
+  hn as l,
+  dn as m,
+  gn as n,
   un as r
 };

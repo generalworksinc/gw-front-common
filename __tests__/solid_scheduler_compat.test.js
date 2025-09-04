@@ -1,13 +1,13 @@
-import loadingStore from '../solid/features/loading/loadingStore.ts';
+import { loadingStore } from '../solid/features/loading/loadingStore.ts';
 import {
 	awaitLoadingWithScheduler,
 	eventWithLoading,
 } from '../solid/features/loading/utils.ts';
-import modalStore from '../solid/features/modal/modalStore.ts';
-import notificationStore from '../solid/features/notification/notificationStore.ts';
+import { modalStore } from '../solid/features/modal/modalStore.ts';
+import { notificationStore } from '../solid/features/notification/notificationStore.ts';
 
 describe('solid scheduler compatibility (singleton wrappers)', () => {
-	test('loadingStore default export behaves like scheduler store', async () => {
+	test('loadingStore behaves like scheduler store', async () => {
 		// initial
 		expect(loadingStore.isLoading()).toBe(false);
 		loadingStore.start();

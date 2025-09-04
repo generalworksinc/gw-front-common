@@ -10,7 +10,7 @@ declare function add(n: Omit<NotificationItem, 'id'> & {
 }): void;
 declare function remove(id: string | number): void;
 declare function reset(): void;
-declare const _default: {
+declare const notificationStore: {
     get: () => {
         list: NotificationItem[];
     };
@@ -18,4 +18,5 @@ declare const _default: {
     remove: typeof remove;
     reset: typeof reset;
 };
-export default _default;
+export { notificationStore };
+export type NotificationStore = typeof notificationStore;

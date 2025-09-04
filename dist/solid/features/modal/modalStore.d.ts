@@ -14,7 +14,7 @@ declare const defaultState: {
     yesFunc: any;
     noFunc: any;
 };
-declare const _default: {
+export declare const modalStore: {
     get: () => {
         isOpen: boolean;
         isConfirm: boolean;
@@ -54,4 +54,5 @@ declare const _default: {
     no: () => void;
     reset: () => void;
 };
-export default _default;
+export type ModalStore = typeof modalStore;
+export {};

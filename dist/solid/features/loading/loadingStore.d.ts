@@ -1,7 +1,7 @@
-declare const _default: {
+export declare const loadingStore: {
     isLoading: import('solid-js').Accessor<boolean>;
     start: () => true;
     stop: () => false;
     toggle: () => boolean;
 };
-export default _default;
+export type LoadingStore = typeof loadingStore;
