@@ -13,20 +13,20 @@
       "default": "./dist/core/mod.js"
     },
     "./solid": {
-      "types": "./dist/solid/mod.d.ts",
+      "types": "./dist/solid/mod/index.d.ts",
       "solid": {
-        "development": "./dist/solid/mod.dev.jsx",
-        "import": "./dist/solid/mod.jsx"
+        "development": "./dist/solid/mod/dev.jsx",
+        "import": "./dist/solid/mod/index.jsx"
       },
-      "import": "./dist/solid/mod.js"
+      "import": "./dist/solid/mod/index.js"
     },
     "./solid/components": {
-      "types": "./dist/solid/components.d.ts",
+      "types": "./dist/solid/components/index.d.ts",
       "solid": {
-        "development": "./dist/solid/components.dev.jsx",
-        "import": "./dist/solid/components.jsx"
+        "development": "./dist/solid/components/dev.jsx",
+        "import": "./dist/solid/components/index.jsx"
       },
-      "import": "./dist/solid/components.js"
+      "import": "./dist/solid/components/index.js"
     },
     "./vue": {
       "types": "./dist/vue/mod.d.ts",
