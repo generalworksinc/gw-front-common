@@ -25,8 +25,8 @@
     "./solid/components": {
       "types": "./dist/solid/components/index.d.ts",
       "solid": {
-        "development": "./dist/solid/components/dev.jsx",
-        "import": "./dist/solid/components/index.jsx"
+        "development": "./dist/solid/components/dev.js",
+        "import": "./dist/solid/components/index.js"
       },
       "node": "./dist/solid/components/server.js",
       "import": "./dist/solid/components/index.js",
