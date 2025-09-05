@@ -98,8 +98,8 @@ jobs:
       - name: Verify dependency signatures
         run: bun audit signatures
       - name: Release
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
           # npm発行する場合のみ
           # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: bunx semantic-release
