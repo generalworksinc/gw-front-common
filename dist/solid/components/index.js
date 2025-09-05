@@ -96,9 +96,29 @@ function Modal() {
 }
 delegateEvents(["click"]);
 var _tmpl$7 = /* @__PURE__ */ template(`<div><div>`);
-var _tmpl$23 = /* @__PURE__ */ template(`<div aria-live=polite><div><pre></pre></div><button type=button aria-label="delete notification">&times;`);
+var _tmpl$23 = /* @__PURE__ */ template(`<div aria-live=polite><div></div><button type=button aria-label="delete notification">&times;`);
+var _tmpl$33 = /* @__PURE__ */ template(`<pre>`);
 function Notifications(props) {
   const notificationStore = props.store;
+  try {
+    console.log("[Notifications] store=", notificationStore);
+    console.log("[Notifications] list ref=", notificationStore.get().list);
+    console.log("[Notifications] list length=", notificationStore.get().list?.length);
+  } catch (e) {
+    console.warn("[Notifications] debug log error", e);
+  }
+  const api = {
+    isSameStore: (store) => store === notificationStore,
+    getStore: () => notificationStore,
+    getListRef: () => notificationStore.get().list
+  };
+  try {
+    if (props.onReady) props.onReady(api);
+    if (typeof window !== "undefined") {
+      window.__GW_NOTIFICATIONS_API__ = api;
+    }
+  } catch {
+  }
   const removeNotificationHandler = (id) => {
     if (id) notificationStore.remove(id);
   };
@@ -109,14 +129,24 @@ function Notifications(props) {
         return notificationStore.get().list;
       },
       children: (notification) => (() => {
-        var _el$3 = _tmpl$23(), _el$4 = _el$3.firstChild, _el$5 = _el$4.firstChild, _el$6 = _el$4.nextSibling;
-        insert(_el$5, () => notification.message);
-        _el$6.$$click = () => removeNotificationHandler(notification.id);
+        var _el$3 = _tmpl$23(), _el$4 = _el$3.firstChild, _el$5 = _el$4.nextSibling;
+        insert(_el$4, () => {
+          try {
+            console.log("[Notifications] render item", notification);
+          } catch {
+          }
+          return (() => {
+            var _el$6 = _tmpl$33();
+            insert(_el$6, () => notification.message);
+            return _el$6;
+          })();
+        });
+        _el$5.$$click = () => removeNotificationHandler(notification.id);
         effect((_p$) => {
           var _v$3 = `z-50 notification default-notification-style default-notification-${notification.type}`, _v$4 = `z-50 notification-content default-notification-style-content default-notification-${notification.type}`, _v$5 = `z-50 notification-button default-notification-style-button default-notification-${notification.type}`;
           _v$3 !== _p$.e && className(_el$3, _p$.e = _v$3);
           _v$4 !== _p$.t && className(_el$4, _p$.t = _v$4);
-          _v$5 !== _p$.a && className(_el$6, _p$.a = _v$5);
+          _v$5 !== _p$.a && className(_el$5, _p$.a = _v$5);
           return _p$;
         }, {
           e: void 0,

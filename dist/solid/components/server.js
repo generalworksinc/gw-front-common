@@ -71,14 +71,40 @@ function Modal() {
   });
 }
 var _tmpl$7 = ['<div class="', '"><div class="', '">', "</div></div>"];
-var _tmpl$23 = ['<div class="', '" aria-live="polite"><div class="', '"><pre>', '</pre></div><button type="button" class="', '" aria-label="delete notification">&times;</button></div>'];
+var _tmpl$23 = ['<div class="', '" aria-live="polite"><div class="', '">', '</div><button type="button" class="', '" aria-label="delete notification">&times;</button></div>'];
+var _tmpl$33 = ["<pre>", "</pre>"];
 function Notifications(props) {
   const notificationStore = props.store;
+  try {
+    console.log("[Notifications] store=", notificationStore);
+    console.log("[Notifications] list ref=", notificationStore.get().list);
+    console.log("[Notifications] list length=", notificationStore.get().list?.length);
+  } catch (e) {
+    console.warn("[Notifications] debug log error", e);
+  }
+  const api = {
+    isSameStore: (store) => store === notificationStore,
+    getStore: () => notificationStore,
+    getListRef: () => notificationStore.get().list
+  };
+  try {
+    if (props.onReady) props.onReady(api);
+    if (typeof window !== "undefined") {
+      window.__GW_NOTIFICATIONS_API__ = api;
+    }
+  } catch {
+  }
   return ssr(_tmpl$7, `notifications ${escape(props.class, true) || ""}`, `z-50 position-top-right default-position-style-top-right ${props.position ? `position-${escape(props.position, true)}` : ""}`, escape(createComponent(For, {
     get each() {
       return notificationStore.get().list;
     },
-    children: (notification) => ssr(_tmpl$23, `z-50 notification default-notification-style default-notification-${escape(notification.type, true)}`, `z-50 notification-content default-notification-style-content default-notification-${escape(notification.type, true)}`, escape(notification.message), `z-50 notification-button default-notification-style-button default-notification-${escape(notification.type, true)}`)
+    children: (notification) => ssr(_tmpl$23, `z-50 notification default-notification-style default-notification-${escape(notification.type, true)}`, `z-50 notification-content default-notification-style-content default-notification-${escape(notification.type, true)}`, (() => {
+      try {
+        console.log("[Notifications] render item", notification);
+      } catch {
+      }
+      return ssr(_tmpl$33, escape(notification.message));
+    })(), `z-50 notification-button default-notification-style-button default-notification-${escape(notification.type, true)}`)
   })));
 }
 
