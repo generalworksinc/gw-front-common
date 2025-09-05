@@ -27,28 +27,10 @@ export default defineConfig((_opts) => {
 	});
 	const arr = generateTsupOptions(options);
 	return arr.map((cfg) => {
-		// const entry = (cfg as any).entry;
-		// const entries =
-		// 	typeof entry === 'string' ? [entry] : Array.isArray(entry) ? entry : [];
-		// const isComponents = entries.some((e) =>
-		// 	String(e).includes('solid/components'),
-		// );
-
 		return {
 			...cfg,
 			// Use Solid tsconfig so TS knows JSX settings while emitting d.ts
 			tsconfig: 'tsconfig.solid.json',
-			// ...(isComponents
-			// 	? {
-			// 			// components は依存を束ねず ESM のまま配布
-			// 			bundle: false,
-			// 			splitting: false,
-			// 			format: ['esm'],
-			// 			sourcemap: true,
-			// 			// Solid ランタイムなどは外部解決に委ねる
-			// 			external: ['solid-js', 'solid-js/web', '@solidjs/router'],
-			// 		}
-			// 	: {}),
 		};
 	});
 });
