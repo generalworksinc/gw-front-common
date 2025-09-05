@@ -10,7 +10,7 @@ import type { JSX } from 'solid-js';
 import { For } from 'solid-js';
 import { notificationStore } from '../notificationStore';
 
-export default function Notifications(): JSX.Element {
+export function Notifications(): JSX.Element {
 	const removeNotificationHandler = (id?: string) => {
 		if (id) notificationStore.remove(id);
 	};

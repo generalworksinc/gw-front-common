@@ -1,6 +1,6 @@
-import { loadingStore, modalStore } from '../../chunk/ZTUZDGMB.js';
-import { delegateEvents, template, insert, createComponent, effect, addEventListener, style } from 'solid-js/web';
-import { Show, createMemo } from 'solid-js';
+import { loadingStore, modalStore, notificationStore } from '../../chunk/ZTUZDGMB.js';
+import { delegateEvents, template, insert, createComponent, effect, addEventListener, style, className } from 'solid-js/web';
+import { Show, createMemo, For } from 'solid-js';
 
 var _tmpl$ = /* @__PURE__ */ template(`<div class="loading-page-manual element-animation"><div class=element-animation__inner><div class=loader>`);
 var _tmpl$2 = /* @__PURE__ */ template(`<div>`);
@@ -95,6 +95,39 @@ function Modal() {
   });
 }
 delegateEvents(["click"]);
+var _tmpl$7 = /* @__PURE__ */ template(`<div class=notifications><div class="z-50 position-top-right default-position-style-top-right">`);
+var _tmpl$23 = /* @__PURE__ */ template(`<div aria-live=polite><div><pre></pre></div><button type=button aria-label="delete notification">&times;`);
+function Notifications() {
+  const removeNotificationHandler = (id) => {
+    if (id) notificationStore.remove(id);
+  };
+  return (() => {
+    var _el$ = _tmpl$7(), _el$2 = _el$.firstChild;
+    insert(_el$2, createComponent(For, {
+      get each() {
+        return notificationStore.get().list;
+      },
+      children: (notification) => (() => {
+        var _el$3 = _tmpl$23(), _el$4 = _el$3.firstChild, _el$5 = _el$4.firstChild, _el$6 = _el$4.nextSibling;
+        insert(_el$5, () => notification.message);
+        _el$6.$$click = () => removeNotificationHandler(notification.id);
+        effect((_p$) => {
+          var _v$ = `z-50 notification default-notification-style default-notification-${notification.type}`, _v$2 = `z-50 notification-content default-notification-style-content default-notification-${notification.type}`, _v$3 = `z-50 notification-button default-notification-style-button default-notification-${notification.type}`;
+          _v$ !== _p$.e && className(_el$3, _p$.e = _v$);
+          _v$2 !== _p$.t && className(_el$4, _p$.t = _v$2);
+          _v$3 !== _p$.a && className(_el$6, _p$.a = _v$3);
+          return _p$;
+        }, {
+          e: void 0,
+          t: void 0,
+          a: void 0
+        });
+        return _el$3;
+      })()
+    }));
+    return _el$;
+  })();
+}
 delegateEvents(["click"]);
 
-export { Loading, Modal };
+export { Loading, Modal, Notifications };

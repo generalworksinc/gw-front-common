@@ -8,4 +8,8 @@ declare function Loading(): JSX.Element;
 
 declare function Modal(): JSX.Element;
 
-export { Loading, Modal };
+/** @jsxImportSource solid-js */
+
+declare function Notifications(): JSX.Element;
+
+export { Loading, Modal, Notifications };
