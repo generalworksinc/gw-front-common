@@ -10,10 +10,11 @@ function makeLazy(key) {
       const mod = await gwMod();
       setComponent(() => mod[key]);
     });
-    const C = Component();
-    return C ? createComponent(Dynamic, mergeProps({
-      component: C
-    }, props)) : null;
+    return createComponent(Dynamic, mergeProps({
+      get component() {
+        return Component();
+      }
+    }, props));
   };
 }
 var Notifications = makeLazy("Notifications");

@@ -14,8 +14,7 @@ function makeLazy(key: string) {
 			const mod: any = await gwMod();
 			setComponent(() => mod[key] as AnyComponent);
 		});
-		const C = Component();
-		return C ? <Dynamic component={C as any} {...props} /> : null;
+		return <Dynamic component={Component() as any} {...props} />;
 	};
 }
 
