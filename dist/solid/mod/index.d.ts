@@ -108,6 +108,9 @@ declare const notificationStore: {
     reset: () => void;
 };
 
-type NotificationStore = typeof notificationStore;
+declare const __STORE_UNIQUE__: unique symbol;
+type NotificationStore = typeof notificationStore & {
+    readonly [__STORE_UNIQUE__]: true;
+};
 
 export { type AuthStore, type AuthUser, type LoadingStore, type ModalStore, type NotificationItem, type NotificationPosition, type NotificationState, type NotificationStore, type NotificationType, authStore, awaitLoadingWith, eventWithLoading, loadingStore, modalStore, notificationStore };

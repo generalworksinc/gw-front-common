@@ -58,4 +58,8 @@ const notificationStore = {
 // default export removed to favor named imports
 export { notificationStore };
 
-export type NotificationStore = typeof notificationStore;
+// ストアの型定義に一意性マーカーを追加
+declare const __STORE_UNIQUE__: unique symbol;
+export type NotificationStore = typeof notificationStore & {
+	readonly [__STORE_UNIQUE__]: true;
+};

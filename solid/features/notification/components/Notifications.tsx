@@ -8,7 +8,7 @@ import type { JSX } from 'solid-js';
 // }): JSX.Elemen
 
 import { For } from 'solid-js';
-import { notificationStore } from '../notificationStore';
+import { notificationStore } from '../../../mod';
 
 export function Notifications(): JSX.Element {
 	const removeNotificationHandler = (id?: string) => {
