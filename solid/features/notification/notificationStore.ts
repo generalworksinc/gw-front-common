@@ -9,8 +9,8 @@ export type NotificationPosition =
 	| 'bottom-left';
 
 export interface NotificationItem {
-	id: string;
-	type: NotificationType;
+	id?: string;
+	type?: NotificationType;
 	message: string;
 	removeAfter?: number;
 	position?: NotificationPosition;

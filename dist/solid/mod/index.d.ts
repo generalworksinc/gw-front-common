@@ -90,8 +90,8 @@ type ModalStore = typeof modalStore;
 type NotificationType = 'success' | 'warning' | 'danger' | 'info';
 type NotificationPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 interface NotificationItem {
-    id: string;
-    type: NotificationType;
+    id?: string;
+    type?: NotificationType;
     message: string;
     removeAfter?: number;
     position?: NotificationPosition;
