@@ -1,6 +1,6 @@
 {
   "name": "@generalworks/gw-front-common",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "description": "Common frontend utilities and UI components for generalworks projects",
   "type": "module",
   "exports": {
@@ -14,6 +14,39 @@
     },
     "./solid": {
       "types": "./dist/solid/mod/index.d.ts",
+      "solid": {
+        "development": "./dist/solid/mod/dev.js",
+        "import": "./dist/solid/mod/index.js"
+      },
+      "node": "./dist/solid/mod/server.js",
+      "import": "./dist/solid/mod/index.js",
+      "default": "./dist/solid/mod/index.js"
+    },
+    "./solid/components": {
+      "types": "./dist/solid/components/index.d.ts",
+      "solid": {
+        "development": "./dist/solid/components/server.js",
+        "browser": "./dist/solid/components/index.js",
+        "import": "./dist/solid/components/server.js",
+        "node": "./dist/solid/components/server.js"
+      },
+      "browser": "./dist/solid/components/index.js",
+      "node": "./dist/solid/components/server.js",
+      "import": "./dist/solid/components/server.js",
+      "default": "./dist/solid/components/server.js"
+    },
+    "./vue": {
+      "types": "./dist/vue/mod.d.ts",
+      "default": "./dist/vue/mod.js"
+    },
+    "./vue/components": {"./solid": {
+      "types": "./dist/solid/mod/index.d.ts",
+      "solid": {
+        "development": "./dist/solid/mod/dev.js",
+        "import": "./dist/solid/mod/index.js"
+      },
+      "node": "./dist/solid/mod/server.js",
+      "import": "./dist/solid/mod/index.js",
       "default": "./dist/solid/mod/index.js"
     },
     "./solid/components": {
@@ -23,13 +56,9 @@
         "import": "./dist/solid/components/index.js"
       },
       "node": "./dist/solid/components/server.js",
+      "import": "./dist/solid/components/index.js",
       "default": "./dist/solid/components/index.js"
     },
-    "./vue": {
-      "types": "./dist/vue/mod.d.ts",
-      "default": "./dist/vue/mod.js"
-    },
-    "./vue/components": {
       "types": "./dist/vue/components.d.ts",
       "default": "./dist/vue/components.js"
     },
