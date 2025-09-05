@@ -75,36 +75,42 @@ jobs:
         run: rm -f coverage.txt || true
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write         # GitHub Release作成
-      issues: write           # 関連Issue/PRへコメント
-      pull-requests: write
-      id-token: write         # （npm provenance 用。npm未使用ならあってもOK）
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Ensure jq is available
+        run: |
+          if ! command -v jq >/dev/null 2>&1; then
+            sudo apt-get update -y
+            sudo apt-get install -y jq
+          fi
+      - name: Detect version change
+        id: detect
+        run: |
+          set -e
+          curr=$(jq -r .version package.json)
+          echo "Current version: $curr"
+          if git show HEAD^:package.json >/dev/null 2>&1; then
+            prev=$(git show HEAD^:package.json | jq -r .version)
+            echo "Previous version: $prev"
+          else
+            prev=""
+          fi
+          if [ "$curr" != "$prev" ] && [ -n "$curr" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "version=$curr" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Create GitHub Release
+        if: steps.detect.outputs.changed == 'true'
+        uses: ncipollo/release-action@v1
         with:
-          bun-version: latest
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: "lts/*"
-      - name: Install dependencies
-        run: bun install --no-save
-      - name: Verify dependency signatures
-        run: bun audit signatures
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-          # npm発行する場合のみ
-          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bunx semantic-release
-
-  # publish:
+          tag: v${{ steps.detect.outputs.version }}
+          name: v${{ steps.detect.outputs.version }}
+          generateReleaseNotes: true
+          allowUpdates: true
   #   name: Publish to JSR (main branch)
   #   needs: test
   #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
