@@ -1,6 +1,6 @@
-import { loadingStore, modalStore, notificationStore } from '../../chunk/ZTUZDGMB.js';
+import { loadingStore, modalStore } from '../../chunk/ZTUZDGMB.js';
 import { ssr, escape, createComponent, ssrStyle } from 'solid-js/web';
-import { Show, createMemo, For } from 'solid-js';
+import { Show, createMemo } from 'solid-js';
 
 var _tmpl$ = '<div class="loading-page-manual element-animation"><div class="element-animation__inner"><div class="loader"></div></div></div>';
 var _tmpl$2 = ["<div>", "</div>"];
@@ -70,18 +70,5 @@ function Modal() {
     }
   });
 }
-var _tmpl$7 = ['<div class="notifications"><div class="', '">', "</div></div>"];
-var _tmpl$23 = ['<div class="', '"><div class="', '"><pre>', '</pre></div><button type="button" class="', '" aria-label="delete notification">&times;</button></div>'];
-function Notifications(props) {
-  const store = () => props.store ?? notificationStore;
-  const items = () => store()?.get?.()?.list ?? [];
-  const pos = () => props.position ?? "top-right";
-  return ssr(_tmpl$7, `z-50 position-${escape(pos(), true)} default-position-style-${escape(pos(), true)}`, escape(createComponent(For, {
-    get each() {
-      return items();
-    },
-    children: (notification) => ssr(_tmpl$23, `z-50 notification default-notification-style default-notification-${escape(notification.type, true)}`, `z-50 notification-content default-notification-style-content default-notification-${escape(notification.type, true)}`, escape(notification.message), `z-50 notification-button default-notification-style-button default-notification-${escape(notification.type, true)}`)
-  })));
-}
 
-export { Loading, Modal, Notifications };
+export { Loading, Modal };

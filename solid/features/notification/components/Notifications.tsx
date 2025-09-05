@@ -1,26 +1,28 @@
 /** @jsxImportSource solid-js */
 import type { JSX } from 'solid-js';
-import { For } from 'solid-js';
-import { notificationStore as defaultStore } from '../notificationStore';
 
-export function Notifications(props: {
-	store?: any;
-	class?: string;
-	position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
-}): JSX.Element {
-	const store = () => props.store ?? defaultStore;
-	const items = () => store()?.get?.()?.list ?? [];
-	const pos = () => props.position ?? 'top-right';
-	const removeNotificationHandler = (id?: string | number) => {
-		if (id != null) store().remove?.(id);
+// export function Notifications(props: {
+// 	store?: any;
+// 	class?: string;
+// 	position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+// }): JSX.Elemen
+
+import { For } from 'solid-js';
+import { notificationStore } from '../notificationStore';
+
+export default function Notifications(): JSX.Element {
+	const removeNotificationHandler = (id?: string) => {
+		if (id) notificationStore.remove(id);
 	};
+
 	return (
 		<div class="notifications">
-			<div class={`z-50 position-${pos()} default-position-style-${pos()}`}>
-				<For each={items()}>
-					{(notification: any) => (
+			<div class="z-50 position-top-right default-position-style-top-right">
+				<For each={notificationStore.get().list}>
+					{(notification) => (
 						<div
 							class={`z-50 notification default-notification-style default-notification-${notification.type}`}
+							aria-live="polite"
 						>
 							<div
 								class={`z-50 notification-content default-notification-style-content default-notification-${notification.type}`}
