@@ -7,13 +7,13 @@ export default defineConfig((_opts) => {
 			{
 				name: 'solid/mod',
 				entry: 'solid/mod.ts',
-				dev_entry: true,
-				server_entry: true,
+				// dev_entry: true,
+				// server_entry: true,
 			},
 			{
 				name: 'solid/components',
 				entry: 'solid/components.ts',
-				dev_entry: true,
+				// dev_entry: true,
 				server_entry: true,
 			},
 		],

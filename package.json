@@ -14,22 +14,15 @@
     },
     "./solid": {
       "types": "./dist/solid/mod/index.d.ts",
-      "solid": {
-        "development": "./dist/solid/mod/dev.js",
-        "import": "./dist/solid/mod/index.js"
-      },
-      "node": "./dist/solid/mod/server.js",
-      "import": "./dist/solid/mod/index.js",
       "default": "./dist/solid/mod/index.js"
     },
     "./solid/components": {
       "types": "./dist/solid/components/index.d.ts",
       "solid": {
-        "development": "./dist/solid/components/dev.js",
+        "development": "./dist/solid/components/server.js",
         "import": "./dist/solid/components/index.js"
       },
       "node": "./dist/solid/components/server.js",
-      "import": "./dist/solid/components/index.js",
       "default": "./dist/solid/components/index.js"
     },
     "./vue": {
