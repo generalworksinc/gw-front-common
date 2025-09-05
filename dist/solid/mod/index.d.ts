@@ -95,11 +95,13 @@ declare const modalStore: {
 type ModalStore = typeof modalStore;
 
 type NotificationType = 'success' | 'warning' | 'danger' | 'info';
+type NotificationPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
 interface NotificationItem {
     id: string;
     type: NotificationType;
     message: string;
     removeAfter?: number;
+    position?: NotificationPosition;
 }
 declare function add(n: Omit<NotificationItem, 'id'> & {
     text?: string;
@@ -117,4 +119,4 @@ declare const notificationStore: {
 
 type NotificationStore = typeof notificationStore;
 
-export { type AuthStore, type AuthUser, type LoadingStore$1 as LoadingStore, type ModalStore, type NotificationItem, type NotificationStore, type NotificationType, authStore, awaitLoadingWith, awaitLoadingWithScheduler, eventWithLoading, loadingStore, modalStore, notificationStore };
+export { type AuthStore, type AuthUser, type LoadingStore$1 as LoadingStore, type ModalStore, type NotificationItem, type NotificationPosition, type NotificationStore, type NotificationType, authStore, awaitLoadingWith, awaitLoadingWithScheduler, eventWithLoading, loadingStore, modalStore, notificationStore };

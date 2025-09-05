@@ -2,11 +2,18 @@ import { createSignal } from 'solid-js';
 
 export type NotificationType = 'success' | 'warning' | 'danger' | 'info';
 
+export type NotificationPosition =
+	| 'top-right'
+	| 'top-left'
+	| 'bottom-right'
+	| 'bottom-left';
+
 export interface NotificationItem {
 	id: string;
 	type: NotificationType;
 	message: string;
 	removeAfter?: number;
+	position?: NotificationPosition;
 }
 
 const randomId = () => Math.random().toString(36).slice(2);
@@ -20,6 +27,7 @@ function add(n: Omit<NotificationItem, 'id'> & { text?: string }): void {
 		message: (n as any).message ?? (n as any).text ?? '',
 		type: n.type,
 		removeAfter: n.removeAfter,
+		position: (n as any).position,
 	};
 	setItems((prev) => [...prev, item]);
 	if (item.removeAfter && item.removeAfter > 0) {

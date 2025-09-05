@@ -94,7 +94,8 @@ function add(n) {
     id: randomId(),
     message: n.message ?? n.text ?? "",
     type: n.type,
-    removeAfter: n.removeAfter
+    removeAfter: n.removeAfter,
+    position: n.position
   };
   setItems((prev) => [...prev, item]);
   if (item.removeAfter && item.removeAfter > 0) {
