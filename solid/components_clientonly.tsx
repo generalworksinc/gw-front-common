@@ -1,5 +1,6 @@
 /** @jsxImportSource solid-js */
-import { createSignal, type JSX, onMount, Show } from 'solid-js';
+import { createSignal, type JSX, onMount } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 
 // SSR-safe wrappers without depending on @solidjs/start
 const gwMod = () => import('./components_ssr');
@@ -13,11 +14,8 @@ function makeLazy(key: string) {
 			const mod: any = await gwMod();
 			setComponent(() => mod[key] as AnyComponent);
 		});
-		return (
-			<Show when={Component()}>
-				{(component) => (component as unknown as AnyComponent)({ ...props })}
-			</Show>
-		);
+		const C = Component();
+		return C ? <Dynamic component={C as any} {...props} /> : null;
 	};
 }
 

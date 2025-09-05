@@ -1,5 +1,5 @@
-import { createComponent } from 'solid-js/web';
-import { createSignal, onMount, Show } from 'solid-js';
+import { createComponent, Dynamic, mergeProps } from 'solid-js/web';
+import { createSignal, onMount } from 'solid-js';
 
 // solid/components_clientonly.tsx
 var gwMod = () => import('../../components_ssr/3RJOEYVA.js');
@@ -10,14 +10,10 @@ function makeLazy(key) {
       const mod = await gwMod();
       setComponent(() => mod[key]);
     });
-    return createComponent(Show, {
-      get when() {
-        return Component();
-      },
-      children: (component) => component({
-        ...props
-      })
-    });
+    const C = Component();
+    return C ? createComponent(Dynamic, mergeProps({
+      component: C
+    }, props)) : null;
   };
 }
 var Notifications = makeLazy("Notifications");
