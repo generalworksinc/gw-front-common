@@ -15,8 +15,8 @@
     "./solid": {
       "types": "./dist/solid/mod/index.d.ts",
       "solid": {
-        "development": "./dist/solid/mod/dev.jsx",
-        "import": "./dist/solid/mod/index.jsx"
+        "development": "./dist/solid/mod/dev.js",
+        "import": "./dist/solid/mod/index.js"
       },
       "node": "./dist/solid/mod/server.js",
       "import": "./dist/solid/mod/index.js",
