@@ -1,4 +1,4 @@
-import { loadingStore, modalStore } from '../chunk/7PXPCBGI.js';
+import { loadingStore, modalStore } from '../../chunk/7PXPCBGI.js';
 import { delegateEvents, template, insert, createComponent, effect, addEventListener, style, className } from 'solid-js/web';
 import { Show, createMemo, For } from 'solid-js';
 

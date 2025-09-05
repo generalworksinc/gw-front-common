@@ -1,8 +1,9 @@
-import { createSignal, createUniqueId, untrack } from 'solid-js';
+import { loadingStore } from '../../chunk/7PXPCBGI.js';
+export { loadingStore, modalStore } from '../../chunk/7PXPCBGI.js';
+import { createUniqueId, untrack } from 'solid-js';
 import { isServer, isDev } from 'solid-js/web';
 import { createStore, reconcile } from 'solid-js/store';
 
-// node_modules/@solid-primitives/storage/dist/persisted.js
 function makePersisted(signal, options = {}) {
   const storage = options.storage || globalThis.localStorage;
   const name = options.name || `storage-${createUniqueId()}`;
@@ -85,13 +86,6 @@ var authStore = {
   reset,
   isLoggedIn
 };
-var [isLoading, setIsLoading] = createSignal(false);
-var loadingStore = {
-  isLoading,
-  start: () => setIsLoading(true),
-  stop: () => setIsLoading(false),
-  toggle: () => setIsLoading((v) => !v)
-};
 
 // solid/features/loading/utils.ts
 var eventWithLoading = async (func, ...params) => {
@@ -125,93 +119,15 @@ var eventWithLoading = async (func, ...params) => {
 var awaitLoadingWith = (asyncFn) => {
   return async () => await eventWithLoading(asyncFn);
 };
-var defaultState2 = {
-  isOpen: false,
-  isConfirm: false,
-  html: "",
-  message: "",
-  height: "",
-  width: "",
-  maxHeight: "",
-  maxWidth: "",
-  minHeight: "",
-  minWidth: "",
-  isScrollY: false,
-  isScrollX: false,
-  yesFunc: null,
-  noFunc: null
-};
-function isFunction(fn) {
-  return typeof fn === "function";
-}
-var [store2, setStore2] = createStore({ ...defaultState2 });
-var open = (obj) => {
-  setStore2({
-    isOpen: true,
-    isConfirm: false,
-    message: obj?.message ?? "",
-    html: obj?.html ?? "",
-    height: obj?.height ?? "",
-    width: obj?.width ?? "",
-    maxHeight: obj?.maxHeight ?? "",
-    maxWidth: obj?.maxWidth ?? "",
-    minHeight: obj?.minHeight ?? "",
-    minWidth: obj?.minWidth ?? "",
-    isScrollY: obj?.isScrollY ?? false,
-    isScrollX: obj?.isScrollX ?? false,
-    yesFunc: isFunction(obj?.yesFunc) ? obj?.yesFunc : null,
-    noFunc: null
-  });
-};
-var confirm = (obj) => {
-  setStore2({
-    isOpen: true,
-    isConfirm: true,
-    message: obj?.message ?? "",
-    html: obj?.html ?? "",
-    height: obj?.height ?? "",
-    width: obj?.width ?? "",
-    maxHeight: obj?.maxHeight ?? "",
-    maxWidth: obj?.maxWidth ?? "",
-    minHeight: obj?.minHeight ?? "",
-    minWidth: obj?.minWidth ?? "",
-    isScrollY: obj?.isScrollY ?? false,
-    isScrollX: obj?.isScrollX ?? false,
-    yesFunc: isFunction(obj?.yesFunc) ? obj?.yesFunc : null,
-    noFunc: isFunction(obj?.noFunc) ? obj?.noFunc : null
-  });
-};
-var close = () => {
-  setStore2({ ...defaultState2 });
-};
-var yes = () => {
-  if (isFunction(store2.yesFunc)) store2.yesFunc();
-  close();
-};
-var no = () => {
-  if (isFunction(store2.noFunc)) store2.noFunc();
-  close();
-};
-var reset2 = close;
-var modalStore = {
-  get: () => store2,
-  set: setStore2,
-  open,
-  confirm,
-  close,
-  yes,
-  no,
-  reset: reset2
-};
 var randomId = () => Math.random().toString(36).slice(2);
-var defaultState3 = {
+var defaultState2 = {
   list: []
 };
-var [store3, setStore3] = createStore({ ...defaultState3 });
+var [store2, setStore2] = createStore({ ...defaultState2 });
 var add = (payload) => {
   const id = randomId();
   const notification = { ...payload, id };
-  setStore3("list", (list) => [...list, notification]);
+  setStore2("list", (list) => [...list, notification]);
   if (notification.removeAfter) {
     setTimeout(() => {
       remove(id);
@@ -219,16 +135,16 @@ var add = (payload) => {
   }
 };
 var remove = (id) => {
-  setStore3("list", (list) => list.filter((n) => n.id !== id));
+  setStore2("list", (list) => list.filter((n) => n.id !== id));
 };
-var reset3 = () => {
-  setStore3({ ...defaultState3 });
+var reset2 = () => {
+  setStore2({ ...defaultState2 });
 };
 var notificationStore = {
-  get: () => ({ list: store3.list }),
+  get: () => ({ list: store2.list }),
   add,
   remove,
-  reset: reset3
+  reset: reset2
 };
 
-export { authStore, awaitLoadingWith, eventWithLoading, loadingStore, modalStore, notificationStore };
+export { authStore, awaitLoadingWith, eventWithLoading, notificationStore };

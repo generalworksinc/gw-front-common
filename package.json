@@ -1,6 +1,6 @@
 {
   "name": "@generalworks/gw-front-common",
-  "version": "0.0.63",
+  "version": "0.0.64",
   "description": "Common frontend utilities and UI components for generalworks projects",
   "type": "module",
   "exports": {
@@ -31,6 +31,13 @@
       "browser": "./dist/solid/components/index.js",
       "import": "./dist/solid/components/index.js",
       "default": "./dist/solid/components/index.js"
+    },
+    "./solid/components_ssr": {
+      "types": "./dist/solid/components_ssr/index.d.ts",
+      "solid": "./dist/solid/components_ssr/server.js",
+      "browser": "./dist/solid/components_ssr/index.js",
+      "import": "./dist/solid/components_ssr/server.js",
+      "default": "./dist/solid/components_ssr/server.js"
     },
     "./vue": {
       "types": "./dist/vue/mod.d.ts",

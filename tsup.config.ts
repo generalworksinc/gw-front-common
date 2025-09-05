@@ -16,12 +16,12 @@ export default defineConfig((_opts) => {
 				// dev_entry: true,
 				// server_entry: true,
 			},
-			// {
-			// 	name: 'solid/components_ssr',
-			// 	entry: 'solid/components_ssr.ts',
-			// 	// dev_entry: true,
-			// 	server_entry: true,
-			// },
+			{
+				name: 'solid/components_ssr',
+				entry: 'solid/components_ssr.ts',
+				// dev_entry: true,
+				server_entry: true,
+			},
 		],
 		// keep JSX; declaration build must read tsconfig.solid.json via tsup (handled by preset)
 	});

@@ -2,7 +2,7 @@ import { createComponent, Dynamic, mergeProps } from 'solid-js/web';
 import { createSignal, onMount } from 'solid-js';
 
 // solid/components_clientonly.tsx
-var gwMod = () => import('../../components_ssr/3RJOEYVA.js');
+var gwMod = () => import('../components_ssr/index.js');
 function makeLazy(key) {
   return function LazyComponent(props) {
     const [Component, setComponent] = createSignal(null);
