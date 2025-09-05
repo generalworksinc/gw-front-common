@@ -75,25 +75,6 @@ var _tmpl$23 = ['<div class="', '" aria-live="polite"><div class="', '">', '</di
 var _tmpl$33 = ["<pre>", "</pre>"];
 function Notifications(props) {
   const notificationStore = props.store;
-  try {
-    console.log("[Notifications] store=", notificationStore);
-    console.log("[Notifications] list ref=", notificationStore.get().list);
-    console.log("[Notifications] list length=", notificationStore.get().list?.length);
-  } catch (e) {
-    console.warn("[Notifications] debug log error", e);
-  }
-  const api = {
-    isSameStore: (store) => store === notificationStore,
-    getStore: () => notificationStore,
-    getListRef: () => notificationStore.get().list
-  };
-  try {
-    if (props.onReady) props.onReady(api);
-    if (typeof window !== "undefined") {
-      window.__GW_NOTIFICATIONS_API__ = api;
-    }
-  } catch {
-  }
   return ssr(_tmpl$7, `notifications ${escape(props.class, true) || ""}`, `z-50 position-top-right default-position-style-top-right ${props.position ? `position-${escape(props.position, true)}` : ""}`, escape(notificationStore.get().list?.length), escape(createComponent(For, {
     get each() {
       return notificationStore.get().list;

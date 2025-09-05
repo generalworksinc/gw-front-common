@@ -21,4 +21,4 @@ declare const notificationStore: {
 
 type NotificationStore = typeof notificationStore;
 
-export { type NotificationStore as N, type NotificationItem as a, type NotificationType as b, type NotificationPosition as c, type NotificationState as d, notificationStore as n };
+export { type NotificationStore as N, type NotificationType as a, type NotificationPosition as b, type NotificationItem as c, type NotificationState as d, notificationStore as n };
