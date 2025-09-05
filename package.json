@@ -1,6 +1,6 @@
 {
   "name": "@generalworks/gw-front-common",
-  "version": "0.0.59",
+  "version": "0.0.60",
   "description": "Common frontend utilities and UI components for generalworks projects",
   "type": "module",
   "exports": {
@@ -31,6 +31,13 @@
       "browser": "./dist/solid/components/index.js",
       "import": "./dist/solid/components/index.js",
       "default": "./dist/solid/components/index.js"
+    },
+    "./solid/components_ssr": {
+      "types": "./dist/solid/components_ssr/index.d.ts",
+      "solid": "./dist/solid/components_ssr/server.js",
+      "browser": "./dist/solid/components_ssr/server.js",
+      "import": "./dist/solid/components_ssr/server.js",
+      "default": "./dist/solid/components_ssr/server.js"
     },
     "./vue": {
       "types": "./dist/vue/mod.d.ts",
@@ -64,6 +71,7 @@
   "peerDependencies": {
     "@nuxt/kit": ">=3.0.0",
     "solid-js": ">=1.9.0",
+    "@solidjs/start": ">=1.1.7",
     "vue": ">=3.4.0",
     "dayjs": ">=1.11.0",
     "pinia": ">=2.1.0"
@@ -75,6 +83,7 @@
     "@semantic-release/git": "^10.0.1",
     "@solid-primitives/storage": "^4.3.3",
     "@types/clone": "^2.1.4",
+    "@solidjs/start": "^1.1.7",
     "@vitejs/plugin-vue": "^6.0.1",
     "dayjs": "^1.11.18",
     "pinia": "^2.3.1",

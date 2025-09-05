@@ -1,4 +1,2 @@
-// Solid components entry
-export * from './features/loading/components/Loading';
-export * from './features/modal/components/Modal';
-export * from './features/notification/components/Notifications';
+// Solid components entry (SSR-safe wrappers)
+export * from './components_clientonly';
