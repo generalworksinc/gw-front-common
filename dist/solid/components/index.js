@@ -1,4 +1,4 @@
-import { loadingStore, modalStore, notificationStore } from '../../chunk/YAH6OEHT.js';
+import { loadingStore, modalStore } from '../../chunk/7PXPCBGI.js';
 import { delegateEvents, template, insert, createComponent, effect, addEventListener, style, className } from 'solid-js/web';
 import { Show, createMemo, For } from 'solid-js';
 
@@ -95,9 +95,10 @@ function Modal() {
   });
 }
 delegateEvents(["click"]);
-var _tmpl$7 = /* @__PURE__ */ template(`<div class=notifications><div class="z-50 position-top-right default-position-style-top-right">`);
+var _tmpl$7 = /* @__PURE__ */ template(`<div><div>`);
 var _tmpl$23 = /* @__PURE__ */ template(`<div aria-live=polite><div><pre></pre></div><button type=button aria-label="delete notification">&times;`);
-function Notifications() {
+function Notifications(props) {
+  const notificationStore = props.store;
   const removeNotificationHandler = (id) => {
     if (id) notificationStore.remove(id);
   };
@@ -112,10 +113,10 @@ function Notifications() {
         insert(_el$5, () => notification.message);
         _el$6.$$click = () => removeNotificationHandler(notification.id);
         effect((_p$) => {
-          var _v$ = `z-50 notification default-notification-style default-notification-${notification.type}`, _v$2 = `z-50 notification-content default-notification-style-content default-notification-${notification.type}`, _v$3 = `z-50 notification-button default-notification-style-button default-notification-${notification.type}`;
-          _v$ !== _p$.e && className(_el$3, _p$.e = _v$);
-          _v$2 !== _p$.t && className(_el$4, _p$.t = _v$2);
-          _v$3 !== _p$.a && className(_el$6, _p$.a = _v$3);
+          var _v$3 = `z-50 notification default-notification-style default-notification-${notification.type}`, _v$4 = `z-50 notification-content default-notification-style-content default-notification-${notification.type}`, _v$5 = `z-50 notification-button default-notification-style-button default-notification-${notification.type}`;
+          _v$3 !== _p$.e && className(_el$3, _p$.e = _v$3);
+          _v$4 !== _p$.t && className(_el$4, _p$.t = _v$4);
+          _v$5 !== _p$.a && className(_el$6, _p$.a = _v$5);
           return _p$;
         }, {
           e: void 0,
@@ -125,6 +126,15 @@ function Notifications() {
         return _el$3;
       })()
     }));
+    effect((_p$) => {
+      var _v$ = `notifications ${props.class || ""}`, _v$2 = `z-50 position-top-right default-position-style-top-right ${props.position ? `position-${props.position}` : ""}`;
+      _v$ !== _p$.e && className(_el$, _p$.e = _v$);
+      _v$2 !== _p$.t && className(_el$2, _p$.t = _v$2);
+      return _p$;
+    }, {
+      e: void 0,
+      t: void 0
+    });
     return _el$;
   })();
 }

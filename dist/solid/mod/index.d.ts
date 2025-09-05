@@ -1,5 +1,6 @@
 import * as solid_js_store from 'solid-js/store';
 import * as solid_js from 'solid-js';
+export { c as NotificationItem, b as NotificationPosition, d as NotificationState, N as NotificationStore, a as NotificationType, n as notificationStore } from '../../notificationStore-CUNsksgG.js';
 
 interface AuthUser {
     id: string | null;
@@ -87,30 +88,4 @@ declare const modalStore: {
 };
 type ModalStore = typeof modalStore;
 
-type NotificationType = 'success' | 'warning' | 'danger' | 'info';
-type NotificationPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
-interface NotificationItem {
-    id?: string;
-    type?: NotificationType;
-    message: string;
-    removeAfter?: number;
-    position?: NotificationPosition;
-}
-interface NotificationState {
-    list: NotificationItem[];
-}
-declare const notificationStore: {
-    get: () => {
-        list: NotificationItem[];
-    };
-    add: (payload: NotificationItem) => void;
-    remove: (id: string) => void;
-    reset: () => void;
-};
-
-declare const __STORE_UNIQUE__: unique symbol;
-type NotificationStore = typeof notificationStore & {
-    readonly [__STORE_UNIQUE__]: true;
-};
-
-export { type AuthStore, type AuthUser, type LoadingStore, type ModalStore, type NotificationItem, type NotificationPosition, type NotificationState, type NotificationStore, type NotificationType, authStore, awaitLoadingWith, eventWithLoading, loadingStore, modalStore, notificationStore };
+export { type AuthStore, type AuthUser, type LoadingStore, type ModalStore, authStore, awaitLoadingWith, eventWithLoading, loadingStore, modalStore };

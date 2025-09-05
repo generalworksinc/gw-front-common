@@ -1,4 +1,4 @@
-import { loadingStore, modalStore, notificationStore } from '../../chunk/YAH6OEHT.js';
+import { loadingStore, modalStore } from '../../chunk/7PXPCBGI.js';
 import { ssr, escape, createComponent, ssrStyle } from 'solid-js/web';
 import { Show, createMemo, For } from 'solid-js';
 
@@ -70,10 +70,11 @@ function Modal() {
     }
   });
 }
-var _tmpl$7 = ['<div class="notifications"><div class="z-50 position-top-right default-position-style-top-right">', "</div></div>"];
+var _tmpl$7 = ['<div class="', '"><div class="', '">', "</div></div>"];
 var _tmpl$23 = ['<div class="', '" aria-live="polite"><div class="', '"><pre>', '</pre></div><button type="button" class="', '" aria-label="delete notification">&times;</button></div>'];
-function Notifications() {
-  return ssr(_tmpl$7, escape(createComponent(For, {
+function Notifications(props) {
+  const notificationStore = props.store;
+  return ssr(_tmpl$7, `notifications ${escape(props.class, true) || ""}`, `z-50 position-top-right default-position-style-top-right ${props.position ? `position-${escape(props.position, true)}` : ""}`, escape(createComponent(For, {
     get each() {
       return notificationStore.get().list;
     },

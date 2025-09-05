@@ -1,23 +1,26 @@
 /** @jsxImportSource solid-js */
 import type { JSX } from 'solid-js';
-
-// export function Notifications(props: {
-// 	store?: any;
-// 	class?: string;
-// 	position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
-// }): JSX.Elemen
-
 import { For } from 'solid-js';
-import { notificationStore } from '../../../mod';
+import type { NotificationStore } from '../notificationStore';
 
-export function Notifications(): JSX.Element {
+export interface NotificationsProps {
+	store: NotificationStore;
+	class?: string;
+	position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+}
+
+export function Notifications(props: NotificationsProps): JSX.Element {
+	const notificationStore = props.store;
+
 	const removeNotificationHandler = (id?: string) => {
 		if (id) notificationStore.remove(id);
 	};
 
 	return (
-		<div class="notifications">
-			<div class="z-50 position-top-right default-position-style-top-right">
+		<div class={`notifications ${props.class || ''}`}>
+			<div
+				class={`z-50 position-top-right default-position-style-top-right ${props.position ? `position-${props.position}` : ''}`}
+			>
 				<For each={notificationStore.get().list}>
 					{(notification) => (
 						<div
