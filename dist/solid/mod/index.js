@@ -1,5 +1,5 @@
-import { loadingStore } from '../../chunk/5UULWICJ.js';
-export { loadingStore, modalStore, notificationStore } from '../../chunk/5UULWICJ.js';
+import { loadingStore } from '../../chunk/ZTUZDGMB.js';
+export { loadingStore, modalStore, notificationStore } from '../../chunk/ZTUZDGMB.js';
 import { createUniqueId, untrack } from 'solid-js';
 import { isServer, isDev } from 'solid-js/web';
 import { createStore, reconcile } from 'solid-js/store';
@@ -88,48 +88,36 @@ var authStore = {
 };
 
 // solid/features/loading/utils.ts
-async function eventWithLoading(arg1, arg2, ...rest) {
-  const store2 = typeof arg1 === "function" ? {
-    isLoading: () => loadingStore.isLoading(),
-    start: () => loadingStore.start(),
-    stop: () => loadingStore.stop()
-  } : arg1;
-  const func = typeof arg1 === "function" ? arg1 : arg2;
-  const params = rest;
-  if (typeof store2.isLoading === "function") {
-    if (store2.isLoading()) return false;
-  } else if (store2.isLoading) {
+var eventWithLoading = async (func, ...params) => {
+  if (loadingStore.isLoading()) {
     return false;
   }
-  store2.start();
+  loadingStore.start();
   return await new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
         const result = func(...params);
-        if (result && typeof result.then === "function" && typeof result.catch === "function") {
+        if (result instanceof Promise || result && typeof result.then === "function" && typeof result.catch === "function") {
           result.then((res) => {
-            store2.stop();
+            loadingStore.stop();
             resolve(Promise.resolve(res));
           }).catch((err) => {
-            store2.stop();
+            loadingStore.stop();
             resolve(Promise.reject(err));
           });
         } else {
-          store2.stop();
+          loadingStore.stop();
           resolve(result);
         }
       } catch (ex) {
-        store2.stop();
+        loadingStore.stop();
         reject(ex);
       }
     }, 1);
   });
-}
-var awaitLoadingWith = (store2, asyncFn) => {
-  return async () => await eventWithLoading(store2, asyncFn);
 };
-var awaitLoadingWithScheduler = (asyncFn) => {
+var awaitLoadingWith = (asyncFn) => {
   return async () => await eventWithLoading(asyncFn);
 };
 
-export { authStore, awaitLoadingWith, awaitLoadingWithScheduler, eventWithLoading };
+export { authStore, awaitLoadingWith, eventWithLoading };

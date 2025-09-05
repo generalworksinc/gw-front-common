@@ -22,19 +22,12 @@ declare const loadingStore: {
     stop: () => false;
     toggle: () => boolean;
 };
-type LoadingStore$1 = typeof loadingStore;
+type LoadingStore = typeof loadingStore;
 
-type LoadingStore = {
-    isLoading: () => boolean;
-    start: () => true;
-    stop: () => false;
-};
 type AsyncFunction = (...args: any[]) => Promise<any>;
 type SyncFunction = (...args: any[]) => any;
-declare function eventWithLoading(store: Pick<LoadingStore, 'isLoading' | 'start' | 'stop'>, func: AsyncFunction | SyncFunction, ...params: any[]): Promise<any>;
-declare function eventWithLoading(func: AsyncFunction | SyncFunction, ...params: any[]): Promise<any>;
-declare const awaitLoadingWith: (store: Pick<LoadingStore, "isLoading" | "start" | "stop">, asyncFn: () => Promise<void>) => () => Promise<any>;
-declare const awaitLoadingWithScheduler: (asyncFn: () => Promise<void>) => () => Promise<any>;
+declare const eventWithLoading: (func: AsyncFunction | SyncFunction, ...params: any[]) => Promise<any>;
+declare const awaitLoadingWith: (asyncFn: () => Promise<void>) => () => Promise<any>;
 
 declare const defaultState: {
     isOpen: boolean;
@@ -103,20 +96,18 @@ interface NotificationItem {
     removeAfter?: number;
     position?: NotificationPosition;
 }
-declare function add(n: Omit<NotificationItem, 'id'> & {
-    text?: string;
-}): void;
-declare function remove(id: string | number): void;
-declare function reset(): void;
+interface NotificationState {
+    list: NotificationItem[];
+}
 declare const notificationStore: {
     get: () => {
         list: NotificationItem[];
     };
-    add: typeof add;
-    remove: typeof remove;
-    reset: typeof reset;
+    add: (payload: NotificationItem) => void;
+    remove: (id: string) => void;
+    reset: () => void;
 };
 
 type NotificationStore = typeof notificationStore;
 
-export { type AuthStore, type AuthUser, type LoadingStore$1 as LoadingStore, type ModalStore, type NotificationItem, type NotificationPosition, type NotificationStore, type NotificationType, authStore, awaitLoadingWith, awaitLoadingWithScheduler, eventWithLoading, loadingStore, modalStore, notificationStore };
+export { type AuthStore, type AuthUser, type LoadingStore, type ModalStore, type NotificationItem, type NotificationPosition, type NotificationState, type NotificationStore, type NotificationType, authStore, awaitLoadingWith, eventWithLoading, loadingStore, modalStore, notificationStore };

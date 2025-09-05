@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createStore } from 'solid-js/store';
 
 export type NotificationType = 'success' | 'warning' | 'danger' | 'info';
 
@@ -15,36 +15,41 @@ export interface NotificationItem {
 	removeAfter?: number;
 	position?: NotificationPosition;
 }
+export interface NotificationState {
+	list: NotificationItem[];
+}
 
 const randomId = () => Math.random().toString(36).slice(2);
 
-// Global-only, minimal API (scheduler-compatible)
-const [items, setItems] = createSignal<NotificationItem[]>([]);
+const defaultState: NotificationState = {
+	list: [],
+};
 
-function add(n: Omit<NotificationItem, 'id'> & { text?: string }): void {
-	const item: NotificationItem = {
-		id: randomId(),
-		message: (n as any).message ?? (n as any).text ?? '',
-		type: n.type,
-		removeAfter: n.removeAfter,
-		position: (n as any).position,
-	};
-	setItems((prev) => [...prev, item]);
-	if (item.removeAfter && item.removeAfter > 0) {
-		setTimeout(() => remove(item.id), item.removeAfter);
+const [store, setStore] = createStore<NotificationState>({ ...defaultState });
+
+const add = (payload: NotificationItem) => {
+	//   const id = Date.now();
+	const id = randomId();
+	const notification = { ...payload, id };
+	setStore('list', (list) => [...list, notification]);
+	if (notification.removeAfter) {
+		setTimeout(() => {
+			remove(id);
+		}, notification.removeAfter);
 	}
-}
+};
 
-function remove(id: string | number): void {
-	setItems((prev) => prev.filter((n) => n.id !== String(id)));
-}
+// const remove = (id: number) => {
+const remove = (id: string) => {
+	setStore('list', (list) => list.filter((n) => n.id !== id));
+};
 
-function reset(): void {
-	setItems([]);
-}
+const reset = () => {
+	setStore({ ...defaultState });
+};
 
 const notificationStore = {
-	get: () => ({ list: items() }),
+	get: () => ({ list: store.list }),
 	add,
 	remove,
 	reset,

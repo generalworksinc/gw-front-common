@@ -88,28 +88,28 @@ var modalStore = {
   reset
 };
 var randomId = () => Math.random().toString(36).slice(2);
-var [items, setItems] = createSignal([]);
-function add(n) {
-  const item = {
-    id: randomId(),
-    message: n.message ?? n.text ?? "",
-    type: n.type,
-    removeAfter: n.removeAfter,
-    position: n.position
-  };
-  setItems((prev) => [...prev, item]);
-  if (item.removeAfter && item.removeAfter > 0) {
-    setTimeout(() => remove(item.id), item.removeAfter);
+var defaultState2 = {
+  list: []
+};
+var [store2, setStore2] = createStore({ ...defaultState2 });
+var add = (payload) => {
+  const id = randomId();
+  const notification = { ...payload, id };
+  setStore2("list", (list) => [...list, notification]);
+  if (notification.removeAfter) {
+    setTimeout(() => {
+      remove(id);
+    }, notification.removeAfter);
   }
-}
-function remove(id) {
-  setItems((prev) => prev.filter((n) => n.id !== String(id)));
-}
-function reset2() {
-  setItems([]);
-}
+};
+var remove = (id) => {
+  setStore2("list", (list) => list.filter((n) => n.id !== id));
+};
+var reset2 = () => {
+  setStore2({ ...defaultState2 });
+};
 var notificationStore = {
-  get: () => ({ list: items() }),
+  get: () => ({ list: store2.list }),
   add,
   remove,
   reset: reset2
