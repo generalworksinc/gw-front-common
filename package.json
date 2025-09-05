@@ -1,6 +1,6 @@
 {
   "name": "@generalworks/gw-front-common",
-  "version": "0.0.55",
+  "version": "0.0.56",
   "description": "Common frontend utilities and UI components for generalworks projects",
   "type": "module",
   "exports": {
@@ -14,29 +14,17 @@
     },
     "./solid": {
       "types": "./dist/solid/mod/index.d.ts",
-      "solid": {
-        "development": "./dist/solid/mod/server.js",
-        "browser": "./dist/solid/mod/index.js",
-        "import": "./dist/solid/mod/server.js",
-        "node": "./dist/solid/mod/server.js"
-      },
+      "solid": "./dist/solid/mod/index.js",
       "browser": "./dist/solid/mod/index.js",
-      "node": "./dist/solid/mod/server.js",
-      "import": "./dist/solid/mod/server.js",
-      "default": "./dist/solid/mod/server.js"
+      "import": "./dist/solid/mod/index.js",
+      "default": "./dist/solid/mod/index.js"
     },
     "./solid/components": {
       "types": "./dist/solid/components/index.d.ts",
-      "solid": {
-        "development": "./dist/solid/components/server.js",
-        "browser": "./dist/solid/components/index.js",
-        "import": "./dist/solid/components/server.js",
-        "node": "./dist/solid/components/server.js"
-      },
+      "solid": "./dist/solid/components/index.js",
       "browser": "./dist/solid/components/index.js",
-      "node": "./dist/solid/components/server.js",
-      "import": "./dist/solid/components/server.js",
-      "default": "./dist/solid/components/server.js"
+      "import": "./dist/solid/components/index.js",
+      "default": "./dist/solid/components/index.js"
     },
     "./vue": {
       "types": "./dist/vue/mod.d.ts",
