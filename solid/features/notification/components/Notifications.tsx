@@ -21,7 +21,6 @@ export function Notifications(props: NotificationsProps): JSX.Element {
 			<div
 				class={`z-50 position-top-right default-position-style-top-right ${props.position ? `position-${props.position}` : ''}`}
 			>
-				<div>件数：{notificationStore.get().list?.length}</div>
 				<For each={notificationStore.get().list}>
 					{(notification) => (
 						<div

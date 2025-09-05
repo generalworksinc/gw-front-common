@@ -72,11 +72,11 @@ function Modal(props) {
     }
   });
 }
-var _tmpl$7 = ['<div class="', '"><div class="', '"><div>\u4EF6\u6570\uFF1A', "</div>", "</div></div>"];
+var _tmpl$7 = ['<div class="', '"><div class="', '">', "</div></div>"];
 var _tmpl$23 = ['<div class="', '" aria-live="polite"><div class="', '"><pre>', '</pre></div><button type="button" class="', '" aria-label="delete notification">&times;</button></div>'];
 function Notifications(props) {
   const notificationStore = props.store;
-  return ssr(_tmpl$7, `notifications ${escape(props.class, true) || ""}`, `z-50 position-top-right default-position-style-top-right ${props.position ? `position-${escape(props.position, true)}` : ""}`, escape(notificationStore.get().list?.length), escape(createComponent(For, {
+  return ssr(_tmpl$7, `notifications ${escape(props.class, true) || ""}`, `z-50 position-top-right default-position-style-top-right ${props.position ? `position-${escape(props.position, true)}` : ""}`, escape(createComponent(For, {
     get each() {
       return notificationStore.get().list;
     },
