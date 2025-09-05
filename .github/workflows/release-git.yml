@@ -1,0 +1,39 @@
+name: Release
+on:
+  push:
+    branches: [ main, master ]
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write         # GitHub Release作成
+      issues: write           # 関連Issue/PRへコメント
+      pull-requests: write
+      id-token: write         # （npm provenance 用。npm未使用ならあってもOK）
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: "lts/*"
+      - name: Install dependencies
+        run: bun clean-install
+      - name: Verify dependency signatures
+        run: bun audit signatures
+      - name: Release
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # npm発行する場合のみ
+          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: bunx semantic-release
