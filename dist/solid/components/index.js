@@ -95,7 +95,7 @@ function Modal() {
   });
 }
 delegateEvents(["click"]);
-var _tmpl$7 = /* @__PURE__ */ template(`<div><div>`);
+var _tmpl$7 = /* @__PURE__ */ template(`<div><div><div>\u4EF6\u6570\uFF1A`);
 var _tmpl$23 = /* @__PURE__ */ template(`<div aria-live=polite><div></div><button type=button aria-label="delete notification">&times;`);
 var _tmpl$33 = /* @__PURE__ */ template(`<pre>`);
 function Notifications(props) {
@@ -123,39 +123,40 @@ function Notifications(props) {
     if (id) notificationStore.remove(id);
   };
   return (() => {
-    var _el$ = _tmpl$7(), _el$2 = _el$.firstChild;
+    var _el$ = _tmpl$7(), _el$2 = _el$.firstChild, _el$3 = _el$2.firstChild; _el$3.firstChild;
+    insert(_el$3, () => notificationStore.get().list?.length, null);
     insert(_el$2, createComponent(For, {
       get each() {
         return notificationStore.get().list;
       },
       children: (notification) => (() => {
-        var _el$3 = _tmpl$23(), _el$4 = _el$3.firstChild, _el$5 = _el$4.nextSibling;
-        insert(_el$4, () => {
+        var _el$5 = _tmpl$23(), _el$6 = _el$5.firstChild, _el$7 = _el$6.nextSibling;
+        insert(_el$6, () => {
           try {
             console.log("[Notifications] render item", notification);
           } catch {
           }
           return (() => {
-            var _el$6 = _tmpl$33();
-            insert(_el$6, () => notification.message);
-            return _el$6;
+            var _el$8 = _tmpl$33();
+            insert(_el$8, () => notification.message);
+            return _el$8;
           })();
         });
-        _el$5.$$click = () => removeNotificationHandler(notification.id);
+        _el$7.$$click = () => removeNotificationHandler(notification.id);
         effect((_p$) => {
           var _v$3 = `z-50 notification default-notification-style default-notification-${notification.type}`, _v$4 = `z-50 notification-content default-notification-style-content default-notification-${notification.type}`, _v$5 = `z-50 notification-button default-notification-style-button default-notification-${notification.type}`;
-          _v$3 !== _p$.e && className(_el$3, _p$.e = _v$3);
-          _v$4 !== _p$.t && className(_el$4, _p$.t = _v$4);
-          _v$5 !== _p$.a && className(_el$5, _p$.a = _v$5);
+          _v$3 !== _p$.e && className(_el$5, _p$.e = _v$3);
+          _v$4 !== _p$.t && className(_el$6, _p$.t = _v$4);
+          _v$5 !== _p$.a && className(_el$7, _p$.a = _v$5);
           return _p$;
         }, {
           e: void 0,
           t: void 0,
           a: void 0
         });
-        return _el$3;
+        return _el$5;
       })()
-    }));
+    }), null);
     effect((_p$) => {
       var _v$ = `notifications ${props.class || ""}`, _v$2 = `z-50 position-top-right default-position-style-top-right ${props.position ? `position-${props.position}` : ""}`;
       _v$ !== _p$.e && className(_el$, _p$.e = _v$);

@@ -23,7 +23,10 @@ export function Notifications(props: NotificationsProps): JSX.Element {
 	try {
 		console.log('[Notifications] store=', notificationStore);
 		console.log('[Notifications] list ref=', notificationStore.get().list);
-		console.log('[Notifications] list length=', notificationStore.get().list?.length);
+		console.log(
+			'[Notifications] list length=',
+			notificationStore.get().list?.length,
+		);
 	} catch (e) {
 		console.warn('[Notifications] debug log error', e);
 	}
@@ -50,6 +53,7 @@ export function Notifications(props: NotificationsProps): JSX.Element {
 			<div
 				class={`z-50 position-top-right default-position-style-top-right ${props.position ? `position-${props.position}` : ''}`}
 			>
+				<div>件数：{notificationStore.get().list?.length}</div>
 				<For each={notificationStore.get().list}>
 					{(notification) => (
 						<div
