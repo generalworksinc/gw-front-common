@@ -1,13 +1,20 @@
 import { JSX } from 'solid-js';
-import { N as NotificationStore } from '../../notificationStore-CUNsksgG.js';
+import { L as LoadingStore, M as ModalStore, N as NotificationStore } from '../../notificationStore-D5jcCcnB.js';
+import 'solid-js/store';
 
 /** @jsxImportSource solid-js */
 
-declare function Loading(): JSX.Element;
+interface LoadingProps {
+    store: LoadingStore;
+}
+declare function Loading(props: LoadingProps): JSX.Element;
 
 /** @jsxImportSource solid-js */
 
-declare function Modal(): JSX.Element;
+interface ModalProps {
+    store: ModalStore;
+}
+declare function Modal(props: ModalProps): JSX.Element;
 
 /** @jsxImportSource solid-js */
 
@@ -18,4 +25,4 @@ interface NotificationsProps {
 }
 declare function Notifications(props: NotificationsProps): JSX.Element;
 
-export { Loading, Modal, Notifications, type NotificationsProps };
+export { Loading, type LoadingProps, Modal, type ModalProps, Notifications, type NotificationsProps };

@@ -1,9 +1,14 @@
 /** @jsxImportSource solid-js */
 import type { JSX } from 'solid-js';
 import { Show } from 'solid-js';
-import { loadingStore } from '../loadingStore';
+import type { LoadingStore } from '../loadingStore';
 
-export function Loading(): JSX.Element {
+export interface LoadingProps {
+	store: LoadingStore;
+}
+
+export function Loading(props: LoadingProps): JSX.Element {
+	const loadingStore = props.store;
 	return (
 		<div>
 			<Show when={loadingStore.isLoading()}>

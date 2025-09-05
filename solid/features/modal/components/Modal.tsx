@@ -1,9 +1,15 @@
 /** @jsxImportSource solid-js */
 import type { JSX } from 'solid-js';
 import { createMemo, Show } from 'solid-js';
-import { modalStore } from '../modalStore';
+import type { ModalStore } from '../modalStore';
 
-export function Modal(): JSX.Element {
+export interface ModalProps {
+	store: ModalStore;
+}
+
+export function Modal(props: ModalProps): JSX.Element {
+	const modalStore = props.store;
+
 	const containerStyle = createMemo(() => {
 		const {
 			width,

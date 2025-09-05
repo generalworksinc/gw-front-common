@@ -1,10 +1,11 @@
-import { loadingStore, modalStore } from '../../chunk/7PXPCBGI.js';
 import { delegateEvents, template, insert, createComponent, effect, addEventListener, style, className } from 'solid-js/web';
 import { Show, createMemo, For } from 'solid-js';
 
+// solid/features/loading/components/Loading.tsx
 var _tmpl$ = /* @__PURE__ */ template(`<div class="loading-page-manual element-animation"><div class=element-animation__inner><div class=loader>`);
 var _tmpl$2 = /* @__PURE__ */ template(`<div>`);
-function Loading() {
+function Loading(props) {
+  const loadingStore = props.store;
   return (() => {
     var _el$ = _tmpl$2();
     insert(_el$, createComponent(Show, {
@@ -24,7 +25,8 @@ var _tmpl$32 = /* @__PURE__ */ template(`<button type=button class="cursor-point
 var _tmpl$4 = /* @__PURE__ */ template(`<button type=button class="cursor-pointer modal-default-button is-left"><span style=cursor:pointer>\u30AD\u30E3\u30F3\u30BB\u30EB`);
 var _tmpl$5 = /* @__PURE__ */ template(`<button type=button class="cursor-pointer modal-default-button is-right"id=modal_component_OK><span style=cursor:pointer>OK`);
 var _tmpl$6 = /* @__PURE__ */ template(`<div class=modal-mask><div class=modal-wrapper><div class=modal-container><div class=modal-header></div><div class="modal-body is-size-6"></div><div class=modal-footer>`);
-function Modal() {
+function Modal(props) {
+  const modalStore = props.store;
   const containerStyle = createMemo(() => {
     const {
       width,
@@ -96,8 +98,7 @@ function Modal() {
 }
 delegateEvents(["click"]);
 var _tmpl$7 = /* @__PURE__ */ template(`<div><div><div>\u4EF6\u6570\uFF1A`);
-var _tmpl$23 = /* @__PURE__ */ template(`<div aria-live=polite><div></div><button type=button aria-label="delete notification">&times;`);
-var _tmpl$33 = /* @__PURE__ */ template(`<pre>`);
+var _tmpl$23 = /* @__PURE__ */ template(`<div aria-live=polite><div><pre></pre></div><button type=button aria-label="delete notification">&times;`);
 function Notifications(props) {
   const notificationStore = props.store;
   const removeNotificationHandler = (id) => {
@@ -111,24 +112,14 @@ function Notifications(props) {
         return notificationStore.get().list;
       },
       children: (notification) => (() => {
-        var _el$5 = _tmpl$23(), _el$6 = _el$5.firstChild, _el$7 = _el$6.nextSibling;
-        insert(_el$6, () => {
-          try {
-            console.log("[Notifications] render item", notification);
-          } catch {
-          }
-          return (() => {
-            var _el$8 = _tmpl$33();
-            insert(_el$8, () => notification.message);
-            return _el$8;
-          })();
-        });
-        _el$7.$$click = () => removeNotificationHandler(notification.id);
+        var _el$5 = _tmpl$23(), _el$6 = _el$5.firstChild, _el$7 = _el$6.firstChild, _el$8 = _el$6.nextSibling;
+        insert(_el$7, () => notification.message);
+        _el$8.$$click = () => removeNotificationHandler(notification.id);
         effect((_p$) => {
           var _v$3 = `z-50 notification default-notification-style default-notification-${notification.type}`, _v$4 = `z-50 notification-content default-notification-style-content default-notification-${notification.type}`, _v$5 = `z-50 notification-button default-notification-style-button default-notification-${notification.type}`;
           _v$3 !== _p$.e && className(_el$5, _p$.e = _v$3);
           _v$4 !== _p$.t && className(_el$6, _p$.t = _v$4);
-          _v$5 !== _p$.a && className(_el$7, _p$.a = _v$5);
+          _v$5 !== _p$.a && className(_el$8, _p$.a = _v$5);
           return _p$;
         }, {
           e: void 0,

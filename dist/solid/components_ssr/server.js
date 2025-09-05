@@ -1,10 +1,11 @@
-import { loadingStore, modalStore } from '../../chunk/7PXPCBGI.js';
 import { ssr, escape, createComponent, ssrStyle } from 'solid-js/web';
 import { Show, createMemo, For } from 'solid-js';
 
+// solid/features/loading/components/Loading.tsx
 var _tmpl$ = '<div class="loading-page-manual element-animation"><div class="element-animation__inner"><div class="loader"></div></div></div>';
 var _tmpl$2 = ["<div>", "</div>"];
-function Loading() {
+function Loading(props) {
+  const loadingStore = props.store;
   return ssr(_tmpl$2, escape(createComponent(Show, {
     get when() {
       return loadingStore.isLoading();
@@ -20,7 +21,8 @@ var _tmpl$32 = '<button type="button" class="cursor-pointer modal-default-button
 var _tmpl$4 = '<button type="button" class="cursor-pointer modal-default-button is-left"><span style="cursor:pointer;">\u30AD\u30E3\u30F3\u30BB\u30EB</span></button>';
 var _tmpl$5 = '<button type="button" class="cursor-pointer modal-default-button is-right" id="modal_component_OK"><span style="cursor:pointer;">OK</span></button>';
 var _tmpl$6 = ['<div class="modal-mask"><div class="modal-wrapper"><div class="modal-container" style="', '"><div class="modal-header"></div><div class="modal-body is-size-6">', "", '</div><div class="modal-footer">', "", "</div></div></div></div>"];
-function Modal() {
+function Modal(props) {
+  const modalStore = props.store;
   const containerStyle = createMemo(() => {
     const {
       width,
@@ -71,21 +73,14 @@ function Modal() {
   });
 }
 var _tmpl$7 = ['<div class="', '"><div class="', '"><div>\u4EF6\u6570\uFF1A', "</div>", "</div></div>"];
-var _tmpl$23 = ['<div class="', '" aria-live="polite"><div class="', '">', '</div><button type="button" class="', '" aria-label="delete notification">&times;</button></div>'];
-var _tmpl$33 = ["<pre>", "</pre>"];
+var _tmpl$23 = ['<div class="', '" aria-live="polite"><div class="', '"><pre>', '</pre></div><button type="button" class="', '" aria-label="delete notification">&times;</button></div>'];
 function Notifications(props) {
   const notificationStore = props.store;
   return ssr(_tmpl$7, `notifications ${escape(props.class, true) || ""}`, `z-50 position-top-right default-position-style-top-right ${props.position ? `position-${escape(props.position, true)}` : ""}`, escape(notificationStore.get().list?.length), escape(createComponent(For, {
     get each() {
       return notificationStore.get().list;
     },
-    children: (notification) => ssr(_tmpl$23, `z-50 notification default-notification-style default-notification-${escape(notification.type, true)}`, `z-50 notification-content default-notification-style-content default-notification-${escape(notification.type, true)}`, (() => {
-      try {
-        console.log("[Notifications] render item", notification);
-      } catch {
-      }
-      return ssr(_tmpl$33, escape(notification.message));
-    })(), `z-50 notification-button default-notification-style-button default-notification-${escape(notification.type, true)}`)
+    children: (notification) => ssr(_tmpl$23, `z-50 notification default-notification-style default-notification-${escape(notification.type, true)}`, `z-50 notification-content default-notification-style-content default-notification-${escape(notification.type, true)}`, escape(notification.message), `z-50 notification-button default-notification-style-button default-notification-${escape(notification.type, true)}`)
   })));
 }
 
