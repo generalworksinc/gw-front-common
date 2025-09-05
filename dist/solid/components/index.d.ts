@@ -20,7 +20,6 @@ interface NotificationsProps {
     store: NotificationStore;
     class?: string;
     position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
-    onReady?: (api: NotificationsApi) => void;
 }
 declare function Notifications(props: NotificationsProps): JSX.Element;
 

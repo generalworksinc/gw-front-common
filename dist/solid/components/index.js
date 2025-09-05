@@ -100,25 +100,6 @@ var _tmpl$23 = /* @__PURE__ */ template(`<div aria-live=polite><div></div><butto
 var _tmpl$33 = /* @__PURE__ */ template(`<pre>`);
 function Notifications(props) {
   const notificationStore = props.store;
-  try {
-    console.log("[Notifications] store=", notificationStore);
-    console.log("[Notifications] list ref=", notificationStore.get().list);
-    console.log("[Notifications] list length=", notificationStore.get().list?.length);
-  } catch (e) {
-    console.warn("[Notifications] debug log error", e);
-  }
-  const api = {
-    isSameStore: (store) => store === notificationStore,
-    getStore: () => notificationStore,
-    getListRef: () => notificationStore.get().list
-  };
-  try {
-    if (props.onReady) props.onReady(api);
-    if (typeof window !== "undefined") {
-      window.__GW_NOTIFICATIONS_API__ = api;
-    }
-  } catch {
-  }
   const removeNotificationHandler = (id) => {
     if (id) notificationStore.remove(id);
   };
