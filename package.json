@@ -1,6 +1,6 @@
 {
   "name": "@generalworks/gw-front-common",
-  "version": "0.0.65",
+  "version": "0.0.66",
   "description": "Common frontend utilities and UI components for generalworks projects",
   "type": "module",
   "exports": {
@@ -66,14 +66,14 @@
     "check": "bun run lint && bun run typecheck"
   },
   "dependencies": {
-    "clone": "^2.1.2"
+    "clone": "^2.1.2",
+    "dayjs": "^1.11.18"
   },
   "peerDependencies": {
     "@nuxt/kit": ">=3.0.0",
     "solid-js": ">=1.9.0",
     "@solidjs/start": ">=1.1.7",
     "vue": ">=3.4.0",
-    "dayjs": ">=1.11.0",
     "pinia": ">=2.1.0"
   },
   "devDependencies": {
@@ -85,7 +85,6 @@
     "@types/clone": "^2.1.4",
     "@solidjs/start": "^1.1.7",
     "@vitejs/plugin-vue": "^6.0.1",
-    "dayjs": "^1.11.18",
     "pinia": "^2.3.1",
     "solid-js": "^1.9.9",
     "tsup": "^8.5.0",
