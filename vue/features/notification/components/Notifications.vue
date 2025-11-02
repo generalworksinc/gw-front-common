@@ -16,7 +16,7 @@ const removeNotificationHandler = (id?: string) => {
         <div class="z-50 notification-content default-notification-style-content"
           :class="`default-notification-${n.type}`">
           <slot>
-            <pre>{{ n.message }}</pre>
+            <div>{{ n.message }}</div>
           </slot>
         </div>
         <button class="z-50 notification-button default-notification-style-button"

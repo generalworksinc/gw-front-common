@@ -30,7 +30,7 @@ export function Notifications(props: NotificationsProps): JSX.Element {
 							<div
 								class={`z-50 notification-content default-notification-style-content default-notification-${notification.type}`}
 							>
-								<pre>{notification.message}</pre>
+								<div>{notification.message}</div>
 							</div>
 							<button
 								type="button"
