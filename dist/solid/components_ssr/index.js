@@ -98,7 +98,7 @@ function Modal(props) {
 }
 delegateEvents(["click"]);
 var _tmpl$7 = /* @__PURE__ */ template(`<div><div>`);
-var _tmpl$23 = /* @__PURE__ */ template(`<div aria-live=polite><div><pre></pre></div><button type=button aria-label="delete notification">&times;`);
+var _tmpl$23 = /* @__PURE__ */ template(`<div aria-live=polite><div><div></div></div><button type=button aria-label="delete notification">&times;`);
 function Notifications(props) {
   const notificationStore = props.store;
   const removeNotificationHandler = (id) => {

@@ -1,4 +1,4 @@
-import { defineComponent as _, createElementBlock as a, createCommentVNode as d, openBlock as n, normalizeClass as u, toDisplayString as h, createBlock as k, Transition as C, withCtx as b, unref as l, normalizeStyle as w, createElementVNode as e, computed as z, renderSlot as p, Fragment as H, renderList as L } from "vue";
+import { defineComponent as _, createElementBlock as a, createCommentVNode as d, openBlock as n, normalizeClass as u, toDisplayString as v, createBlock as k, Transition as C, withCtx as b, unref as l, normalizeStyle as w, createElementVNode as e, computed as z, renderSlot as p, Fragment as H, renderList as L } from "vue";
 import { u as M, a as N, b as x } from "../notificationStore-Ceh-rjGw.js";
 const O = ["id"], P = /* @__PURE__ */ _({
   __name: "ErrorMessage",
@@ -12,7 +12,7 @@ const O = ["id"], P = /* @__PURE__ */ _({
       key: o.field?.id,
       id: o.id ?? o.field?.id,
       class: u(["text-red-500", o.classObj])
-    }, h(o.field?.validator?.message), 11, O)) : d("", !0);
+    }, v(o.field?.validator?.message), 11, O)) : d("", !0);
   }
 }), Q = /* @__PURE__ */ _({
   __name: "Loading",
@@ -45,8 +45,8 @@ const O = ["id"], P = /* @__PURE__ */ _({
   emits: ["yes", "no", "close"],
   setup(f, { emit: o }) {
     const r = o, i = N(), c = z(() => {
-      const t = i.state.value, s = t.width, m = t.height, v = t.maxWidth, y = t.maxHeight, g = t.minWidth, $ = t.minHeight, S = t.isScrollY;
-      return (s ? `width:${s};` : "") + (m ? ` height:${m};` : "") + (v ? `max-width:${v};` : "") + (y ? ` max-height:${y};` : "") + (g ? `min-width:${g};` : "") + ($ ? ` min-height:${$};` : "") + (S ? "overflow-y: scroll;" : "");
+      const t = i.state.value, s = t.width, m = t.height, h = t.maxWidth, y = t.maxHeight, g = t.minWidth, $ = t.minHeight, S = t.isScrollY;
+      return (s ? `width:${s};` : "") + (m ? ` height:${m};` : "") + (h ? `max-width:${h};` : "") + (y ? ` max-height:${y};` : "") + (g ? `min-width:${g};` : "") + ($ ? ` min-height:${$};` : "") + (S ? "overflow-y: scroll;" : "");
     });
     return (t, s) => (n(), k(C, { name: "modal" }, {
       default: b(() => [
@@ -68,7 +68,7 @@ const O = ["id"], P = /* @__PURE__ */ _({
                   l(i).state.value.message ? (n(), a("div", {
                     key: 1,
                     style: { "white-space": "pre-wrap" },
-                    textContent: h(l(i).state.value.message)
+                    textContent: v(l(i).state.value.message)
                   }, null, 8, K)) : d("", !0)
                 ])
               ]),
@@ -122,7 +122,7 @@ const O = ["id"], P = /* @__PURE__ */ _({
             class: u(["z-50 notification-content default-notification-style-content", `default-notification-${t.type}`])
           }, [
             p(i.$slots, "default", {}, () => [
-              e("pre", null, h(t.message), 1)
+              e("div", null, v(t.message), 1)
             ])
           ], 2),
           e("button", {
