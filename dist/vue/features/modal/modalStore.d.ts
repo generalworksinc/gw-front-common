@@ -13,6 +13,7 @@ export type ModalState = {
     minWidth: string;
     isScrollY: boolean;
     isScrollX: boolean;
+    reverseButtons: boolean;
     yesFunc: ModalFn;
     noFunc: ModalFn;
 };

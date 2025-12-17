@@ -1,7 +1,7 @@
 import { defineStore as n } from "pinia";
 import { r as h } from "./pinia-CXsK1c83.js";
 import { computed as a } from "vue";
-const c = n("loading", {
+const r = n("loading", {
   state: () => ({
     isLoading: !1
   }),
@@ -25,7 +25,7 @@ const c = n("loading", {
   }
 });
 function d() {
-  return c(h());
+  return r(h());
 }
 function s(i) {
   return typeof i == "function";
@@ -43,13 +43,14 @@ const o = () => ({
   minWidth: "",
   isScrollY: !1,
   isScrollX: !1,
+  reverseButtons: !1,
   yesFunc: null,
   noFunc: null
-}), r = n("modal", {
+}), c = n("modal", {
   state: () => o(),
   actions: {
     open(i) {
-      this.isOpen = !0, this.isConfirm = !1, this.message = i?.message ?? "", this.html = i?.html ?? "", this.height = i?.height ?? "", this.width = i?.width ?? "", this.maxHeight = i?.maxHeight ?? "", this.maxWidth = i?.maxWidth ?? "", this.minHeight = i?.minHeight ?? "", this.minWidth = i?.minWidth ?? "", this.isScrollY = i?.isScrollY ?? !1, this.isScrollX = i?.isScrollX ?? !1, this.yesFunc = s(i?.yesFunc) ? i?.yesFunc : () => null, this.noFunc = null;
+      this.isOpen = !0, this.isConfirm = !1, this.message = i?.message ?? "", this.html = i?.html ?? "", this.height = i?.height ?? "", this.width = i?.width ?? "", this.maxHeight = i?.maxHeight ?? "", this.maxWidth = i?.maxWidth ?? "", this.minHeight = i?.minHeight ?? "", this.minWidth = i?.minWidth ?? "", this.isScrollY = i?.isScrollY ?? !1, this.isScrollX = i?.isScrollX ?? !1, this.reverseButtons = i?.reverseButtons ?? !1, this.yesFunc = s(i?.yesFunc) ? i?.yesFunc : () => null, this.noFunc = null;
     },
     confirm(i) {
       this.open(i), this.isConfirm = !0, this.noFunc = s(i?.noFunc) ? i?.noFunc : () => null;
@@ -69,7 +70,7 @@ const o = () => ({
   }
 });
 function g() {
-  const i = r(h());
+  const i = c(h());
   return {
     state: a(() => ({
       isOpen: i.isOpen,
@@ -84,6 +85,7 @@ function g() {
       minWidth: i.minWidth,
       isScrollY: i.isScrollY,
       isScrollX: i.isScrollX,
+      reverseButtons: i.reverseButtons,
       yesFunc: i.yesFunc,
       noFunc: i.noFunc
     })),
