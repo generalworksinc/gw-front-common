@@ -14,7 +14,7 @@ const containerStyle = computed(() => {
 	const minWidth = s.minWidth;
 	const minHeight = s.minHeight;
 	const isScrollY = s.isScrollY;
-  const reverseButtons = s.reverseButtons;
+	const reverseButtons = s.reverseButtons;
 	const styleStr =
 		(width ? `width:${width};` : '') +
 		(height ? ` height:${height};` : '') +
