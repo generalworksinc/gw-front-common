@@ -76,13 +76,13 @@ const B = ["id"], P = /* @__PURE__ */ v({
                 p(t.$slots, "footer", {}, () => [
                   a(s).state.value.isConfirm ? (n(), l("div", Y, [
                     e("a", {
-                      class: c(["cursor-pointer modal-default-button", a(s).state.value.reverseButtons ? "is-right" : "is-left"]),
+                      class: c(["cursor-pointer modal-default-button", a(s).state.value.reverseButtons ? "is-left" : "is-right"]),
                       onClick: o[0] || (o[0] = (m) => r("yes"))
                     }, [...o[3] || (o[3] = [
                       e("span", { style: { cursor: "pointer" } }, "はい", -1)
                     ])], 2),
                     e("a", {
-                      class: c(["cursor-pointer modal-default-button", a(s).state.value.reverseButtons ? "is-left" : "is-right"]),
+                      class: c(["cursor-pointer modal-default-button", a(s).state.value.reverseButtons ? "is-right" : "is-left"]),
                       onClick: o[1] || (o[1] = (m) => r("no"))
                     }, [...o[4] || (o[4] = [
                       e("span", { style: { cursor: "pointer" } }, "キャンセル", -1)
