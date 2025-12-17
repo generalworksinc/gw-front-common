@@ -14,6 +14,7 @@ const containerStyle = computed(() => {
 	const minWidth = s.minWidth;
 	const minHeight = s.minHeight;
 	const isScrollY = s.isScrollY;
+  const reverseButtons = s.reverseButtons;
 	const styleStr =
 		(width ? `width:${width};` : '') +
 		(height ? ` height:${height};` : '') +
@@ -45,10 +46,10 @@ const containerStyle = computed(() => {
           <div class="modal-footer">
             <slot name="footer">
               <div v-if="store.state.value.isConfirm">
-                <a class="cursor-pointer modal-default-button is-right" @click="emit('yes')">
+                <a class="cursor-pointer modal-default-button" :class="reverseButtons ? 'is-right' : 'is-left'" @click="emit('yes')">
                   <span style="cursor: pointer;">はい</span>
                 </a>
-                <a class="cursor-pointer modal-default-button is-left" @click="emit('no')">
+                <a class="cursor-pointer modal-default-button" :class="reverseButtons ? 'is-left' : 'is-right'" @click="emit('no')">
                   <span style="cursor: pointer;">キャンセル</span>
                 </a>
               </div>
