@@ -1,6 +1,6 @@
 import { loadingStore } from '../solid/features/loading/loadingStore.ts';
 import {
-	awaitLoadingWithScheduler,
+	awaitLoadingWith,
 	eventWithLoading,
 } from '../solid/features/loading/utils.ts';
 import { modalStore } from '../solid/features/modal/modalStore.ts';
@@ -23,7 +23,7 @@ describe('solid scheduler compatibility (singleton wrappers)', () => {
 		const result = await eventWithLoading(() => 123);
 		expect(result).toBe(123);
 
-		const wrap = awaitLoadingWithScheduler(async () => {
+		const wrap = awaitLoadingWith(async () => {
 			await new Promise((r) => setTimeout(r, 2));
 		});
 		await wrap();
