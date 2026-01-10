@@ -4,5 +4,6 @@ export * from './date';
 export * from './number';
 export * from './object';
 export * from './promise';
+export * from './query';
 export * from './string';
 export * from './type';

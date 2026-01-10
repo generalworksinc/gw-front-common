@@ -24,6 +24,37 @@ describe('Promise Utils', () => {
 		expect(r2).toBe('ok');
 	});
 
+	test('withInflight shares in-flight even if clock advances', async () => {
+		const originalNow = Date.now;
+		let now = 1_000;
+		Date.now = () => now;
+		try {
+			let resolve;
+			const deferred = new Promise((res) => {
+				resolve = res;
+			});
+			let calls = 0;
+			const fn = () => {
+				calls += 1;
+				return deferred;
+			};
+
+			const p1 = withInflight('inflight-share-advance', fn);
+			now = 1_001;
+			const p2 = withInflight('inflight-share-advance', fn);
+
+			expect(calls).toBe(1);
+			expect(p1).toBe(p2);
+
+			resolve('ok');
+			const [r1, r2] = await Promise.all([p1, p2]);
+			expect(r1).toBe('ok');
+			expect(r2).toBe('ok');
+		} finally {
+			Date.now = originalNow;
+		}
+	});
+
 	test('withInflight caches resolved promise within ttl', async () => {
 		const originalNow = Date.now;
 		let now = 1_000;

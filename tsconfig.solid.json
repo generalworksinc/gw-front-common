@@ -3,6 +3,6 @@
 	"compilerOptions": {
 		"jsxImportSource": "solid-js"
 	},
-	"include": ["solid/**/*.{ts,tsx}"],
+	"include": ["solid/**/*.ts", "solid/**/*.tsx"],
 	"exclude": ["**/__tests__/**", "dist/**", "node_modules/**"]
 }

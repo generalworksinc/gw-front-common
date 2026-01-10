@@ -1,6 +1,11 @@
 const inflightMap = new Map<
 	string,
-	{ p: Promise<unknown>; ts: number; ttl: number }
+	{
+		p: Promise<unknown>;
+		ts: number;
+		ttl: number;
+		status: 'pending' | 'settled';
+	}
 >();
 
 /**
@@ -14,7 +19,11 @@ export function withInflight<T>(
 ): Promise<T> {
 	const existing = inflightMap.get(key);
 	const now = Date.now();
-	if (existing && now - existing.ts <= existing.ttl) {
+	if (
+		existing &&
+		(existing.status === 'pending' ||
+			(existing.ttl > 0 && now - existing.ts <= existing.ttl))
+	) {
 		return existing.p as Promise<T>;
 	}
 
@@ -25,13 +34,18 @@ export function withInflight<T>(
 		})
 		.then((res) => {
 			if (ttlMs > 0) {
-				inflightMap.set(key, { p: wrapped, ts: Date.now(), ttl: ttlMs });
+				inflightMap.set(key, {
+					p: wrapped,
+					ts: Date.now(),
+					ttl: ttlMs,
+					status: 'settled',
+				});
 			} else {
 				inflightMap.delete(key);
 			}
 			return res;
 		});
 
-	inflightMap.set(key, { p: wrapped, ts: now, ttl: ttlMs });
+	inflightMap.set(key, { p: wrapped, ts: now, ttl: ttlMs, status: 'pending' });
 	return wrapped;
 }

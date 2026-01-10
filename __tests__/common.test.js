@@ -379,4 +379,35 @@ describe('Common Library Functions', () => {
 			await expect(common.sleep(0)).resolves.toBeUndefined();
 		});
 	});
+
+	// toQueryString
+	describe('toQueryString', () => {
+		test('should build query string from primitives', () => {
+			const result = common.toQueryString({ a: 1, b: 'text', c: true });
+			const params = new URLSearchParams(result);
+
+			expect(params.get('a')).toBe('1');
+			expect(params.get('b')).toBe('text');
+			expect(params.get('c')).toBe('true');
+		});
+
+		test('should handle arrays and skip nullish values', () => {
+			const result = common.toQueryString({
+				a: [1, null, 2, undefined],
+				b: null,
+				c: undefined,
+				d: 0,
+				e: false,
+				f: '',
+			});
+			const params = new URLSearchParams(result);
+
+			expect(params.getAll('a')).toEqual(['1', '2']);
+			expect(params.has('b')).toBe(false);
+			expect(params.has('c')).toBe(false);
+			expect(params.get('d')).toBe('0');
+			expect(params.get('e')).toBe('false');
+			expect(params.get('f')).toBe('');
+		});
+	});
 });
