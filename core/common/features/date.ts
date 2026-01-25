@@ -1,4 +1,10 @@
 import dayjs from 'dayjs';
+import type {} from 'dayjs/plugin/duration';
+import type {} from 'dayjs/plugin/isBetween';
+import type {} from 'dayjs/plugin/localizedFormat';
+import type {} from 'dayjs/plugin/relativeTime';
+import type {} from 'dayjs/plugin/timezone';
+import type {} from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration.js';
 import isBetween from 'dayjs/plugin/isBetween.js';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat.js';
