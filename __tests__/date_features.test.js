@@ -13,6 +13,27 @@ describe('core/features/date', () => {
 		expect(typeof d.tz).toBe('function');
 	});
 
+	test('dayjsJp supports extra plugins', () => {
+		const d = dayjsJp('2024-01-15');
+		expect(typeof d.isBetween).toBe('function');
+		expect(typeof d.from).toBe('function');
+		expect(typeof dayjsJp.duration).toBe('function');
+		expect(d.format('LL')).not.toBe('LL');
+	});
+
+	test('jpFormat replaces rr/rrrr and keeps bracketed literals', () => {
+		const d = dayjsJp('2024-01-15');
+		const era = d.format('rr');
+		const year = d.format('rrrr');
+		expect(era).not.toBe('rr');
+		expect(year).not.toBe('rrrr');
+		const combined = d.format('[rr] rr [rrrr] rrrr');
+		expect(combined.startsWith('rr ')).toBe(true);
+		expect(combined.includes(' rrrr ')).toBe(true);
+		expect(combined.includes('[')).toBe(false);
+		expect(combined.includes(']')).toBe(false);
+	});
+
 	test('formatDateForInput handles Date and string and null', () => {
 		expect(formatDateForInput(new Date('2024-01-01T10:30:00'))).toBe(
 			'2024-01-01T10:30',
