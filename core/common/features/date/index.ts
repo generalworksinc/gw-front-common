@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
-import 'dayjs/plugin/duration';
+import 'dayjs/plugin/utc';
+import 'dayjs/plugin/timezone';
 import 'dayjs/plugin/isBetween';
 import 'dayjs/plugin/localizedFormat';
+import 'dayjs/plugin/duration';
 import 'dayjs/plugin/relativeTime';
-import 'dayjs/plugin/timezone';
-import 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration.js';
 import isBetween from 'dayjs/plugin/isBetween.js';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat.js';
@@ -12,7 +12,14 @@ import relativeTime from 'dayjs/plugin/relativeTime.js';
 import timezone from 'dayjs/plugin/timezone.js';
 import utc from 'dayjs/plugin/utc.js';
 import 'dayjs/locale/ja.js';
-import { jpFormat } from './date/dayjs-jp-format';
+import { jpFormat } from './dayjs-jp-format';
+
+export type DayjsPluginSetup = typeof import('dayjs/plugin/utc') &
+	typeof import('dayjs/plugin/timezone') &
+	typeof import('dayjs/plugin/isBetween') &
+	typeof import('dayjs/plugin/localizedFormat') &
+	typeof import('dayjs/plugin/duration') &
+	typeof import('dayjs/plugin/relativeTime');
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

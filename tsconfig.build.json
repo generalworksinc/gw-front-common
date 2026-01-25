@@ -14,6 +14,7 @@
 	},
 	"include": [
 		"core/**/*.ts",
+		"core/**/*.d.ts",
 		"vue/**/*.ts",
 		"vue/**/*.vue",
 		"vue/**/*.tsx",

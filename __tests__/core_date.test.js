@@ -3,7 +3,7 @@ import {
 	dayjsJp,
 	formatDateForInput,
 	parseInputDate,
-} from '../core/common/features/date.ts';
+} from '../core/common/features/date/index.ts';
 
 describe('Date Utils', () => {
 	describe('dayjsJp', () => {
