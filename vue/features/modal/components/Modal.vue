@@ -31,19 +31,19 @@ const containerStyle = computed(() => {
   <transition name="modal">
     <div v-if="store.state.value.isOpen" class="modal-mask">
       <div class="modal-wrapper">
-        <div class="modal-container" :style="containerStyle">
+        <div class="modal-container" :class="store.state.value.containerClass" :style="containerStyle">
           <div class="modal-header">
             <slot name="header"> </slot>
           </div>
 
-          <div class="modal-body is-size-6">
+          <div class="modal-body is-size-6" :class="store.state.value.bodyClass">
             <slot name="body">
               <div v-if="store.state.value.html" v-html="store.state.value.html as any"></div>
               <div v-if="store.state.value.message" style="white-space: pre-wrap;" v-text="store.state.value.message"></div>
             </slot>
           </div>
 
-          <div class="modal-footer">
+          <div class="modal-footer" :class="store.state.value.footerClass">
             <slot name="footer">
               <div v-if="store.state.value.isConfirm">
                 <a class="cursor-pointer modal-default-button" :class="store.state.value.reverseButtons ? 'is-left' : 'is-right'" @click="emit('yes')">
@@ -65,5 +65,4 @@ const containerStyle = computed(() => {
     </div>
   </transition>
   </template>
-
 

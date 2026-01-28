@@ -17,6 +17,9 @@ export type ModalState = {
 	minWidth: string;
 	isScrollY: boolean;
 	isScrollX: boolean;
+	containerClass: string;
+	bodyClass: string;
+	footerClass: string;
 	reverseButtons: boolean;
 	yesFunc: ModalFn;
 	noFunc: ModalFn;
@@ -39,6 +42,9 @@ const defaultState = (): ModalState => ({
 	minWidth: '',
 	isScrollY: false,
 	isScrollX: false,
+	containerClass: '',
+	bodyClass: '',
+	footerClass: '',
 	reverseButtons: false,
 	yesFunc: null,
 	noFunc: null,
@@ -60,6 +66,9 @@ const useModalPinia = defineStore('modal', {
 			this.minWidth = options?.minWidth ?? '';
 			this.isScrollY = options?.isScrollY ?? false;
 			this.isScrollX = options?.isScrollX ?? false;
+			this.containerClass = options?.containerClass ?? '';
+			this.bodyClass = options?.bodyClass ?? '';
+			this.footerClass = options?.footerClass ?? '';
 			this.reverseButtons = options?.reverseButtons ?? false;
 			this.yesFunc = isFunction(options?.yesFunc)
 				? (options?.yesFunc as () => void)
@@ -108,6 +117,9 @@ export function useModal() {
 		minWidth: s.minWidth,
 		isScrollY: s.isScrollY,
 		isScrollX: s.isScrollX,
+		containerClass: s.containerClass,
+		bodyClass: s.bodyClass,
+		footerClass: s.footerClass,
 		reverseButtons: s.reverseButtons,
 		yesFunc: s.yesFunc,
 		noFunc: s.noFunc,
