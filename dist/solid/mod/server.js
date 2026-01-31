@@ -1,5 +1,5 @@
-import { createSignal, createUniqueId, untrack } from 'solid-js';
-import { isServer, isDev } from 'solid-js/web';
+import { createSignal, createUniqueId, untrack, createContext, useContext } from 'solid-js';
+import { isServer, isDev, createComponent } from 'solid-js/web';
 import { createStore, reconcile } from 'solid-js/store';
 
 // node_modules/@solid-primitives/storage/dist/persisted.js
@@ -230,5 +230,27 @@ var notificationStore = {
   remove,
   reset: reset3
 };
+function createStoreContext(createStore4) {
+  const Ctx = createContext();
+  const Provider = (props) => {
+    const store4 = createStore4();
+    return createComponent(Ctx.Provider, {
+      value: store4,
+      get children() {
+        return props.children;
+      }
+    });
+  };
+  const useStore = () => {
+    const v = useContext(Ctx);
+    if (!v) throw new Error("StoreContext must be used within its Provider");
+    return v;
+  };
+  return {
+    Provider,
+    useStore,
+    Context: Ctx
+  };
+}
 
-export { authStore, awaitLoadingWith, eventWithLoading, loadingStore, modalStore, notificationStore };
+export { authStore, awaitLoadingWith, createStoreContext, eventWithLoading, loadingStore, modalStore, notificationStore };

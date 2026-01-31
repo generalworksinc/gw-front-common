@@ -1,6 +1,6 @@
 import * as solid_js_store from 'solid-js/store';
 export { L as LoadingStore, M as ModalStore, c as NotificationItem, b as NotificationPosition, d as NotificationState, N as NotificationStore, a as NotificationType, l as loadingStore, m as modalStore, n as notificationStore } from '../../notificationStore-D5jcCcnB.js';
-import 'solid-js';
+import { ParentComponent, createContext } from 'solid-js';
 
 interface AuthUser {
     id: string | null;
@@ -22,4 +22,11 @@ type SyncFunction = (...args: any[]) => any;
 declare const eventWithLoading: (func: AsyncFunction | SyncFunction, ...params: any[]) => Promise<any>;
 declare const awaitLoadingWith: (asyncFn: () => Promise<void>) => () => Promise<any>;
 
-export { type AuthStore, type AuthUser, authStore, awaitLoadingWith, eventWithLoading };
+type StoreContextResult<T> = {
+    Provider: ParentComponent;
+    useStore: () => T;
+    Context: ReturnType<typeof createContext<T | undefined>>;
+};
+declare function createStoreContext<T>(createStore: () => T): StoreContextResult<T>;
+
+export { type AuthStore, type AuthUser, authStore, awaitLoadingWith, createStoreContext, eventWithLoading };

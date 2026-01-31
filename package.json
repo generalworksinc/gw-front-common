@@ -1,6 +1,6 @@
 {
   "name": "@generalworks/gw-front-common",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Common frontend utilities and UI components for generalworks projects",
   "type": "module",
   "exports": {
@@ -80,7 +80,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.13",
-    "@nuxt/kit": "^3.21.0",
+    "@nuxt/kit": "^4.3.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@solid-primitives/storage": "^4.3.3",
@@ -89,11 +89,11 @@
     "@playwright/test": "^1.58.1",
     "@vitejs/plugin-vue": "^6.0.3",
     "@sentry/browser": "^10.37.0",
-    "pinia": "^2.3.1",
+    "pinia": "^3.0.4",
     "solid-js": "^1.9.11",
     "tsup": "^8.5.1",
     "tsup-preset-solid": "^2.2.0",
-    "typescript": "~5.6.3",
+    "typescript": "~5.9.3",
     "vite": "^7.3.1",
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-solid": "^2.11.10",

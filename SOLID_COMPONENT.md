@@ -70,4 +70,24 @@
 
 ---
 
+## 9) Store Context の共通化ユーティリティ
+Context/Provider/useStore のボイラープレートを減らすために、`createStoreContext` を用意しています。
+
+### 使い方
+```tsx
+import { createStoreContext } from '@generalworks/gw-front-common/solid';
+import { createProjectTreeStore } from './projectTreeStore';
+
+export const {
+  Provider: ProjectTreeStoreProvider,
+  useStore: useProjectTreeStore,
+} = createStoreContext(createProjectTreeStore);
+```
+
+### 仕様
+- `createStoreContext(fn)` は Provider / useStore を返します。
+- `useStore()` は Provider 配下でのみ有効です。
+- Provider の外で呼ぶと以下のエラーを投げます:
+  - `StoreContext must be used within its Provider`
+
 必要なら、上記をリポジトリ内に `SOLID_COMPONENT.md` として追加します（要望があればサンプルコードをさらに増やします）。
