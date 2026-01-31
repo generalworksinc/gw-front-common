@@ -22,6 +22,8 @@ type SyncFunction = (...args: any[]) => any;
 declare const eventWithLoading: (func: AsyncFunction | SyncFunction, ...params: any[]) => Promise<any>;
 declare const awaitLoadingWith: (asyncFn: () => Promise<void>) => () => Promise<any>;
 
+/** @jsxImportSource solid-js */
+
 type StoreContextResult<T> = {
     Provider: ParentComponent;
     useStore: () => T;
