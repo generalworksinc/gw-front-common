@@ -42,7 +42,9 @@ test('logSentryMessageWithBreadcrumb works in browser', async ({ page }) => {
 	try {
 		statSync(distEntry);
 	} catch (_err) {
-		throw new Error('dist/core/mod.js not found. Run `bun run build` before `bun run test:browser`.');
+		throw new Error(
+			'dist/core/mod.js not found. Run `bun run build` before `bun run test:browser`.',
+		);
 	}
 	const server = await startStaticServer();
 	const dsn = process.env.SENTRY_DSN ?? '';

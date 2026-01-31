@@ -30,7 +30,15 @@ export default defineConfig({
 			formats: ['es'],
 		},
 		rollupOptions: {
-			external: ['vue', 'dayjs', 'pinia', '@nuxt/kit', 'nuxt/app', '@sentry/browser', /^node:.*/],
+			external: [
+				'vue',
+				'dayjs',
+				'pinia',
+				'@nuxt/kit',
+				'nuxt/app',
+				'@sentry/browser',
+				/^node:.*/,
+			],
 			output: {
 				entryFileNames: '[name].js',
 				assetFileNames: 'assets/[name]-[hash][extname]',
