@@ -1,6 +1,7 @@
 export * from './array';
 export * from './async';
 export * from './date';
+export * from './logging';
 export * from './number';
 export * from './object';
 export * from './promise';

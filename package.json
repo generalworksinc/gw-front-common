@@ -55,6 +55,7 @@
   "scripts": {
     "test": "bun test",
     "test:coverage": "bun test --coverage",
+    "test:browser": "playwright test",
     "jsr:check": "bunx --yes jsr publish --dry-run --allow-slow-types --allow-dirty",
     "lint": "biome check core vue solid __tests__ ./*.ts",
     "lint:fix": "biome check --write core vue solid __tests__ ./*.ts",
@@ -77,22 +78,23 @@
     "pinia": ">=2.1.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.11",
-    "@nuxt/kit": "^3.20.2",
+    "@biomejs/biome": "^2.3.13",
+    "@nuxt/kit": "^3.21.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@solid-primitives/storage": "^4.3.3",
     "@types/clone": "^2.1.4",
     "@solidjs/start": "^1.2.1",
+    "@playwright/test": "^1.58.1",
     "@vitejs/plugin-vue": "^6.0.3",
     "pinia": "^2.3.1",
-    "solid-js": "^1.9.10",
+    "solid-js": "^1.9.11",
     "tsup": "^8.5.1",
     "tsup-preset-solid": "^2.2.0",
     "typescript": "~5.6.3",
     "vite": "^7.3.1",
     "vite-plugin-dts": "^4.5.4",
     "vite-plugin-solid": "^2.11.10",
-    "vue": "^3.5.26"
+    "vue": "^3.5.27"
   }
 }

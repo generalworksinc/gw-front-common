@@ -208,6 +208,9 @@ export default defineConfig({
 ## スクリプト
 - `bun test`
 - `bun test --coverage`
+- `bun run test:browser`（Playwright、`__tests__/browser/*.pw.js` を実行）
+  - 初回のみ `bunx playwright install --with-deps` が必要
+  - 実送信で検証する場合は `SENTRY_DSN` を環境変数で渡す（例: `SENTRY_DSN=... bun run test:browser`）
 
 ## インストール（利用側）
 - `bunx jsr add @generalworks/gw-front-common`

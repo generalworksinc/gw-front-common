@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>logging browser live test</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@sentry/browser": "https://esm.sh/@sentry/browser@10.37.0"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import * as Sentry from '@sentry/browser';
+      import { logSentryMessageWithBreadcrumb } from '../../dist/core/mod.js';
+
+      Sentry.init({
+        dsn: window.__SENTRY_DSN,
+        tracesSampleRate: 0,
+      });
+
+      const longString = 'a'.repeat(400);
+      const longArray = Array.from({ length: 40 }, (_, i) => i);
+
+      await logSentryMessageWithBreadcrumb({
+        message: 'browser_live_test',
+        level: 'warning',
+        category: 'browser',
+        reason: 'playwright_live',
+        data: {
+          longString,
+          longArray,
+        },
+        extra: {
+          longString,
+        },
+      });
+
+      await Sentry.flush(2000);
+      window.__testDone = true;
+    </script>
+  </body>
+</html>

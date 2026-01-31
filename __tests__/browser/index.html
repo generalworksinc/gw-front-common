@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>logging browser test</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@sentry/browser": "./sentry-mock.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <script type="module">
+      import { logSentryMessageWithBreadcrumb } from '../../dist/core/mod.js';
+
+      const longString = 'a'.repeat(400);
+      const longArray = Array.from({ length: 40 }, (_, i) => i);
+
+      await logSentryMessageWithBreadcrumb({
+        message: 'browser_test',
+        level: 'warning',
+        category: 'browser',
+        reason: 'playwright',
+        data: {
+          longString,
+          longArray,
+        },
+        extra: {
+          longString,
+        },
+      });
+
+      window.__testDone = true;
+    </script>
+  </body>
+</html>
