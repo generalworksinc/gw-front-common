@@ -38,9 +38,23 @@ const startStaticServer = () =>
 	});
 
 test('logSentryMessageWithBreadcrumb works in browser', async ({ page }) => {
+	const distEntry = join(repoRoot, 'dist/core/mod.js');
+	try {
+		statSync(distEntry);
+	} catch (_err) {
+		throw new Error('dist/core/mod.js not found. Run `bun run build` before `bun run test:browser`.');
+	}
 	const server = await startStaticServer();
 	const dsn = process.env.SENTRY_DSN ?? '';
 	try {
+		page.on('pageerror', (err) => {
+			throw err;
+		});
+		page.on('console', (msg) => {
+			if (msg.type() === 'error') {
+				throw new Error(`Browser console error: ${msg.text()}`);
+			}
+		});
 		if (dsn) {
 			await page.addInitScript((value) => {
 				window.__SENTRY_DSN = value;
