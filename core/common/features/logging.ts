@@ -83,9 +83,29 @@ export const logSentryMessageWithBreadcrumb = async (
 			contexts,
 			scope,
 		} = params;
-		const { addBreadcrumb, captureMessage, withScope } = await import(
-			'@sentry/browser'
-		);
+		// Avoid static bundler resolution of @sentry/browser in legacy toolchains (e.g. webpack4).
+		// The module is loaded lazily only when this logger is actually used in browser runtime.
+		const dynamicImport = new Function(
+			'modulePath',
+			'return import(modulePath);',
+		) as (modulePath: string) => Promise<{
+			addBreadcrumb: (breadcrumb: {
+				category: string;
+				level: 'fatal' | 'error' | 'warning' | 'info' | 'debug' | 'log';
+				message: string;
+				data?: Record<string, unknown>;
+			}) => void;
+			captureMessage: (
+				message: string,
+				options?: {
+					level?: 'fatal' | 'error' | 'warning' | 'info' | 'debug' | 'log';
+					extra?: Record<string, unknown>;
+				},
+			) => void;
+			withScope: (cb: (scope: any) => void) => void;
+		}>;
+		const { addBreadcrumb, captureMessage, withScope } =
+			await dynamicImport('@sentry/browser');
 		const breadcrumbData = sanitizePayload({
 			...(reason ? { reason } : {}),
 			...(data ?? {}),

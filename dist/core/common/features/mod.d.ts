@@ -1,5 +1,6 @@
 export * from './array';
 export * from './async';
+export * from './auth';
 export * from './date';
 export * from './logging';
 export * from './number';
