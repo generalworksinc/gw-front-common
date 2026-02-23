@@ -62,4 +62,27 @@ describe('vue stores (ref)', () => {
 		n.clear();
 		expect(n.notifications.length).toBe(0);
 	});
+
+	test('useNotification uses default removeAfter=3000 when omitted', async () => {
+		const n = useNotification();
+		n.clear();
+
+		const originalSetTimeout = globalThis.setTimeout;
+		const delays = [];
+		globalThis.setTimeout = (handler, timeout, ...args) => {
+			delays.push(timeout);
+			return originalSetTimeout(handler, 0, ...args);
+		};
+
+		try {
+			n.add({ type: 'info', message: 'default timeout' });
+			expect(n.notifications.length).toBe(1);
+			await new Promise((r) => originalSetTimeout(r, 10));
+			expect(delays[0]).toBe(3000);
+			expect(n.notifications.length).toBe(0);
+		} finally {
+			globalThis.setTimeout = originalSetTimeout;
+			n.clear();
+		}
+	});
 });

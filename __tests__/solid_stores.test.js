@@ -47,4 +47,25 @@ describe('solid stores (no runtime dep)', () => {
 		notificationStore.reset();
 		expect(notificationStore.get().list.length).toBe(0);
 	});
+
+	test('notificationStore uses default removeAfter=3000 when omitted', async () => {
+		notificationStore.reset();
+		const originalSetTimeout = globalThis.setTimeout;
+		const delays = [];
+		globalThis.setTimeout = (handler, timeout, ...args) => {
+			delays.push(timeout);
+			return originalSetTimeout(handler, 0, ...args);
+		};
+
+		try {
+			notificationStore.add({ type: 'info', message: 'default timeout' });
+			expect(notificationStore.get().list.length).toBe(1);
+			await new Promise((r) => originalSetTimeout(r, 10));
+			expect(delays[0]).toBe(3000);
+			expect(notificationStore.get().list.length).toBe(0);
+		} finally {
+			globalThis.setTimeout = originalSetTimeout;
+			notificationStore.reset();
+		}
+	});
 });

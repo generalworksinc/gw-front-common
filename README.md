@@ -198,6 +198,7 @@ export default defineConfig({
   modalStore.open({ message: '確認しますか？' })
   notificationStore.add({ type: 'info', message: '保存しました', removeAfter: 3000 })
   ```
+- `notificationStore.add` / `useNotification().add` の `removeAfter` 未指定時は `3000ms` で自動クローズします（`0` を指定すると自動クローズしません）。
 
 型エイリアス（Solid ストア）
 - 利用側で型を参照する場合はエクスポート済みの型エイリアスを使用できます。

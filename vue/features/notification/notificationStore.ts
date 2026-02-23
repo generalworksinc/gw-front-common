@@ -15,7 +15,11 @@ export const useNotification = defineStore('notification', {
 	state: () => ({ notifications: [] as NotificationItem[] }),
 	actions: {
 		add(n: Omit<NotificationItem, 'id'>): void {
-			const item: NotificationItem = { id: randomId(), ...n };
+			const item: NotificationItem = {
+				id: randomId(),
+				...n,
+				removeAfter: n.removeAfter ?? 3000,
+			};
 			this.notifications = [...this.notifications, item];
 			if (item.removeAfter && item.removeAfter > 0) {
 				setTimeout(() => this.remove(item.id), item.removeAfter);
