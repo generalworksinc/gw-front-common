@@ -210,9 +210,13 @@ var defaultState3 = {
 var [store3, setStore3] = createStore({ ...defaultState3 });
 var add = (payload) => {
   const id = randomId();
-  const notification = { ...payload, id };
+  const notification = {
+    ...payload,
+    id,
+    removeAfter: payload.removeAfter ?? 3e3
+  };
   setStore3("list", (list) => [...list, notification]);
-  if (notification.removeAfter) {
+  if (notification.removeAfter > 0) {
     setTimeout(() => {
       remove(id);
     }, notification.removeAfter);

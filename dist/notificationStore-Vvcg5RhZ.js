@@ -107,7 +107,11 @@ const c = () => Math.random().toString(36).slice(2), C = n("notification", {
   state: () => ({ notifications: [] }),
   actions: {
     add(s) {
-      const i = { id: c(), ...s };
+      const i = {
+        id: c(),
+        ...s,
+        removeAfter: s.removeAfter ?? 3e3
+      };
       this.notifications = [...this.notifications, i], i.removeAfter && i.removeAfter > 0 && setTimeout(() => this.remove(i.id), i.removeAfter);
     },
     remove(s) {

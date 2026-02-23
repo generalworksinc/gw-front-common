@@ -1,5 +1,5 @@
 import { defineComponent as h, createElementBlock as l, createCommentVNode as u, openBlock as n, normalizeClass as r, toDisplayString as p, createBlock as k, Transition as C, withCtx as b, unref as o, normalizeStyle as x, createElementVNode as s, computed as S, renderSlot as v, Fragment as z, renderList as H } from "vue";
-import { u as L, a as M, b as N } from "../notificationStore-1ySYS_JF.js";
+import { u as L, a as M, b as N } from "../notificationStore-Vvcg5RhZ.js";
 const B = ["id"], I = /* @__PURE__ */ h({
   __name: "ErrorMessage",
   props: {
