@@ -1,6 +1,6 @@
 {
 	// ES2020 方針: Object.hasOwn は使わず hasOwnProperty.call を許容
-	"$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
 	"formatter": { "enabled": true },
 	"linter": {
 		"enabled": true,
