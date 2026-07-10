@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia';
+import { resolvePinia } from '../../pinia';
 
 export type NotificationType = 'success' | 'warning' | 'danger' | 'info';
+export type NotificationPosition =
+	| 'top-right'
+	| 'top-left'
+	| 'bottom-right'
+	| 'bottom-left';
 
 export interface NotificationItem {
 	id: string;
@@ -11,7 +17,7 @@ export interface NotificationItem {
 
 const randomId = () => Math.random().toString(36).slice(2);
 
-export const useNotification = defineStore('notification', {
+const useNotificationPinia = defineStore('notification', {
 	state: () => ({ notifications: [] as NotificationItem[] }),
 	actions: {
 		add(n: Omit<NotificationItem, 'id'>): void {
@@ -33,3 +39,8 @@ export const useNotification = defineStore('notification', {
 		},
 	},
 });
+
+// 明示的に pinia の受け渡しを必須化（setup外でも setPinia 済みなら安全に呼べる）
+export function useNotification() {
+	return useNotificationPinia(resolvePinia());
+}

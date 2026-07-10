@@ -1,7 +1,7 @@
 import { defineStore as n } from "pinia";
-import { r as a } from "./pinia-CXsK1c83.js";
-import { computed as h } from "vue";
-const r = n("loading", {
+import { r as o } from "./pinia-CXsK1c83.js";
+import { computed as r } from "vue";
+const h = n("loading", {
   state: () => ({
     isLoading: !1
   }),
@@ -15,22 +15,27 @@ const r = n("loading", {
     stopLoading() {
       this.setLoading(!1);
     },
-    // compatibility with legacy API
+    /**
+     * @deprecated startLoading()/stopLoading() を使うこと。次のメジャーバージョンで削除予定。
+     */
     LOADING() {
       this.startLoading();
     },
+    /**
+     * @deprecated startLoading()/stopLoading() を使うこと。次のメジャーバージョンで削除予定。
+     */
     NOT_LOADING() {
       this.stopLoading();
     }
   }
 });
-function d() {
-  return r(a());
+function g() {
+  return h(o());
 }
 function t(s) {
   return typeof s == "function";
 }
-const o = () => ({
+const a = () => ({
   isOpen: !1,
   isConfirm: !1,
   html: "",
@@ -50,7 +55,7 @@ const o = () => ({
   yesFunc: null,
   noFunc: null
 }), l = n("modal", {
-  state: () => o(),
+  state: () => a(),
   actions: {
     open(s) {
       this.isOpen = !0, this.isConfirm = !1, this.message = s?.message ?? "", this.html = s?.html ?? "", this.height = s?.height ?? "", this.width = s?.width ?? "", this.maxHeight = s?.maxHeight ?? "", this.maxWidth = s?.maxWidth ?? "", this.minHeight = s?.minHeight ?? "", this.minWidth = s?.minWidth ?? "", this.isScrollY = s?.isScrollY ?? !1, this.isScrollX = s?.isScrollX ?? !1, this.containerClass = s?.containerClass ?? "", this.bodyClass = s?.bodyClass ?? "", this.footerClass = s?.footerClass ?? "", this.reverseButtons = s?.reverseButtons ?? !1, this.yesFunc = t(s?.yesFunc) ? s?.yesFunc : () => null, this.noFunc = null;
@@ -68,14 +73,14 @@ const o = () => ({
       t(this.yesFunc) && this.yesFunc(), this.reset();
     },
     reset() {
-      Object.assign(this, o());
+      Object.assign(this, a());
     }
   }
 });
-function g() {
-  const s = l(a());
+function C() {
+  const s = l(o());
   return {
-    state: h(() => ({
+    state: r(() => ({
       isOpen: s.isOpen,
       isConfirm: s.isConfirm,
       html: s.html,
@@ -103,7 +108,7 @@ function g() {
     reset: () => s.reset()
   };
 }
-const c = () => Math.random().toString(36).slice(2), C = n("notification", {
+const c = () => Math.random().toString(36).slice(2), m = n("notification", {
   state: () => ({ notifications: [] }),
   actions: {
     add(s) {
@@ -122,8 +127,11 @@ const c = () => Math.random().toString(36).slice(2), C = n("notification", {
     }
   }
 });
+function F() {
+  return m(o());
+}
 export {
-  g as a,
-  C as b,
-  d as u
+  C as a,
+  F as b,
+  g as u
 };

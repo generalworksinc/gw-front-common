@@ -2,7 +2,7 @@ import { createPinia, setActivePinia } from 'pinia';
 import { useLoading, useModal, useNotification } from '../vue/mod.ts';
 import { setPinia } from '../vue/pinia.ts';
 
-beforeAll(() => {
+beforeEach(() => {
 	const pinia = createPinia();
 	setPinia(pinia);
 	setActivePinia(pinia);
@@ -61,6 +61,27 @@ describe('vue stores (ref)', () => {
 		n.add({ type: 'warning', message: 'y' });
 		n.clear();
 		expect(n.notifications.length).toBe(0);
+	});
+
+	test('useNotification works outside setup after setPinia without active pinia', () => {
+		const pinia = createPinia();
+		setPinia(pinia);
+		setActivePinia(undefined);
+
+		const n = useNotification();
+		expect(n.notifications).toHaveLength(0);
+
+		n.add({ type: 'info', message: 'outside setup', removeAfter: 0 });
+		expect(n.notifications).toHaveLength(1);
+
+		const id = n.notifications[0].id;
+		n.remove(id);
+		expect(n.notifications).toHaveLength(0);
+
+		n.add({ type: 'success', message: 'clear me', removeAfter: 0 });
+		expect(n.notifications).toHaveLength(1);
+		n.clear();
+		expect(n.notifications).toHaveLength(0);
 	});
 
 	test('useNotification uses default removeAfter=3000 when omitted', async () => {

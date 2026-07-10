@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import type { NotificationPosition } from '../notificationStore';
 import { useNotification } from '../notificationStore';
+
+defineProps<{
+	position?: NotificationPosition;
+}>();
 
 const store = useNotification();
 const removeNotificationHandler = (id?: string) => {
@@ -9,7 +14,8 @@ const removeNotificationHandler = (id?: string) => {
 
 <template>
   <div class="notifications">
-    <div class="z-50 position-top-right default-position-style-top-right">
+    <div class="z-50 position-top-right default-position-style-top-right"
+      :class="position ? `position-${position}` : ''">
       <div v-for="n in store.notifications" :key="n.id"
         class="z-50 notification default-notification-style"
         :class="`default-notification-${n.type}`">
@@ -28,5 +34,4 @@ const removeNotificationHandler = (id?: string) => {
     </div>
   </div>
 </template>
-
 

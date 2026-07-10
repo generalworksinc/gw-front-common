@@ -15,10 +15,15 @@ const useLoadingPinia = defineStore('loading', {
 		stopLoading(): void {
 			this.setLoading(false);
 		},
-		// compatibility with legacy API
+		/**
+		 * @deprecated startLoading()/stopLoading() を使うこと。次のメジャーバージョンで削除予定。
+		 */
 		LOADING(): void {
 			this.startLoading();
 		},
+		/**
+		 * @deprecated startLoading()/stopLoading() を使うこと。次のメジャーバージョンで削除予定。
+		 */
 		NOT_LOADING(): void {
 			this.stopLoading();
 		},
