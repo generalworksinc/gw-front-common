@@ -208,16 +208,18 @@ export default defineConfig({
 
 ## 今後の予定 / TODO
 
-### 次のメジャーバージョン（破壊的変更をまとめて実施）
+### 次のメジャーバージョン（実施済み・タグ発行待ち）
 
-- vue Modal: ボタンが emit するだけの現仕様をやめ、コンポーネント内部で store の yes/no/close を実行する（emit は通知フックに格下げ）。現状はアプリ側で `@yes="modal.yes()"` 等の配線が必須で、忘れると無反応モーダルになる
-- Modal の取得方法の vue/solid 統一（vue=グローバル store 内蔵 / solid=store prop 注入 の非対称を解消。デフォルトはグローバル、prop は上書き用に）
-- loading の `LOADING()` / `NOT_LOADING()` レガシー別名の削除
-- notification の state 名統一（vue: `notifications` / solid: `list`）
-- `MIGRATION.md` に移行手順を記載し、テンプレート2種（nuxt/solid）を追随させる
+- ✅ loading の `LOADING()` / `NOT_LOADING()` レガシー別名の削除
+- ✅ notification の state 名統一（vue も solid と同じ `list` に）
+- ✅ `MIGRATION.md` に移行手順を記載（「次期メジャーバージョンへの移行」節）
+- テンプレート2種（nuxt/solid）の追随は未了
 
 ### 保留（TODO）
 
+- vue Modal のボタン store 内蔵実行化（emit 配線を不要にする案）と Modal 取得方法の vue/solid 統一:
+  **store 実装に密結合すると挙動をアプリ側で差し替える自由度が失われるため保留**。
+  現仕様（vue はアプリ側で `@yes="modal.yes()"` 等の emit 配線が必須）は各テンプレートの app.vue を正しい配線例として参照すること
 - vue 側 auth feature: solid には features/auth（authStore）があるが vue には無く、nuxt テンプレートがアプリ側で pinia + persistedstate 実装している非対称がある。当面はアプリ側実装を維持し、将来「AuthUser 型だけ core で共有して型ズレを防ぐ」案を検討する
 - デフォルトスタイル（notification/loading/modal の CSS）のパッケージ同梱: stylebook のマージ後に検討
 

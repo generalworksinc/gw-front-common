@@ -1,5 +1,5 @@
 import { defineComponent as p, createElementBlock as r, createCommentVNode as u, openBlock as a, normalizeClass as l, toDisplayString as h, createBlock as k, Transition as C, withCtx as b, unref as o, normalizeStyle as x, createElementVNode as s, computed as S, renderSlot as v, Fragment as z, renderList as H } from "vue";
-import { u as L, a as M, b as N } from "../notificationStore-CM2HcRFy.js";
+import { u as L, a as M, b as N } from "../notificationStore-10t-Xtcn.js";
 const B = ["id"], G = /* @__PURE__ */ p({
   __name: "ErrorMessage",
   props: {
@@ -123,7 +123,7 @@ const B = ["id"], G = /* @__PURE__ */ p({
       s("div", {
         class: l(["z-50 position-top-right default-position-style-top-right", n.position ? `position-${n.position}` : ""])
       }, [
-        (a(!0), r(z, null, H(o(d).notifications, (e) => (a(), r("div", {
+        (a(!0), r(z, null, H(o(d).list, (e) => (a(), r("div", {
           key: e.id,
           class: l(["z-50 notification default-notification-style", `default-notification-${e.type}`])
         }, [

@@ -18,7 +18,7 @@ export interface NotificationItem {
 const randomId = () => Math.random().toString(36).slice(2);
 
 const useNotificationPinia = defineStore('notification', {
-	state: () => ({ notifications: [] as NotificationItem[] }),
+	state: () => ({ list: [] as NotificationItem[] }),
 	actions: {
 		add(n: Omit<NotificationItem, 'id'>): void {
 			const item: NotificationItem = {
@@ -26,16 +26,16 @@ const useNotificationPinia = defineStore('notification', {
 				...n,
 				removeAfter: n.removeAfter ?? 3000,
 			};
-			this.notifications = [...this.notifications, item];
+			this.list = [...this.list, item];
 			if (item.removeAfter && item.removeAfter > 0) {
 				setTimeout(() => this.remove(item.id), item.removeAfter);
 			}
 		},
 		remove(id: string): void {
-			this.notifications = this.notifications.filter((n) => n.id !== id);
+			this.list = this.list.filter((n) => n.id !== id);
 		},
 		clear(): void {
-			this.notifications = [];
+			this.list = [];
 		},
 	},
 });

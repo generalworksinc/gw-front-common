@@ -43,24 +43,24 @@ describe('vue stores (ref)', () => {
 
 	test('useNotification add/remove/clear + auto-remove', async () => {
 		const n = useNotification();
-		expect(n.notifications).toHaveLength(0);
+		expect(n.list).toHaveLength(0);
 
 		n.add({ type: 'info', message: 'hi', removeAfter: 30 });
-		expect(n.notifications.length).toBe(1);
+		expect(n.list.length).toBe(1);
 
-		const id = n.notifications[0].id;
+		const id = n.list[0].id;
 		n.remove(id);
-		expect(n.notifications.length).toBe(0);
+		expect(n.list.length).toBe(0);
 
 		n.add({ type: 'success', message: 'bye', removeAfter: 10 });
-		expect(n.notifications.length).toBe(1);
+		expect(n.list.length).toBe(1);
 		await new Promise((r) => setTimeout(r, 25));
-		expect(n.notifications.length).toBe(0);
+		expect(n.list.length).toBe(0);
 
 		n.add({ type: 'danger', message: 'x' });
 		n.add({ type: 'warning', message: 'y' });
 		n.clear();
-		expect(n.notifications.length).toBe(0);
+		expect(n.list.length).toBe(0);
 	});
 
 	test('useNotification works outside setup after setPinia without active pinia', () => {
@@ -69,19 +69,19 @@ describe('vue stores (ref)', () => {
 		setActivePinia(undefined);
 
 		const n = useNotification();
-		expect(n.notifications).toHaveLength(0);
+		expect(n.list).toHaveLength(0);
 
 		n.add({ type: 'info', message: 'outside setup', removeAfter: 0 });
-		expect(n.notifications).toHaveLength(1);
+		expect(n.list).toHaveLength(1);
 
-		const id = n.notifications[0].id;
+		const id = n.list[0].id;
 		n.remove(id);
-		expect(n.notifications).toHaveLength(0);
+		expect(n.list).toHaveLength(0);
 
 		n.add({ type: 'success', message: 'clear me', removeAfter: 0 });
-		expect(n.notifications).toHaveLength(1);
+		expect(n.list).toHaveLength(1);
 		n.clear();
-		expect(n.notifications).toHaveLength(0);
+		expect(n.list).toHaveLength(0);
 	});
 
 	test('useNotification uses default removeAfter=3000 when omitted', async () => {
@@ -97,10 +97,10 @@ describe('vue stores (ref)', () => {
 
 		try {
 			n.add({ type: 'info', message: 'default timeout' });
-			expect(n.notifications.length).toBe(1);
+			expect(n.list.length).toBe(1);
 			await new Promise((r) => originalSetTimeout(r, 10));
 			expect(delays[0]).toBe(3000);
-			expect(n.notifications.length).toBe(0);
+			expect(n.list.length).toBe(0);
 		} finally {
 			globalThis.setTimeout = originalSetTimeout;
 			n.clear();

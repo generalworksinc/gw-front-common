@@ -106,3 +106,30 @@ export default defineConfig({
 - Solid で TSXコンポーネントを利用する場合は、ビルド設定で JSX ランタイムが有効であること
 - SSR環境では Vue/Signal のランタイム差異に注意（UIはCSRで使用するのが安全）
 
+
+## 次期メジャーバージョンへの移行
+
+破壊的変更は次の2点。
+
+### 1. notification の state 名を `notifications` → `list` に統一（solid 版と同名化）
+
+`add` / `remove` / `clear` だけを使っている場合は変更不要。state を直接読んでいる場合のみ:
+
+```diff
+- for (const n of store.notifications) { ... }
++ for (const n of store.list) { ... }
+```
+
+### 2. loading のレガシー別名 `LOADING()` / `NOT_LOADING()` を削除
+
+```diff
+- loading.LOADING();
++ loading.startLoading();
+
+- loading.NOT_LOADING();
++ loading.stopLoading();
+```
+
+### 変更なし（参考）
+
+- Modal の API は変更なし（store 内蔵化の案は自由度の観点で保留。vue はアプリ側での `@yes="modal.yes()"` 等の emit 配線が引き続き必須、solid は `<Modal store={modalStore} />` のまま）

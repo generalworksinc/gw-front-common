@@ -16,7 +16,7 @@ const removeNotificationHandler = (id?: string) => {
   <div class="notifications">
     <div class="z-50 position-top-right default-position-style-top-right"
       :class="position ? `position-${position}` : ''">
-      <div v-for="n in store.notifications" :key="n.id"
+      <div v-for="n in store.list" :key="n.id"
         class="z-50 notification default-notification-style"
         :class="`default-notification-${n.type}`">
         <div class="z-50 notification-content default-notification-style-content"

@@ -1,5 +1,5 @@
 import { defineStore as n } from "pinia";
-import { r as o } from "./pinia-CXsK1c83.js";
+import { r as a } from "./pinia-CXsK1c83.js";
 import { computed as r } from "vue";
 const h = n("loading", {
   state: () => ({
@@ -14,28 +14,16 @@ const h = n("loading", {
     },
     stopLoading() {
       this.setLoading(!1);
-    },
-    /**
-     * @deprecated startLoading()/stopLoading() を使うこと。次のメジャーバージョンで削除予定。
-     */
-    LOADING() {
-      this.startLoading();
-    },
-    /**
-     * @deprecated startLoading()/stopLoading() を使うこと。次のメジャーバージョンで削除予定。
-     */
-    NOT_LOADING() {
-      this.stopLoading();
     }
   }
 });
 function g() {
-  return h(o());
+  return h(a());
 }
-function t(s) {
+function i(s) {
   return typeof s == "function";
 }
-const a = () => ({
+const o = () => ({
   isOpen: !1,
   isConfirm: !1,
   html: "",
@@ -55,30 +43,30 @@ const a = () => ({
   yesFunc: null,
   noFunc: null
 }), l = n("modal", {
-  state: () => a(),
+  state: () => o(),
   actions: {
     open(s) {
-      this.isOpen = !0, this.isConfirm = !1, this.message = s?.message ?? "", this.html = s?.html ?? "", this.height = s?.height ?? "", this.width = s?.width ?? "", this.maxHeight = s?.maxHeight ?? "", this.maxWidth = s?.maxWidth ?? "", this.minHeight = s?.minHeight ?? "", this.minWidth = s?.minWidth ?? "", this.isScrollY = s?.isScrollY ?? !1, this.isScrollX = s?.isScrollX ?? !1, this.containerClass = s?.containerClass ?? "", this.bodyClass = s?.bodyClass ?? "", this.footerClass = s?.footerClass ?? "", this.reverseButtons = s?.reverseButtons ?? !1, this.yesFunc = t(s?.yesFunc) ? s?.yesFunc : () => null, this.noFunc = null;
+      this.isOpen = !0, this.isConfirm = !1, this.message = s?.message ?? "", this.html = s?.html ?? "", this.height = s?.height ?? "", this.width = s?.width ?? "", this.maxHeight = s?.maxHeight ?? "", this.maxWidth = s?.maxWidth ?? "", this.minHeight = s?.minHeight ?? "", this.minWidth = s?.minWidth ?? "", this.isScrollY = s?.isScrollY ?? !1, this.isScrollX = s?.isScrollX ?? !1, this.containerClass = s?.containerClass ?? "", this.bodyClass = s?.bodyClass ?? "", this.footerClass = s?.footerClass ?? "", this.reverseButtons = s?.reverseButtons ?? !1, this.yesFunc = i(s?.yesFunc) ? s?.yesFunc : () => null, this.noFunc = null;
     },
     confirm(s) {
-      this.open(s), this.isConfirm = !0, this.noFunc = t(s?.noFunc) ? s?.noFunc : () => null;
+      this.open(s), this.isConfirm = !0, this.noFunc = i(s?.noFunc) ? s?.noFunc : () => null;
     },
     close() {
-      t(this.yesFunc) && this.yesFunc(), this.reset();
+      i(this.yesFunc) && this.yesFunc(), this.reset();
     },
     no() {
-      t(this.noFunc) && this.noFunc(), this.reset();
+      i(this.noFunc) && this.noFunc(), this.reset();
     },
     yes() {
-      t(this.yesFunc) && this.yesFunc(), this.reset();
+      i(this.yesFunc) && this.yesFunc(), this.reset();
     },
     reset() {
-      Object.assign(this, a());
+      Object.assign(this, o());
     }
   }
 });
 function C() {
-  const s = l(o());
+  const s = l(a());
   return {
     state: r(() => ({
       isOpen: s.isOpen,
@@ -109,26 +97,26 @@ function C() {
   };
 }
 const c = () => Math.random().toString(36).slice(2), m = n("notification", {
-  state: () => ({ notifications: [] }),
+  state: () => ({ list: [] }),
   actions: {
     add(s) {
-      const i = {
+      const t = {
         id: c(),
         ...s,
         removeAfter: s.removeAfter ?? 3e3
       };
-      this.notifications = [...this.notifications, i], i.removeAfter && i.removeAfter > 0 && setTimeout(() => this.remove(i.id), i.removeAfter);
+      this.list = [...this.list, t], t.removeAfter && t.removeAfter > 0 && setTimeout(() => this.remove(t.id), t.removeAfter);
     },
     remove(s) {
-      this.notifications = this.notifications.filter((i) => i.id !== s);
+      this.list = this.list.filter((t) => t.id !== s);
     },
     clear() {
-      this.notifications = [];
+      this.list = [];
     }
   }
 });
 function F() {
-  return m(o());
+  return m(a());
 }
 export {
   C as a,

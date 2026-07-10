@@ -7,7 +7,7 @@ export interface NotificationItem {
     removeAfter?: number;
 }
 export declare function useNotification(): import('pinia').Store<"notification", {
-    notifications: NotificationItem[];
+    list: NotificationItem[];
 }, {}, {
     add(n: Omit<NotificationItem, "id">): void;
     remove(id: string): void;
