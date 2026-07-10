@@ -3,6 +3,19 @@ import { loadingStore } from './loadingStore';
 type AsyncFunction = (...args: any[]) => Promise<any>;
 type SyncFunction = (...args: any[]) => any;
 
+/**
+ * ユーザー操作（クリック等）の連打ガード専用ヘルパー。
+ *
+ * グローバルローディング表示を開始し、実行中は後続操作を無効化する。
+ * isLoading 中に呼ばれた場合は何も実行せず `false` を返すため、呼び出し側は
+ * スキップされ得ることを前提にする。
+ *
+ * 初期ロード・リアクティブなデータ取得には使わないこと。無関係なロードと排他され、
+ * 取得処理が黙って消える可能性がある。データ取得はコンポーネント/ストアの
+ * ローカルな読み込み状態で管理する。
+ *
+ * Solid 2.0 の microtask バッチ化による影響はない。
+ */
 export const eventWithLoading = async (
 	func: AsyncFunction | SyncFunction,
 	...params: any[]
@@ -10,10 +23,10 @@ export const eventWithLoading = async (
 	if (loadingStore.isLoading()) {
 		return false;
 	}
-	// ロード中の全てのclickイベントを無効にする
 	loadingStore.start(); // ローディング開始
 
 	return await new Promise<any>((resolve, reject) => {
+		// ローディング表示の描画を先に確定させるため、意図的に次タスクで実行する。
 		setTimeout(() => {
 			try {
 				const result = func(...params);
@@ -27,11 +40,11 @@ export const eventWithLoading = async (
 					(result as Promise<any>)
 						.then((res) => {
 							loadingStore.stop();
-							resolve(Promise.resolve(res));
+							resolve(res);
 						})
 						.catch((err) => {
 							loadingStore.stop();
-							resolve(Promise.reject(err));
+							reject(err);
 						});
 				} else {
 					// 戻り値がPromiseでない場合処理、完了しているのでローディング状態を解除
@@ -47,7 +60,7 @@ export const eventWithLoading = async (
 	});
 };
 
-// さらに汎用的なヘルパー
+/** eventWithLoading をイベントハンドラ化するヘルパー。 */
 export const awaitLoadingWith = (asyncFn: () => Promise<void>) => {
 	return async () => await eventWithLoading(asyncFn);
 };

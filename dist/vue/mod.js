@@ -1,27 +1,27 @@
-import { u as r } from "../notificationStore-Vvcg5RhZ.js";
+import { u as c } from "../notificationStore-Vvcg5RhZ.js";
 import { a as p, b as L } from "../notificationStore-Vvcg5RhZ.js";
-async function c(i, ...e) {
-  const o = r();
-  return o.isLoading ? !1 : (o.startLoading(), await new Promise((n, s) => {
+async function r(n, ...e) {
+  const o = c();
+  return o.isLoading ? !1 : (o.startLoading(), await new Promise((i, s) => {
     setTimeout(() => {
       try {
-        const t = i(...e);
+        const t = n(...e);
         t instanceof Promise || t && typeof t.then == "function" && typeof t.catch == "function" ? t.then((a) => {
-          o.stopLoading(), n(Promise.resolve(a));
+          o.stopLoading(), i(a);
         }).catch((a) => {
-          o.stopLoading(), n(Promise.reject(a));
-        }) : (o.stopLoading(), n(t));
+          o.stopLoading(), s(a);
+        }) : (o.stopLoading(), i(t));
       } catch (t) {
         o.stopLoading(), s(t);
       }
     }, 1);
   }));
 }
-const u = (i) => async () => await c(i);
+const u = (n) => async () => await r(n);
 export {
   u as awaitLoadingWith,
-  c as eventWithLoading,
-  r as useLoading,
+  r as eventWithLoading,
+  c as useLoading,
   p as useModal,
   L as useNotification
 };

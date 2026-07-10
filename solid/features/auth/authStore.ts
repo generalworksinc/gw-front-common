@@ -1,6 +1,4 @@
-import { makePersisted } from '@solid-primitives/storage';
-import { createStore } from 'solid-js/store';
-import { isServer } from 'solid-js/web';
+import { createResettableStore } from '../store/resettableStore';
 
 export interface AuthUser {
 	id: string | null;
@@ -18,20 +16,18 @@ const defaultState: AuthUser = {
 	lastName: null,
 };
 
-const [store, setStore] = createStore<AuthUser>(defaultState);
-const [persistedStore, persistedSetStore] = isServer
-	? [store, setStore]
-	: makePersisted([store, setStore], { name: 'authStore' });
+// createStore は渡したオブジェクトをクローンせず内部状態として使う。
+// defaultState を直接渡すと書き込みで defaultState 自体が汚染され、
+// reset() の初期値書き戻しが no-op になるため、必ずコピーを保持する。
+const { store, set, reset } = createResettableStore(defaultState, {
+	persist: { name: 'authStore' },
+});
 
-const reset = (): void => {
-	persistedSetStore({ ...defaultState });
-};
-
-const isLoggedIn = (): boolean => persistedStore.id !== null;
+const isLoggedIn = (): boolean => store.id !== null;
 
 export const authStore = {
-	get: () => persistedStore,
-	set: persistedSetStore,
+	get: () => store,
+	set,
 	reset,
 	isLoggedIn,
 };

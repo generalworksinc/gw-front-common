@@ -1,71 +1,47 @@
-import { createSignal, createUniqueId, untrack, createContext, useContext } from 'solid-js';
-import { isServer, isDev, createComponent } from 'solid-js/web';
-import { createStore, reconcile } from 'solid-js/store';
+import { createStore, reconcile, unwrap } from 'solid-js/store';
+import { isServer, createComponent } from 'solid-js/web';
+import { createSignal, createContext, useContext } from 'solid-js';
 
-// node_modules/@solid-primitives/storage/dist/persisted.js
-function makePersisted(signal, options = {}) {
-  const storage = options.storage || globalThis.localStorage;
-  const name = options.name || `storage-${createUniqueId()}`;
-  if (!storage) {
-    return [signal[0], signal[1], null];
-  }
-  const storageOptions = options.storageOptions;
-  const serialize = options.serialize || JSON.stringify.bind(JSON);
-  const deserialize = options.deserialize || JSON.parse.bind(JSON);
-  const init = storage.getItem(name, storageOptions);
-  const set = typeof signal[0] === "function" ? (data) => {
+// solid/features/store/resettableStore.ts
+function createResettableStore(defaultState4, options) {
+  const snapshot = structuredClone(defaultState4);
+  const [store4, setStore3] = createStore(structuredClone(snapshot));
+  const persist = options?.persist;
+  const storage = persist ? persist.storage ?? (isServer ? void 0 : globalThis.localStorage) : void 0;
+  if (persist && storage) {
     try {
-      const value = deserialize(data);
-      signal[1](() => value);
-    } catch (e) {
-      if (isDev)
-        console.warn(e);
-    }
-  } : (data) => {
-    try {
-      const value = deserialize(data);
-      signal[1](reconcile(value));
-    } catch (e) {
-      if (isDev)
-        console.warn(e);
-    }
-  };
-  let unchanged = true;
-  if (init instanceof Promise)
-    init.then((data) => unchanged && data && set(data));
-  else if (init)
-    set(init);
-  if (typeof options.sync?.[0] === "function") {
-    const get = typeof signal[0] === "function" ? signal[0] : () => signal[0];
-    options.sync[0]((data) => {
-      if (data.key !== name || !isServer && (data.url || globalThis.location.href) !== globalThis.location.href || data.newValue === serialize(untrack(get))) {
-        return;
+      const raw = storage.getItem(persist.name);
+      if (raw != null) {
+        setStore3(reconcile({ ...snapshot, ...JSON.parse(raw) }));
       }
-      set(data.newValue);
-    });
+    } catch {
+    }
   }
-  return [
-    signal[0],
-    typeof signal[0] === "function" ? (value) => {
-      const output = signal[1](value);
-      const serialized = value != null ? serialize(output) : value;
-      options.sync?.[1](name, serialized);
-      if (serialized != null)
-        storage.setItem(name, serialized, storageOptions);
-      else
-        storage.removeItem(name, storageOptions);
-      unchanged = false;
-      return output;
-    } : (...args) => {
-      signal[1](...args);
-      const value = serialize(untrack(() => signal[0]));
-      options.sync?.[1](name, value);
-      storage.setItem(name, value, storageOptions);
-      unchanged = false;
-    },
-    init
-  ];
+  let scheduled = false;
+  const schedulePersist = () => {
+    if (!persist || !storage || scheduled) return;
+    scheduled = true;
+    queueMicrotask(() => {
+      scheduled = false;
+      try {
+        storage.setItem(persist.name, JSON.stringify(unwrap(store4)));
+      } catch (err) {
+        console.warn("Failed to persist resettable store.", err);
+      }
+    });
+  };
+  const set2 = ((...args) => {
+    setStore3(...args);
+    schedulePersist();
+  });
+  const reset4 = () => {
+    setStore3(reconcile(structuredClone(snapshot)));
+    schedulePersist();
+  };
+  return { store: store4, set: set2, reset: reset4 };
 }
+
+// solid/features/auth/authStore.ts
 var defaultState = {
   id: null,
   email: null,
@@ -73,15 +49,13 @@ var defaultState = {
   firstName: null,
   lastName: null
 };
-var [store, setStore] = createStore(defaultState);
-var [persistedStore, persistedSetStore] = isServer ? [store, setStore] : makePersisted([store, setStore], { name: "authStore" });
-var reset = () => {
-  persistedSetStore({ ...defaultState });
-};
-var isLoggedIn = () => persistedStore.id !== null;
+var { store, set, reset } = createResettableStore(defaultState, {
+  persist: { name: "authStore" }
+});
+var isLoggedIn = () => store.id !== null;
 var authStore = {
-  get: () => persistedStore,
-  set: persistedSetStore,
+  get: () => store,
+  set,
   reset,
   isLoggedIn
 };
@@ -106,10 +80,10 @@ var eventWithLoading = async (func, ...params) => {
         if (result instanceof Promise || result && typeof result.then === "function" && typeof result.catch === "function") {
           result.then((res) => {
             loadingStore.stop();
-            resolve(Promise.resolve(res));
+            resolve(res);
           }).catch((err) => {
             loadingStore.stop();
-            resolve(Promise.reject(err));
+            reject(err);
           });
         } else {
           loadingStore.stop();
@@ -144,9 +118,9 @@ var defaultState2 = {
 function isFunction(fn) {
   return typeof fn === "function";
 }
-var [store2, setStore2] = createStore({ ...defaultState2 });
+var [store2, setStore] = createStore({ ...defaultState2 });
 var open = (obj) => {
-  setStore2({
+  setStore({
     isOpen: true,
     isConfirm: false,
     message: obj?.message ?? "",
@@ -164,7 +138,7 @@ var open = (obj) => {
   });
 };
 var confirm = (obj) => {
-  setStore2({
+  setStore({
     isOpen: true,
     isConfirm: true,
     message: obj?.message ?? "",
@@ -182,7 +156,7 @@ var confirm = (obj) => {
   });
 };
 var close = () => {
-  setStore2({ ...defaultState2 });
+  setStore({ ...defaultState2 });
 };
 var yes = () => {
   if (isFunction(store2.yesFunc)) store2.yesFunc();
@@ -195,7 +169,7 @@ var no = () => {
 var reset2 = close;
 var modalStore = {
   get: () => store2,
-  set: setStore2,
+  set: setStore,
   open,
   confirm,
   close,
@@ -207,7 +181,7 @@ var randomId = () => Math.random().toString(36).slice(2);
 var defaultState3 = {
   list: []
 };
-var [store3, setStore3] = createStore({ ...defaultState3 });
+var [store3, setStore2] = createStore({ ...defaultState3 });
 var add = (payload) => {
   const id = randomId();
   const notification = {
@@ -215,7 +189,7 @@ var add = (payload) => {
     id,
     removeAfter: payload.removeAfter ?? 3e3
   };
-  setStore3("list", (list) => [...list, notification]);
+  setStore2("list", (list) => [...list, notification]);
   if (notification.removeAfter > 0) {
     setTimeout(() => {
       remove(id);
@@ -223,10 +197,10 @@ var add = (payload) => {
   }
 };
 var remove = (id) => {
-  setStore3("list", (list) => list.filter((n) => n.id !== id));
+  setStore2("list", (list) => list.filter((n) => n.id !== id));
 };
 var reset3 = () => {
-  setStore3({ ...defaultState3 });
+  setStore2({ ...defaultState3 });
 };
 var notificationStore = {
   get: () => ({ list: store3.list }),
@@ -257,4 +231,4 @@ function createStoreContext(createStore4) {
   };
 }
 
-export { authStore, awaitLoadingWith, createStoreContext, eventWithLoading, loadingStore, modalStore, notificationStore };
+export { authStore, awaitLoadingWith, createResettableStore, createStoreContext, eventWithLoading, loadingStore, modalStore, notificationStore };
