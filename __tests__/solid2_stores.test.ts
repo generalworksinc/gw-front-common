@@ -72,4 +72,19 @@ describe('Solid 2 stores', () => {
 		await flush();
 		expect(store.nested.value).toBe(0);
 	});
+
+	test('resettable store restores the Solid 1 JSON storage format', async () => {
+		const storage = {
+			getItem: () => JSON.stringify({ count: 7 }),
+			setItem: () => {},
+			removeItem: () => {},
+		};
+		const { store } = createResettableStore(
+			{ count: 0, label: 'default' },
+			{ persist: { name: 'state', storage } },
+		);
+
+		await flush();
+		expect(store).toMatchObject({ count: 7, label: 'default' });
+	});
 });

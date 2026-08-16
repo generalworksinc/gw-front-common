@@ -120,6 +120,7 @@ import {
 
 `/solid2/components` は SPA 用の実コンポーネントです。Solid 1 の
 `components_ssr` / client-only wrapper に相当するエントリは提供しません。
+永続化ストアのlocalStorageキーとJSON形式はSolid 1版と互換です。
 
 ### Solid の SSR/CSR の自動解決
 - 本ライブラリは Solid コンポーネントを CSR/SSR の二系統で配布しています。
