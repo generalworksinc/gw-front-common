@@ -9,7 +9,7 @@
 
 ## ビルド・テスト・開発コマンド
 - インストール: `bun install --no-save`
-- テスト: `bun test`（全テスト）、`bun test --coverage`（カバレッジ出力）
+- テスト: `bun run test`（推奨。Solid 1 / Solid 2を条件別に実行）、`bun run test:coverage`（カバレッジ出力）
 - Lint: `bun run lint`（Biome チェック）
 - フォーマット: `bun run format`（Biome 書き込み）
 - JSR ドライラン: `bun run jsr:check`

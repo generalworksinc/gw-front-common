@@ -1,4 +1,3 @@
-import { isServer } from '@solidjs/web';
 import {
 	createStore,
 	reconcile,
@@ -27,7 +26,8 @@ export function createResettableStore<T extends object>(
 
 	const persist = options?.persist;
 	const storage = persist
-		? (persist.storage ?? (isServer ? undefined : globalThis.localStorage))
+		? (persist.storage ??
+			(typeof window === 'undefined' ? undefined : globalThis.localStorage))
 		: undefined;
 
 	if (persist && storage) {

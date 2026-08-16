@@ -1,4 +1,9 @@
-import { createContext, type ParentComponent, useContext } from 'solid-js';
+import {
+	createComponent,
+	createContext,
+	type ParentComponent,
+	useContext,
+} from 'solid-js';
 
 type StoreContextResult<T> = {
 	Provider: ParentComponent;
@@ -13,7 +18,12 @@ export function createStoreContext<T>(
 
 	const Provider: ParentComponent = (props) => {
 		const store = createStoreValue();
-		return <Context value={store}>{props.children}</Context>;
+		return createComponent(Context, {
+			value: store,
+			get children() {
+				return props.children;
+			},
+		});
 	};
 
 	return {

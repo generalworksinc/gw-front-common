@@ -1,9 +1,8 @@
-import { isServer as N, createComponent as O } from "@solidjs/web";
-import { createStore as d, reconcile as v, snapshot as I, createSignal as L, createContext as P, useContext as X } from "solid-js";
-function Y(t, e) {
-  const n = structuredClone(t), [r, o] = d(
+import { createStore as f, reconcile as v, snapshot as N, createSignal as O, createContext as I, useContext as L, createComponent as P } from "solid-js";
+function X(t, e) {
+  const n = structuredClone(t), [r, o] = f(
     structuredClone(n)
-  ), s = e?.persist, c = s ? s.storage ?? (N ? void 0 : globalThis.localStorage) : void 0;
+  ), s = e?.persist, c = s ? s.storage ?? (typeof window > "u" ? void 0 : globalThis.localStorage) : void 0;
   if (s && c)
     try {
       const i = c.getItem(s.name);
@@ -15,7 +14,7 @@ function Y(t, e) {
     !s || !c || a || (a = !0, queueMicrotask(() => {
       a = !1;
       try {
-        c.setItem(s.name, JSON.stringify(I(r)));
+        c.setItem(s.name, JSON.stringify(N(r)));
       } catch (i) {
         console.warn("Failed to persist resettable store.", i);
       }
@@ -27,22 +26,22 @@ function Y(t, e) {
     o(v(structuredClone(n))), l();
   } };
 }
-const J = {
+const Y = {
   id: null,
   email: null,
   fullName: null,
   firstName: null,
   lastName: null
-}, { store: C, set: M, reset: q } = Y(J, {
+}, { store: C, set: J, reset: M } = X(Y, {
   persist: { name: "authStore" }
-}), R = () => C.id !== null, f = {
+}), q = () => C.id !== null, d = {
   get: () => C,
-  set: M,
-  reset: q,
-  isLoggedIn: R
-}, tt = (t) => {
+  set: J,
+  reset: M,
+  isLoggedIn: q
+}, b = (t) => {
   const e = async (s, c, a, l, w, F = "") => {
-    await t.setToken(s), f.set((i) => {
+    await t.setToken(s), d.set((i) => {
       Object.assign(i, {
         id: c,
         email: a,
@@ -52,15 +51,15 @@ const J = {
       });
     });
   }, n = async (s) => {
-    await t.removeToken(), f.reset(), s && s("/signin");
+    await t.removeToken(), d.reset(), s && s("/signin");
   }, r = async () => await t.getToken();
   return { $login: e, $logout: n, authCheck: async () => {
     const s = await r();
-    return s ? { accessToken: s } : (f.reset(), { accessToken: null });
+    return s ? { accessToken: s } : (d.reset(), { accessToken: null });
   }, getAccessTokenFromApp: r };
-}, [U, k] = L(!1);
-let m = !1;
-const T = () => m ? !1 : (m = !0, k(!0), !0), W = () => (m = !1, k(!1), !1), z = () => m ? W() : T(), u = { isLoading: U, start: T, stop: W, toggle: z }, B = async (t, ...e) => u.start() ? await new Promise((n, r) => {
+}, [R, k] = O(!1);
+let h = !1;
+const T = () => h ? !1 : (h = !0, k(!0), !0), W = () => (h = !1, k(!1), !1), U = () => h ? W() : T(), u = { isLoading: R, start: T, stop: W, toggle: U }, z = async (t, ...e) => u.start() ? await new Promise((n, r) => {
   setTimeout(() => {
     try {
       Promise.resolve(t(...e)).then(
@@ -75,7 +74,7 @@ const T = () => m ? !1 : (m = !0, k(!0), !0), W = () => (m = !1, k(!1), !1), z =
       u.stop(), r(o);
     }
   }, 1);
-}) : !1, et = (t) => async () => await B(t), g = {
+}) : !1, j = (t) => async () => await z(t), g = {
   isOpen: !1,
   isConfirm: !1,
   html: "",
@@ -90,7 +89,7 @@ const T = () => m ? !1 : (m = !0, k(!0), !0), W = () => (m = !1, k(!1), !1), z =
   isScrollX: !1,
   yesFunc: null,
   noFunc: null
-}, x = (t) => typeof t == "function", [S, A] = d({ ...g }), $ = (t, e) => ({
+}, x = (t) => typeof t == "function", [S, A] = f({ ...g }), $ = (t, e) => ({
   ...g,
   isOpen: !0,
   isConfirm: e,
@@ -110,66 +109,66 @@ const T = () => m ? !1 : (m = !0, k(!0), !0), W = () => (m = !1, k(!1), !1), z =
   A((e) => {
     Object.assign(e, t);
   });
-}, D = (t) => p($(t, !1)), E = (t) => p($(t, !0)), h = () => p({ ...g }), G = () => {
-  S.yesFunc?.(), h();
-}, K = () => {
-  S.noFunc?.(), h();
-}, st = {
+}, B = (t) => p($(t, !1)), D = (t) => p($(t, !0)), m = () => p({ ...g }), E = () => {
+  S.yesFunc?.(), m();
+}, G = () => {
+  S.noFunc?.(), m();
+}, tt = {
   get: () => S,
   set: A,
-  open: D,
-  confirm: E,
-  close: h,
-  yes: G,
-  no: K,
-  reset: h
-}, Q = () => Math.random().toString(36).slice(2), [V, y] = d({ list: [] }), H = (t) => {
+  open: B,
+  confirm: D,
+  close: m,
+  yes: E,
+  no: G,
+  reset: m
+}, K = () => Math.random().toString(36).slice(2), [Q, y] = f({ list: [] }), H = (t) => {
   y((e) => {
     e.list = e.list.filter((n) => n.id !== t);
   });
-}, Z = (t) => {
+}, V = (t) => {
   const e = {
     ...t,
-    id: Q(),
+    id: K(),
     removeAfter: t.removeAfter ?? 3e3
   };
   y((n) => {
     n.list.push(e);
   }), e.removeAfter > 0 && setTimeout(() => H(e.id), e.removeAfter);
-}, _ = () => {
+}, Z = () => {
   y((t) => {
     t.list = [];
   });
-}, nt = {
-  get: () => ({ list: V.list }),
-  add: Z,
+}, et = {
+  get: () => ({ list: Q.list }),
+  add: V,
   remove: H,
-  reset: _
+  reset: Z
 };
-function ot(t) {
-  const e = P();
+function st(t) {
+  const e = I();
   return {
     Provider: (r) => {
       const o = t();
-      return O(e, {
+      return P(e, {
         value: o,
         get children() {
           return r.children;
         }
       });
     },
-    useStore: () => X(e),
+    useStore: () => L(e),
     Context: e
   };
 }
 export {
-  f as authStore,
-  et as awaitLoadingWith,
-  tt as createAuthUser,
-  Y as createResettableStore,
-  ot as createStoreContext,
-  B as eventWithLoading,
+  d as authStore,
+  j as awaitLoadingWith,
+  b as createAuthUser,
+  X as createResettableStore,
+  st as createStoreContext,
+  z as eventWithLoading,
   u as loadingStore,
-  st as modalStore,
-  nt as notificationStore
+  tt as modalStore,
+  et as notificationStore
 };
