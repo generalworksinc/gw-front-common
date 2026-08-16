@@ -112,7 +112,7 @@ import {
   notificationStore,
 } from '@generalworks/gw-front-common/solid2'
 import {
-  Loading,
+  LoadingOverlay,
   Modal,
   Notifications,
 } from '@generalworks/gw-front-common/solid2/components'
@@ -120,6 +120,8 @@ import {
 
 `/solid2/components` は SPA 用の実コンポーネントです。Solid 1 の
 `components_ssr` / client-only wrapper に相当するエントリは提供しません。
+`LoadingOverlay` はグローバルなローディングオーバーレイです。旧名の `Loading` は
+後方互換のため非推奨aliasとして残しています。
 永続化ストアのlocalStorageキーとJSON形式はSolid 1版と互換です。
 
 Solid 2版への移行時は、次のAPI差に注意してください。

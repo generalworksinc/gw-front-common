@@ -1,4 +1,4 @@
-import { template as l, insert as a, effect as g, className as u, createComponent as d, delegateEvents as w, addEvent as y, style as p } from "@solidjs/web";
+import { template as l, insert as a, effect as g, className as u, createComponent as d, delegateEvents as w, addEvent as b, style as p } from "@solidjs/web";
 import { Show as v, createMemo as x, For as C } from "solid-js";
 var S = /* @__PURE__ */ l("<div>");
 function T(t) {
@@ -21,7 +21,7 @@ function Y(t) {
     }
   })), r;
 }
-var H = /* @__PURE__ */ l("<div>"), M = /* @__PURE__ */ l("<div style=white-space:pre-wrap>"), W = /* @__PURE__ */ l('<button type=button class="cursor-pointer modal-default-button is-right"><span style=cursor:pointer>はい'), E = /* @__PURE__ */ l('<button type=button class="cursor-pointer modal-default-button is-left"><span style=cursor:pointer>キャンセル'), L = /* @__PURE__ */ l('<button type=button class="cursor-pointer modal-default-button is-right"id=modal_component_OK><span style=cursor:pointer>OK'), O = /* @__PURE__ */ l('<div class=modal-mask><div class=modal-wrapper><div class=modal-container><div class=modal-header></div><div class="modal-body is-size-6"><!><!></div><div class=modal-footer><!><!>');
+var H = /* @__PURE__ */ l("<div>"), L = /* @__PURE__ */ l("<div style=white-space:pre-wrap>"), M = /* @__PURE__ */ l('<button type=button class="cursor-pointer modal-default-button is-right"><span style=cursor:pointer>はい'), O = /* @__PURE__ */ l('<button type=button class="cursor-pointer modal-default-button is-left"><span style=cursor:pointer>キャンセル'), W = /* @__PURE__ */ l('<button type=button class="cursor-pointer modal-default-button is-right"id=modal_component_OK><span style=cursor:pointer>OK'), E = /* @__PURE__ */ l('<div class=modal-mask><div class=modal-wrapper><div class=modal-container><div class=modal-header></div><div class="modal-body is-size-6"><!><!></div><div class=modal-footer><!><!>');
 function q(t) {
   const r = x(() => {
     const e = t.store.get();
@@ -40,15 +40,15 @@ function q(t) {
       return t.store.get().isOpen;
     },
     get children() {
-      var e = O(), n = e.firstChild, o = n.firstChild, s = o.firstChild, c = s.nextSibling, m = c.firstChild, _ = m.nextSibling, h = c.nextSibling, f = h.firstChild, $ = f.nextSibling;
+      var e = E(), n = e.firstChild, o = n.firstChild, s = o.firstChild, c = s.nextSibling, m = c.firstChild, _ = m.nextSibling, h = c.nextSibling, f = h.firstChild, $ = f.nextSibling;
       return a(c, d(v, {
         get when() {
           return t.store.get().html;
         },
         get children() {
           var i = H();
-          return g(() => t.store.get().html, (b) => {
-            i.innerHTML = b;
+          return g(() => t.store.get().html, (y) => {
+            i.innerHTML = y;
           }), i;
         }
       }), m), a(c, d(v, {
@@ -56,7 +56,7 @@ function q(t) {
           return t.store.get().message;
         },
         get children() {
-          var i = M();
+          var i = L();
           return a(i, () => t.store.get().message), i;
         }
       }), _), a(h, d(v, {
@@ -65,11 +65,11 @@ function q(t) {
         },
         get children() {
           return [(() => {
-            var i = W();
-            return y(i, "click", t.store.yes, !0), i;
+            var i = M();
+            return b(i, "click", t.store.yes, !0), i;
           })(), (() => {
-            var i = E();
-            return y(i, "click", t.store.no, !0), i;
+            var i = O();
+            return b(i, "click", t.store.no, !0), i;
           })()];
         }
       }), f), a(h, d(v, {
@@ -77,11 +77,11 @@ function q(t) {
           return !t.store.get().isConfirm;
         },
         get children() {
-          var i = L();
-          return y(i, "click", t.store.close, !0), i;
+          var i = W();
+          return b(i, "click", t.store.close, !0), i;
         }
-      }), $), g(() => r(), (i, b) => {
-        p(o, i, b);
+      }), $), g(() => r(), (i, y) => {
+        p(o, i, y);
       }), e;
     }
   });
@@ -117,6 +117,7 @@ w(["click"]);
 export {
   T as ErrorMessage,
   Y as Loading,
+  Y as LoadingOverlay,
   q as Modal,
   A as Notifications
 };

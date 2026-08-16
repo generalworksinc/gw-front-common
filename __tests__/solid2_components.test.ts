@@ -1,17 +1,41 @@
 import { afterEach, describe, expect, test } from 'bun:test';
 import { cleanup, fireEvent, render } from '@solidjs/testing-library';
 import { createComponent, flush } from 'solid-js';
-import { createStoreContext, modalStore } from '../dist/solid2/mod.js';
+import {
+	createStoreContext,
+	loadingStore,
+	modalStore,
+} from '../dist/solid2/mod.js';
 
 const canRenderComponents = typeof document !== 'undefined';
 
 afterEach(() => {
 	cleanup();
+	loadingStore.stop();
 	modalStore.reset();
 	flush();
 });
 
 describe('Solid 2 components', () => {
+	test.skipIf(!canRenderComponents)(
+		'LoadingOverlayを正式名と互換aliasの両方で公開する',
+		async () => {
+			const { Loading, LoadingOverlay } = await import(
+				'../dist/solid2/components.js'
+			);
+			expect(Loading).toBe(LoadingOverlay);
+
+			const view = render(() =>
+				createComponent(LoadingOverlay, { store: loadingStore }),
+			);
+			expect(view.container.querySelector('.loading-page-manual')).toBeNull();
+
+			loadingStore.start();
+			flush();
+			expect(view.container.querySelector('.loading-page-manual')).toBeTruthy();
+		},
+	);
+
 	test.skipIf(!canRenderComponents)(
 		'Modal open/closeをDOMへ反映する',
 		async () => {
