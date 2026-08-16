@@ -1,7 +1,15 @@
 {
 	"extends": "./tsconfig.build.json",
 	"compilerOptions": {
-		"jsxImportSource": "solid-js"
+		"jsxImportSource": "solid-js",
+		"types": [],
+		"baseUrl": ".",
+		"paths": {
+			"solid-js": ["./node_modules/solid-js-v1/types/index.d.ts"],
+			"solid-js/jsx-runtime": ["./node_modules/solid-js-v1/types/jsx.d.ts"],
+			"solid-js/store": ["./node_modules/solid-js-v1/store/types/index.d.ts"],
+			"solid-js/web": ["./node_modules/solid-js-v1/web/types/index.d.ts"]
+		}
 	},
 	"include": ["solid/**/*.ts", "solid/**/*.tsx"],
 	"exclude": ["**/__tests__/**", "dist/**", "node_modules/**"]

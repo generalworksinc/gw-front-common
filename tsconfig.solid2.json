@@ -1,0 +1,9 @@
+{
+	"extends": "./tsconfig.build.json",
+	"compilerOptions": {
+		"jsxImportSource": "@solidjs/web",
+		"types": []
+	},
+	"include": ["solid2/**/*.ts", "solid2/**/*.tsx"],
+	"exclude": ["**/__tests__/**", "dist/**", "node_modules/**"]
+}

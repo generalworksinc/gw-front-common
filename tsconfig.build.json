@@ -17,14 +17,7 @@
 		"core/**/*.d.ts",
 		"vue/**/*.ts",
 		"vue/**/*.vue",
-		"vue/**/*.tsx",
-		"solid/**/*.ts",
-		"solid/**/*.tsx"
+		"vue/**/*.tsx"
 	],
-	"exclude": [
-		"**/__tests__/**",
-		"dist/**",
-		"node_modules/**",
-		"vue/types.ts"
-	]
+	"exclude": ["**/__tests__/**", "dist/**", "node_modules/**", "vue/types.ts"]
 }

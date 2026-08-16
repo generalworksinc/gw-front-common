@@ -7,7 +7,9 @@ generalworks inc. 向けの共通フロントエンドライブラリ（JSR配�
 - `@generalworks/gw-front-common/core` → `core/mod.ts`
 - `@generalworks/gw-front-common/solid` → `solid/mod.ts`
 - `@generalworks/gw-front-common/solid/components` → `solid/components.ts`（CSR/ブラウザ向け）
-- `@generalworks/gw-front-common/solid/components-ssr` → `solid/components.ssr.ts`（SSR/サーバ向け）
+- `@generalworks/gw-front-common/solid/components_ssr` → `solid/components_ssr.ts`（SSR/サーバ向け）
+- `@generalworks/gw-front-common/solid2` → `solid2/mod.ts`（Solid 2 stores/utilities）
+- `@generalworks/gw-front-common/solid2/components` → `solid2/components.ts`（Solid 2 SPA components）
 - `@generalworks/gw-front-common/vue` → `vue/mod.ts`
 - `@generalworks/gw-front-common/vue/components` → `vue/components.ts`
 - `@generalworks/gw-front-common/vue/nuxt/module` → `vue/nuxt/module.ts`
@@ -98,10 +100,41 @@ import { Loading, Modal, Notifications } from '@generalworks/gw-front-common/vue
 
 双方で提供する機能は「ローディング・モーダル・通知」を中心に名称と挙動をできるだけ揃えますが、リアクティビティの型は各フレームワークに準拠します。
 
+### Solid 2
+
+Solid 2 アプリでは `/solid2` エントリを使用してください。stores/utilities と
+components は、既存の Solid 1 エントリと同様に分離されています。
+
+```tsx
+import {
+  loadingStore,
+  modalStore,
+  notificationStore,
+} from '@generalworks/gw-front-common/solid2'
+import {
+  Loading,
+  Modal,
+  Notifications,
+} from '@generalworks/gw-front-common/solid2/components'
+```
+
+`/solid2/components` は SPA 用の実コンポーネントです。Solid 1 の
+`components_ssr` / client-only wrapper に相当するエントリは提供しません。
+永続化ストアのlocalStorageキーとJSON形式はSolid 1版と互換です。
+
+Solid 2版への移行時は、次のAPI差に注意してください。
+
+- `createResettableStore().set`は、Solid 2のdraftを受け取る更新関数だけを受け付けます。
+  Solid 1版の可変長path/value形式は使用できません。
+- `loadingStore.start()`はローディングを開始できた場合に`true`、既に開始済みなら
+  `false`を返します。`toggle()`は切替後の状態をbooleanで返します。
+- Solid 1のSSR用entryは`/solid/components_ssr`（underscore）です。
+  `/solid/components-ssr`（hyphen）ではありません。Solid 2版にはSSR専用entryはありません。
+
 ### Solid の SSR/CSR の自動解決
 - 本ライブラリは Solid コンポーネントを CSR/SSR の二系統で配布しています。
   - CSR（ブラウザ）: `@generalworks/gw-front-common/solid/components`
-  - SSR（サーバ）: `@generalworks/gw-front-common/solid/components-ssr`
+  - SSR（サーバ）: `@generalworks/gw-front-common/solid/components_ssr`
 - `package.json` の `exports` で `browser`/`node` 条件を設定しているため、Vite/SolidStart 等のツールはインポートを自動で適切なビルドへ解決します。
 - もしツールが条件解決をサポートしない場合は、SSR ビルド時のみ以下の alias を設定してください。
   ```ts
@@ -109,7 +142,7 @@ import { Loading, Modal, Notifications } from '@generalworks/gw-front-common/vue
   resolve: {
     alias: {
       '@generalworks/gw-front-common/solid/components':
-        '@generalworks/gw-front-common/solid/components-ssr'
+        '@generalworks/gw-front-common/solid/components_ssr'
     }
   }
   ```
@@ -224,8 +257,8 @@ export default defineConfig({
 - デフォルトスタイル（notification/loading/modal の CSS）のパッケージ同梱: stylebook のマージ後に検討
 
 ## スクリプト
-- `bun test`
-- `bun test --coverage`
+- `bun run test`（推奨。Solid 1 / Solid 2を条件別に実行）
+- `bun run test:coverage`
 - `bun run test:browser`（Playwright、`__tests__/browser/*.pw.js` を実行）
   - 初回のみ `bunx playwright install --with-deps` が必要
   - 事前に `bun run build` で `dist/` を生成しておく
