@@ -2,11 +2,14 @@ import type { JSX } from '@solidjs/web';
 import { Show } from 'solid-js';
 import type { LoadingStore } from '../loadingStore';
 
-export interface LoadingProps {
+export interface LoadingOverlayProps {
 	store: LoadingStore;
 }
 
-export function Loading(props: LoadingProps): JSX.Element {
+/** @deprecated Use LoadingOverlayProps instead. */
+export type LoadingProps = LoadingOverlayProps;
+
+export function LoadingOverlay(props: LoadingOverlayProps): JSX.Element {
 	return (
 		<div>
 			<Show when={props.store.isLoading()}>
