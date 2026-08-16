@@ -41,14 +41,14 @@
 		},
 		"./solid2": {
 			"types": "./dist/solid2/mod.d.ts",
-			"solid": "./dist/solid2/mod.js",
+			"solid": "./solid2/mod.ts",
 			"browser": "./dist/solid2/mod.js",
 			"import": "./dist/solid2/mod.js",
 			"default": "./dist/solid2/mod.js"
 		},
 		"./solid2/components": {
 			"types": "./dist/solid2/components.d.ts",
-			"solid": "./dist/solid2/components.js",
+			"solid": "./solid2/components.ts",
 			"browser": "./dist/solid2/components.js",
 			"import": "./dist/solid2/components.js",
 			"default": "./dist/solid2/components.js"
