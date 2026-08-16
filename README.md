@@ -8,6 +8,8 @@ generalworks inc. 向けの共通フロントエンドライブラリ（JSR配�
 - `@generalworks/gw-front-common/solid` → `solid/mod.ts`
 - `@generalworks/gw-front-common/solid/components` → `solid/components.ts`（CSR/ブラウザ向け）
 - `@generalworks/gw-front-common/solid/components-ssr` → `solid/components.ssr.ts`（SSR/サーバ向け）
+- `@generalworks/gw-front-common/solid2` → `solid2/mod.ts`（Solid 2 stores/utilities）
+- `@generalworks/gw-front-common/solid2/components` → `solid2/components.ts`（Solid 2 SPA components）
 - `@generalworks/gw-front-common/vue` → `vue/mod.ts`
 - `@generalworks/gw-front-common/vue/components` → `vue/components.ts`
 - `@generalworks/gw-front-common/vue/nuxt/module` → `vue/nuxt/module.ts`
@@ -97,6 +99,27 @@ import { Loading, Modal, Notifications } from '@generalworks/gw-front-common/vue
   - Vue の Ref とは互換にしません（必要であれば薄いアダプタは実装可能ですが推奨しません）
 
 双方で提供する機能は「ローディング・モーダル・通知」を中心に名称と挙動をできるだけ揃えますが、リアクティビティの型は各フレームワークに準拠します。
+
+### Solid 2
+
+Solid 2 アプリでは `/solid2` エントリを使用してください。stores/utilities と
+components は、既存の Solid 1 エントリと同様に分離されています。
+
+```tsx
+import {
+  loadingStore,
+  modalStore,
+  notificationStore,
+} from '@generalworks/gw-front-common/solid2'
+import {
+  Loading,
+  Modal,
+  Notifications,
+} from '@generalworks/gw-front-common/solid2/components'
+```
+
+`/solid2/components` は SPA 用の実コンポーネントです。Solid 1 の
+`components_ssr` / client-only wrapper に相当するエントリは提供しません。
 
 ### Solid の SSR/CSR の自動解決
 - 本ライブラリは Solid コンポーネントを CSR/SSR の二系統で配布しています。

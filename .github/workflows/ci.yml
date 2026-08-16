@@ -37,7 +37,7 @@ jobs:
       - name: Run tests with coverage
         env:
           COVER_PATH: ${{ runner.temp }}/coverage.txt
-        run: bun test --coverage | tee "$COVER_PATH" || true
+        run: bun run test:coverage | tee "$COVER_PATH"
 
       - name: Run browser tests (Playwright)
         run: bun run test:browser

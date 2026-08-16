@@ -1,102 +1,128 @@
 {
-  "name": "@generalworks/gw-front-common",
-  "version": "1.0.0",
-  "description": "Common frontend utilities and UI components for generalworks projects",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/core/mod.d.ts",
-      "default": "./dist/core/mod.js"
-    },
-    "./core": {
-      "types": "./dist/core/mod.d.ts",
-      "default": "./dist/core/mod.js"
-    },
-    "./solid": {
-      "types": "./dist/solid/mod/index.d.ts",
-      "solid": {
-        "development": "./dist/solid/mod/server.js",
-        "browser": "./dist/solid/mod/index.js",
-        "import": "./dist/solid/mod/server.js",
-        "node": "./dist/solid/mod/server.js"
-      },
-      "browser": "./dist/solid/mod/index.js",
-      "node": "./dist/solid/mod/server.js",
-      "import": "./dist/solid/mod/server.js",
-      "default": "./dist/solid/mod/server.js"
-    },
-    "./solid/components": {
-      "types": "./dist/solid/components/index.d.ts",
-      "solid": "./dist/solid/components/index.js",
-      "browser": "./dist/solid/components/index.js",
-      "import": "./dist/solid/components/index.js",
-      "default": "./dist/solid/components/index.js"
-    },
-    "./solid/components_ssr": {
-      "types": "./dist/solid/components_ssr/index.d.ts",
-      "solid": "./dist/solid/components_ssr/server.js",
-      "browser": "./dist/solid/components_ssr/index.js",
-      "import": "./dist/solid/components_ssr/server.js",
-      "default": "./dist/solid/components_ssr/server.js"
-    },
-    "./vue": {
-      "types": "./dist/vue/mod.d.ts",
-      "default": "./dist/vue/mod.js"
-    },
-    "./vue/components": {
-      "types": "./dist/vue/components.d.ts",
-      "default": "./dist/vue/components.js"
-    },
-    "./vue/nuxt/module": {
-      "types": "./dist/vue/nuxt/module.d.ts",
-      "default": "./dist/vue/nuxt/module.js"
-    }
-  },
-  "scripts": {
-    "test": "bun test",
-    "test:coverage": "bun test --coverage",
-    "test:browser": "playwright test",
-    "jsr:check": "bunx --yes jsr publish --dry-run --allow-slow-types --allow-dirty",
-    "lint": "biome check core vue solid __tests__ ./*.ts",
-    "lint:fix": "biome check --write core vue solid __tests__ ./*.ts",
-    "lint:fix-unsafe": "biome check --write --unsafe core vue solid __tests__ ./*.ts",
-    "format": "biome format --write core vue solid __tests__ ./*.ts",
-    "build": "tsup && vite build",
-    "typecheck": "tsc -p ./tsconfig.build.json --noEmit",
-    "fix": "bun run lint:fix && bun run format",
-    "check": "bun run lint && bun run typecheck"
-  },
-  "dependencies": {
-    "clone": "^2.1.2",
-    "dayjs": "^1.11.19"
-  },
-  "peerDependencies": {
-    "@nuxt/kit": ">=3.0.0",
-    "solid-js": ">=1.9.0",
-    "@solidjs/start": ">=1.1.7",
-    "vue": ">=3.4.0",
-    "pinia": ">=2.1.0",
-    "@sentry/browser": ">=7.0.0"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.4.4",
-    "@nuxt/kit": "^4.3.1",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
-    "@solid-primitives/storage": "^4.3.3",
-    "@types/clone": "^2.1.4",
-    "@solidjs/start": "^1.3.0",
-    "@playwright/test": "^1.58.2",
-    "@vitejs/plugin-vue": "^6.0.4",
-    "@sentry/browser": "^10.39.0",
-    "pinia": "^3.0.4",
-    "solid-js": "^1.9.11",
-    "tsup": "^8.5.1",
-    "tsup-preset-solid": "^2.2.0",
-    "typescript": "~5.9.3",
-    "vite": "^7.3.1",
-    "vite-plugin-dts": "^4.5.4",
-    "vite-plugin-solid": "^2.11.10",
-    "vue": "^3.5.28"
-  }
+	"name": "@generalworks/gw-front-common",
+	"version": "1.1.0",
+	"description": "Common frontend utilities and UI components for generalworks projects",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/core/mod.d.ts",
+			"default": "./dist/core/mod.js"
+		},
+		"./core": {
+			"types": "./dist/core/mod.d.ts",
+			"default": "./dist/core/mod.js"
+		},
+		"./solid": {
+			"types": "./dist/solid/mod/index.d.ts",
+			"solid": {
+				"development": "./dist/solid/mod/server.js",
+				"browser": "./dist/solid/mod/index.js",
+				"import": "./dist/solid/mod/server.js",
+				"node": "./dist/solid/mod/server.js"
+			},
+			"browser": "./dist/solid/mod/index.js",
+			"node": "./dist/solid/mod/server.js",
+			"import": "./dist/solid/mod/server.js",
+			"default": "./dist/solid/mod/server.js"
+		},
+		"./solid/components": {
+			"types": "./dist/solid/components/index.d.ts",
+			"solid": "./dist/solid/components/index.js",
+			"browser": "./dist/solid/components/index.js",
+			"import": "./dist/solid/components/index.js",
+			"default": "./dist/solid/components/index.js"
+		},
+		"./solid/components_ssr": {
+			"types": "./dist/solid/components_ssr/index.d.ts",
+			"solid": "./dist/solid/components_ssr/server.js",
+			"browser": "./dist/solid/components_ssr/index.js",
+			"import": "./dist/solid/components_ssr/server.js",
+			"default": "./dist/solid/components_ssr/server.js"
+		},
+		"./solid2": {
+			"types": "./dist/solid2/mod.d.ts",
+			"solid": "./dist/solid2/mod.js",
+			"browser": "./dist/solid2/mod.js",
+			"import": "./dist/solid2/mod.js",
+			"default": "./dist/solid2/mod.js"
+		},
+		"./solid2/components": {
+			"types": "./dist/solid2/components.d.ts",
+			"solid": "./dist/solid2/components.js",
+			"browser": "./dist/solid2/components.js",
+			"import": "./dist/solid2/components.js",
+			"default": "./dist/solid2/components.js"
+		},
+		"./vue": {
+			"types": "./dist/vue/mod.d.ts",
+			"default": "./dist/vue/mod.js"
+		},
+		"./vue/components": {
+			"types": "./dist/vue/components.d.ts",
+			"default": "./dist/vue/components.js"
+		},
+		"./vue/nuxt/module": {
+			"types": "./dist/vue/nuxt/module.d.ts",
+			"default": "./dist/vue/nuxt/module.js"
+		}
+	},
+	"scripts": {
+		"test": "bun run test:base && bun run test:solid1 && bun run test:solid2",
+		"test:base": "bun test __tests__/common.test.js __tests__/common_number.test.js __tests__/core_date.test.js __tests__/core_promise.test.js __tests__/coverage_extra.test.js __tests__/coverage_helper.test.js __tests__/date_features.test.js __tests__/logging.test.js __tests__/vue_stores.test.js",
+		"test:solid1": "bun test __tests__/resettable_store.test.js __tests__/solid_loading_utils.test.js __tests__/solid_scheduler_compat.test.js __tests__/solid_stores.test.js --preload ./scripts/bun-solid1.ts",
+		"test:solid2": "bun test __tests__/solid2_loading_utils.test.ts __tests__/solid2_stores.test.ts --conditions browser",
+		"test:coverage": "bun test __tests__/common.test.js __tests__/common_number.test.js __tests__/core_date.test.js __tests__/core_promise.test.js __tests__/coverage_extra.test.js __tests__/coverage_helper.test.js __tests__/date_features.test.js __tests__/logging.test.js __tests__/vue_stores.test.js __tests__/resettable_store.test.js __tests__/solid_loading_utils.test.js __tests__/solid_scheduler_compat.test.js __tests__/solid_stores.test.js --preload ./scripts/bun-solid1.ts --coverage && bun run test:solid2",
+		"test:browser": "playwright test",
+		"jsr:check": "bunx --yes jsr publish --dry-run --allow-slow-types --allow-dirty",
+		"lint": "biome check core vue solid solid2 __tests__ ./*.ts",
+		"lint:fix": "biome check --write core vue solid solid2 __tests__ ./*.ts",
+		"lint:fix-unsafe": "biome check --write --unsafe core vue solid solid2 __tests__ ./*.ts",
+		"format": "biome format --write core vue solid solid2 __tests__ ./*.ts",
+		"build": "tsup && vite build && vite build --config vite.solid2.config.ts",
+		"typecheck": "tsc -p ./tsconfig.build.json --noEmit && tsc -p ./tsconfig.solid.json --noEmit && tsc -p ./tsconfig.solid2.json --noEmit",
+		"fix": "bun run lint:fix && bun run format",
+		"check": "bun run lint && bun run typecheck"
+	},
+	"dependencies": {
+		"clone": "^2.1.2",
+		"dayjs": "^1.11.19"
+	},
+	"peerDependencies": {
+		"@nuxt/kit": ">=3.0.0",
+		"solid-js": ">=1.9 <2 || >=2.0.0-0",
+		"@solidjs/web": ">=2.0.0-0",
+		"@solidjs/start": ">=1.1.7",
+		"vue": ">=3.4.0",
+		"pinia": ">=2.1.0",
+		"@sentry/browser": ">=7.0.0"
+	},
+	"peerDependenciesMeta": {
+		"@solidjs/web": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.4",
+		"@nuxt/kit": "^4.3.1",
+		"@playwright/test": "^1.58.2",
+		"@semantic-release/changelog": "^6.0.3",
+		"@semantic-release/git": "^10.0.1",
+		"@sentry/browser": "^10.39.0",
+		"@solid-primitives/storage": "^4.3.3",
+		"@solidjs/start": "^1.3.0",
+		"@solidjs/vite-plugin": "3.0.0-next.28",
+		"@solidjs/web": "2.0.0-rc.0",
+		"@types/clone": "^2.1.4",
+		"@vitejs/plugin-vue": "^6.0.4",
+		"pinia": "^3.0.4",
+		"solid-js": "2.0.0-rc.0",
+		"solid-js-v1": "npm:solid-js@^1.9.14",
+		"tsup": "^8.5.1",
+		"tsup-preset-solid": "^2.2.0",
+		"typescript": "~5.9.3",
+		"vite": "^7.3.1",
+		"vite-plugin-dts": "^4.5.4",
+		"vite-plugin-solid": "^2.11.10",
+		"vue": "^3.5.28"
+	}
 }
