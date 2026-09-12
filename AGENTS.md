@@ -21,6 +21,19 @@
 - ファイル: コンポーネントは `features/*/components/` 配下の `PascalCase.tsx`。ストア/ユーティリティは `store.ts`/`utils.ts`。
 - エクスポート: 追加時は `core/mod.ts`、`solid/index.ts`、`vue/index.ts` を更新。
 
+### dayjs（`$getDayjs` / `dayjsJp`）の注意
+- **プラグインを外すと、型は通るのに実行時だけ黙って壊れる。** dayjs の型定義は
+  `customParseFormat` 無しでも `dayjs(値, 形式, strict)` の多重定義を持つため、未適用でも
+  TypeScript は通し、実行時は引数が無視される。実際に、これを strict のつもりで書いた
+  消費側の画面が存在しない日付（`20260231`）を通していた。`__tests__/date_features.test.js` の
+  「format arguments are honoured by customParseFormat」がこの回帰を検出する。
+  プラグインを増減したら必ず実行すること。
+- **既定タイムゾーンは設定していない**（`tz.setDefault` は呼んでいない）。素の
+  `dayjs(文字列)` は実行環境のローカル TZ で解釈される。`tz.setDefault()` を呼んでも
+  素の `dayjs(文字列)` は変わらない（効くのは `dayjs.tz(...)` と `.tz()` のみ）ため、
+  「一行で全体を JST 固定」は原理的にできない。固定が要る箇所は消費側で
+  `Intl.DateTimeFormat` の timeZone 指定か `.tz(...)` を明示する。
+
 ### 型設計の方針（最小記述で型を効かせる）
 - ストアの公開型は「実装から導出」する。
   - 例: `const store = { ... }` を実装し、`export type ModalStore = typeof store` を公開する。
