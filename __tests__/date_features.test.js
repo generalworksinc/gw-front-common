@@ -21,6 +21,20 @@ describe('core/features/date', () => {
 		expect(d.format('LL')).not.toBe('LL');
 	});
 
+	test('format arguments are honoured by customParseFormat', () => {
+		// このプラグインが外れると、dayjs の型は通るのに実行時だけ引数が無視され、
+		// 以下は全て「素通りする」方向へ静かに壊れる。
+		expect(dayjsJp('20240115', 'YYYYMMDD').format('YYYY-MM-DD')).toBe(
+			'2024-01-15',
+		);
+		// 存在しない日付を strict で弾ける(プラグインが無いと常に有効になる)
+		expect(dayjsJp('20240230', 'YYYYMMDD', true).isValid()).toBe(false);
+		// 形式違いも strict で弾ける
+		expect(dayjsJp('2024/01/15', 'YYYYMMDD', true).isValid()).toBe(false);
+		// 値が欠けたときに「今日」へ化けない
+		expect(dayjsJp(undefined, 'YYYYMMDD').isValid()).toBe(false);
+	});
+
 	test('jpFormat replaces rr/rrrr and keeps bracketed literals', () => {
 		const d = dayjsJp('2024-01-15');
 		const era = d.format('rr');

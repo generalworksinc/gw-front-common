@@ -5,6 +5,8 @@ import 'dayjs/plugin/isBetween';
 import 'dayjs/plugin/localizedFormat';
 import 'dayjs/plugin/duration';
 import 'dayjs/plugin/relativeTime';
+import 'dayjs/plugin/customParseFormat';
+import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 import duration from 'dayjs/plugin/duration.js';
 import isBetween from 'dayjs/plugin/isBetween.js';
 import LocalizedFormat from 'dayjs/plugin/localizedFormat.js';
@@ -19,9 +21,13 @@ export type DayjsPluginSetup = typeof import('dayjs/plugin/utc') &
 	typeof import('dayjs/plugin/isBetween') &
 	typeof import('dayjs/plugin/localizedFormat') &
 	typeof import('dayjs/plugin/duration') &
-	typeof import('dayjs/plugin/relativeTime');
+	typeof import('dayjs/plugin/relativeTime') &
+	typeof import('dayjs/plugin/customParseFormat');
 
 dayjs.extend(utc);
+// dayjs の型定義は customParseFormat 抜きでも format 引数の多重定義を持つ。
+// このプラグインが無いと型は通るのに実行時は黙って無視されるため、必ず有効にしておく。
+dayjs.extend(customParseFormat);
 dayjs.extend(timezone);
 dayjs.extend(isBetween);
 dayjs.extend(LocalizedFormat);
