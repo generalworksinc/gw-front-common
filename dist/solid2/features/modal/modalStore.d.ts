@@ -17,7 +17,7 @@ declare const defaultState: {
 };
 type ModalState = typeof defaultState;
 export declare const modalStore: {
-    get: () => Readonly<{
+    get: () => {
         isOpen: boolean;
         isConfirm: boolean;
         html: string;
@@ -32,7 +32,7 @@ export declare const modalStore: {
         isScrollX: boolean;
         yesFunc: ModalCallback;
         noFunc: ModalCallback;
-    }>;
+    };
     set: import('solid-js').StoreSetter<{
         isOpen: boolean;
         isConfirm: boolean;
