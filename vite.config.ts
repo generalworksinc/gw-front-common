@@ -33,6 +33,8 @@ export default defineConfig({
 			external: [
 				'vue',
 				'dayjs',
+				// 言語のファイルは UMD で dayjs を require する。取り込むと Node の ESM から読めなくなる(vite 8)
+				/^dayjs\/locale\//,
 				'pinia',
 				'@nuxt/kit',
 				'nuxt/app',

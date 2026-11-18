@@ -1,8 +1,7 @@
-import { defineNuxtPlugin as a } from "nuxt/app";
-import { s as n } from "../../../pinia-CXsK1c83.js";
-const e = a((i) => {
-  i.$pinia && n(i.$pinia);
+import { n as e } from "../../../pinia-CaUyjXLG.js";
+import { defineNuxtPlugin as t } from "nuxt/app";
+// vue/nuxt/runtime/plugin.ts
+var n = t((t) => {
+	t.$pinia && e(t.$pinia);
 });
-export {
-  e as default
-};
+export { n as default };

@@ -6,7 +6,7 @@ export interface AuthUser {
     lastName: string | null;
 }
 export declare const authStore: {
-    get: () => Readonly<AuthUser>;
+    get: () => AuthUser;
     set: import('solid-js').StoreSetter<AuthUser>;
     reset: () => void;
     isLoggedIn: () => boolean;
