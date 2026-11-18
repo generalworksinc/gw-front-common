@@ -1,27 +1,21 @@
-import { u as c } from "../notificationStore-10t-Xtcn.js";
-import { a as p, b as L } from "../notificationStore-10t-Xtcn.js";
-async function r(n, ...e) {
-  const o = c();
-  return o.isLoading ? !1 : (o.startLoading(), await new Promise((i, s) => {
-    setTimeout(() => {
-      try {
-        const t = n(...e);
-        t instanceof Promise || t && typeof t.then == "function" && typeof t.catch == "function" ? t.then((a) => {
-          o.stopLoading(), i(a);
-        }).catch((a) => {
-          o.stopLoading(), s(a);
-        }) : (o.stopLoading(), i(t));
-      } catch (t) {
-        o.stopLoading(), s(t);
-      }
-    }, 1);
-  }));
+import { n as e, r as t, t as n } from "../notificationStore-DkpdYs4k.js";
+// vue/features/loading/utils.ts
+async function r(e, ...n) {
+	let r = t();
+	return !r.isLoading && (r.startLoading(), await new Promise((t, i) => {
+		setTimeout(() => {
+			try {
+				let a = e(...n);
+				a instanceof Promise || a && typeof a.then == "function" && typeof a.catch == "function" ? a.then((e) => {
+					r.stopLoading(), t(e);
+				}).catch((e) => {
+					r.stopLoading(), i(e);
+				}) : (r.stopLoading(), t(a));
+			} catch (e) {
+				r.stopLoading(), i(e);
+			}
+		}, 1);
+	}));
 }
-const u = (n) => async () => await r(n);
-export {
-  u as awaitLoadingWith,
-  r as eventWithLoading,
-  c as useLoading,
-  p as useModal,
-  L as useNotification
-};
+var i = (e) => async () => await r(e);
+export { i as awaitLoadingWith, r as eventWithLoading, t as useLoading, e as useModal, n as useNotification };

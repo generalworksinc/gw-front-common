@@ -80,9 +80,10 @@
 		"format": "biome format --write core vue solid solid2 __tests__ ./*.ts",
 		"build": "tsup && vite build && vite build --config vite.solid2.config.ts",
 		"build:solid2": "vite build --config vite.solid2.config.ts",
+		"check:dist": "node --input-type=module -e \"await import('./dist/core/mod.js'); await import('./dist/vue/mod.js'); console.log('dist imports ok')\"",
 		"typecheck": "tsc -p ./tsconfig.build.json --noEmit && tsc -p ./tsconfig.solid.json --noEmit && tsc -p ./tsconfig.solid2.json --noEmit",
 		"fix": "bun run lint:fix && bun run format",
-		"check": "bun run lint && bun run typecheck"
+		"check": "bun run lint && bun run typecheck && bun run check:dist"
 	},
 	"dependencies": {
 		"clone": "^2.1.2",

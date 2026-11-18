@@ -1,14 +1,13 @@
-import { defineNuxtModule as o, createResolver as t, addPlugin as m } from "@nuxt/kit";
-const r = o({
-  meta: {
-    name: "gw-front-common-vue",
-    configKey: "gwFrontCommon"
-  },
-  setup() {
-    const { resolve: e } = t(import.meta.url);
-    m(e("./runtime/plugin"));
-  }
+import { addPlugin as e, createResolver as t, defineNuxtModule as n } from "@nuxt/kit";
+// vue/nuxt/module.ts
+var r = n({
+	meta: {
+		name: "gw-front-common-vue",
+		configKey: "gwFrontCommon"
+	},
+	setup() {
+		let { resolve: n } = t(import.meta.url);
+		e(n("./runtime/plugin"));
+	}
 });
-export {
-  r as default
-};
+export { r as default };
