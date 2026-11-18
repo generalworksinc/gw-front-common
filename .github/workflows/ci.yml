@@ -40,7 +40,10 @@ jobs:
       - name: Run tests with coverage
         env:
           COVER_PATH: ${{ runner.temp }}/coverage.txt
-        run: bun run test:coverage | tee "$COVER_PATH"
+        shell: bash
+        run: |
+          set -o pipefail
+          bun run test:coverage | tee "$COVER_PATH"
 
       - name: Run browser tests (Playwright)
         run: bun run test:browser
@@ -89,8 +92,15 @@ jobs:
 
       - name: Remove temp coverage file (prevent dirty tree)
         run: rm -f coverage.txt || true
+  # Only a tested push to main may tag a release. On a pull request the checkout
+  # is a merge commit whose parent is main, so a version bump looked "changed"
+  # there and the tag was created on main before the bump was merged.
   release:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -124,6 +134,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: v${{ steps.detect.outputs.version }}
+          commit: ${{ github.sha }}
           name: v${{ steps.detect.outputs.version }}
           generateReleaseNotes: true
           allowUpdates: true
